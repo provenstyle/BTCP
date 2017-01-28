@@ -34,7 +34,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DbUp, Version=3.3.5.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\dbup.3.3.5\lib\net35\DbUp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Improving.DbUp, Version=1.0.3.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Improving.DbUp.1.0.3.5\lib\net45\Improving.DbUp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Improving.DbUp.QuickStart, Version=1.0.3.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Improving.DbUp.QuickStart.1.0.3.5\lib\net45\Improving.DbUp.QuickStart.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,7 +61,54 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Deploy.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Hash\5000_Keys\ClassTeacher.sql" />
+    <EmbeddedResource Include="Scripts\Hash\2000_Tables\ClassTeacher.sql" />
+    <EmbeddedResource Include="Scripts\Hash\2000_Tables\Teacher.sql" />
+    <Content Include="Scripts\Hash\5000_Keys\ClassStudent.sql" />
+    <EmbeddedResource Include="Scripts\Hash\2000_Tables\ClassStudent.sql" />
+    <EmbeddedResource Include="Scripts\Hash\2000_Tables\Student.sql" />
+    <Content Include="Scripts\Hash\5000_Keys\Class.sql" />
+    <Content Include="Scripts\Hash\9000_PostScripts\SeedCourse.sql" />
+    <Content Include="Scripts\Hash\9000_PostScripts\SeedCountry.sql" />
+    <EmbeddedResource Include="Scripts\Hash\2000_Tables\Course.sql" />
+    <EmbeddedResource Include="Scripts\Hash\2000_Tables\Country.sql" />
+    <EmbeddedResource Include="Scripts\Hash\2000_Tables\Class.sql" />
+    <None Include="Improving.DbUp.QuickStart.readme.txt" />
+    <EmbeddedResource Include="Scripts\BeforeMigration\0000_UseDb.sql" />
+    <EmbeddedResource Include="Scripts\FirstRun\0000_CreateDatabase.sql" />
+    <EmbeddedResource Include="Scripts\Test\0001_tSQLt.class.sql" />
+    <EmbeddedResource Include="Scripts\Test\0002_tSQLt.SetClrEnabled.sql" />
+    <EmbeddedResource Include="Scripts\Test\0003_testSchemas.sql" />
+    <None Include="Improving.DbUp.readme.txt" />
+    <None Include="Scripts\AlwaysRun\readme.txt" />
+    <None Include="Scripts\BeforeMigration\readme.txt" />
+    <None Include="Scripts\FirstRun\readme.txt" />
+    <Content Include="Scripts\Hash\0050_PreScripts\readme.txt" />
+    <Content Include="Scripts\Hash\0500_Schemas\readme.txt" />
+    <Content Include="Scripts\Hash\1000_Users\readme.txt" />
+    <Content Include="Scripts\Hash\1500_Types\readme.txt" />
+    <Content Include="Scripts\Hash\1750_Functions\readme.txt" />
+    <Content Include="Scripts\Hash\2000_Tables\readme.txt" />
+    <Content Include="Scripts\Hash\3000_Synonyms\readme.txt" />
+    <Content Include="Scripts\Hash\3500_StoredProcedures\readme.txt" />
+    <Content Include="Scripts\Hash\4000_Views\readme.txt" />
+    <Content Include="Scripts\Hash\4500_Jobs\readme.txt" />
+    <Content Include="Scripts\Hash\5000_Keys\readme.txt" />
+    <Content Include="Scripts\Hash\9000_PostScripts\readme.txt" />
+    <Content Include="Scripts\Hash\readme.txt" />
+    <None Include="Scripts\Migration\readme.txt" />
+    <None Include="Scripts\readme.txt" />
+    <None Include="Scripts\Seed\readme.txt" />
+    <None Include="Scripts\Test\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
