@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTCP.Migrations", "src\BTCP.Migrations\BTCP.Migrations.csproj", "{EFAD6689-0773-4472-9829-59A84F4D0986}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5A1CE98A-2B65-4B0A-9FD3-C8B7692B63A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTCP.Test", "test\BTCP.Test\BTCP.Test.csproj", "{048F4BEB-0C87-419B-94E9-43675C935995}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generation", "src\Generation\Generation.csproj", "{C0A34587-1825-430B-8057-526105773698}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{048F4BEB-0C87-419B-94E9-43675C935995}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{048F4BEB-0C87-419B-94E9-43675C935995}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{048F4BEB-0C87-419B-94E9-43675C935995}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0A34587-1825-430B-8057-526105773698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0A34587-1825-430B-8057-526105773698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0A34587-1825-430B-8057-526105773698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0A34587-1825-430B-8057-526105773698}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

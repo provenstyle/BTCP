@@ -1,4 +1,4 @@
-﻿namespace BTCP.Migrations
+﻿namespace BibleTraining.Migrations
 {
     using System.Configuration;
     using System.Linq;
