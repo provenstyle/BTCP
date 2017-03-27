@@ -1,2 +1,2 @@
-# BTCP
-Database for BTCP students and classes
+# BibleTraining
+Database for BibleTraining students and classes

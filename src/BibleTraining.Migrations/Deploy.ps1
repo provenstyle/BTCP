@@ -1,0 +1,1 @@
+& .\BibleTraining.Migrations.exe
