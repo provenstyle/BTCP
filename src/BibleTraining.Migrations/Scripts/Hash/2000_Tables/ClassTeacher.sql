@@ -1,7 +1,7 @@
 ﻿USE $DbName$
 go;
 
-IF OBJECT_ID(N'dbo.ClassStudent') IS NULL
+IF OBJECT_ID(N'dbo.ClassTeacher') IS NULL
 BEGIN
     CREATE TABLE ClassTeacher (
         Id        INT NOT NULL IDENTITY(1,1),
@@ -14,7 +14,7 @@ BEGIN
         ModifiedBy  NVARCHAR(500)  NOT NULL,
         RowVersion  ROWVERSION
 
-        CONSTRAINT PK_ClassStudent PRIMARY KEY CLUSTERED (Id ASC)
+        CONSTRAINT PK_ClassTeacher PRIMARY KEY CLUSTERED (Id ASC)
     );
 END;
 

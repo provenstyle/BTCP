@@ -70,15 +70,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\Hash\5000_Keys\ClassTeacher.sql" />
+    <EmbeddedResource Include="Scripts\Hash\5000_Keys\ClassTeacher.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\ClassTeacher.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\Teacher.sql" />
-    <Content Include="Scripts\Hash\5000_Keys\ClassStudent.sql" />
+    <EmbeddedResource Include="Scripts\Hash\5000_Keys\ClassStudent.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\ClassStudent.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\Student.sql" />
-    <Content Include="Scripts\Hash\5000_Keys\Class.sql" />
-    <Content Include="Scripts\Hash\9000_PostScripts\SeedCourse.sql" />
-    <Content Include="Scripts\Hash\9000_PostScripts\SeedCountry.sql" />
+    <EmbeddedResource Include="Scripts\Hash\5000_Keys\Class.sql" />
+    <EmbeddedResource Include="Scripts\Hash\9000_PostScripts\SeedCourse.sql" />
+    <EmbeddedResource Include="Scripts\Hash\9000_PostScripts\SeedCountry.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\Course.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\Country.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\Class.sql" />
