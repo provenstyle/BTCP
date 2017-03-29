@@ -1,0 +1,35 @@
+﻿body{
+	padding-top: $navbar-height;
+}
+
+hr {
+  border-top: 5px solid #999;
+}
+
+//Bootstrap Panel
+.panel-heading h2{
+    font-size:   1.6em;
+    font-weight: bold;
+}
+
+.dropdown-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings'; /* essential for enabling glyphicon */
+    content: "\e114"; /* adjust as needed, taken from bootstrap.css */
+    float: right; /* adjust as needed */
+    font-size: .8em;
+}
+
+.dropdown-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080"; /* adjust as needed, taken from bootstrap.css */
+}
+
+//Chosen
+.chosen-disabled {
+    opacity: 1 !important;
+
+    .chosen-default {
+        background-color: #eeeeee;
+    }
+}

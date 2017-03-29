@@ -1,0 +1,18 @@
+// Table of Contents
+//
+// a. Button Style
+
+// a. Button Style
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+@mixin button-style( $btn-type ) {
+    color: map-get( $grid-btn-color, $btn-type );
+    background-image: none, linear-gradient( to bottom, map-get( $grid-btn-bg-gradient, $btn-type ) 0, $zero-percent-white 100% );
+    background-position: 50% 50%;
+    background-color: map-get( $grid-btn-bg, $btn-type );
+    border-color: map-get( $grid-btn-border, $btn-type );
+    &:hover {
+        color: map-get( $grid-btn-color, $btn-type );
+        background-color: darken( map-get( $grid-btn-bg, $btn-type ), 15% );
+        border-color: darken( map-get( $grid-btn-bg, $btn-type ), 15% );
+    }
+}

@@ -1,0 +1,18 @@
+// Table of Contents
+//
+// a. Actions
+// b. Data Grid Actions
+
+// A. Actions
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+// b. Data Grid Actions
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+.k-grid-modify {
+    @include button-style( 'secondary' );
+}
+
+.k-grid-remove {
+    @include button-style( 'danger' );
+}

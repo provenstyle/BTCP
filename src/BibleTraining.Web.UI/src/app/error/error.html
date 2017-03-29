@@ -1,0 +1,13 @@
+﻿<div ng-controller="ErrorController as vm">
+    <div ng-if="vm.error">
+        <div class="alert alert-danger row">
+            <div class="col-xs-8">
+                <h4>{{vm.heading}}</h4>
+                <p>{{vm.subtext}}</p>
+            </div>
+            <div class="col-xs-4 text-right">
+                <button class="btn btn-xl btn-danger margin-large-right" ng-click="vm.refresh()">Refresh</button>
+            </div>
+        </div>
+    </div>
+</div>

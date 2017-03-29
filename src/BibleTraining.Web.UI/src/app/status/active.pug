@@ -1,0 +1,23 @@
+﻿mixin active
+	.well.well-sm.active-status(ng-if="vm.showActiveStatus")
+		.row
+			.col-xs-6
+				span(ng-if="vm.isActive")
+					span.text-success.glyphicon.glyphicon-ok-sign
+					span.text Active
+				span(ng-if="!vm.isActive")
+					span.text-danger.glyphicon.glyphicon-remove-sign
+					span.text Inactive
+			.col-xs-6.text-right
+				button.btn.btn-success(
+					ng-click="vm.activate()",
+					ng-if="!vm.isActive") Activate
+				button.btn.btn-danger(
+					ng-click="vm.deactivate()",
+					ng-if="vm.isActive") Deactivate
+
+		.row(ng-if="vm.hasErrors")
+			.col-xs-12
+				h5.text-danger Validation
+				ul
+					li.text-danger(ng-repeat="error in vm.validationErrors") {{error}}

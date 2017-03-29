@@ -5,6 +5,8 @@
 [Oo]bj/
 logs
 [Aa]pp_[Dd]ata
+built
+dist
 
 # mstest test results
 TestResults
@@ -41,20 +43,10 @@ x64/
 *.vssscc
 .builds
 
-# Visual C++ cache files
-ipch/
-*.aps
-*.ncb
-*.opensdf
-*.sdf
-
 # Visual Studio profiler
 *.psess
 *.vsp
 *.vspx
-
-# Guidance Automation Toolkit
-*.gpState
 
 # ReSharper is a .NET coding add-in
 _ReSharper*
@@ -63,22 +55,6 @@ _ReSharper*
 *.ncrunch*
 .*crunch*.local.xml
 
-# Installshield output folder 
-[Ee]xpress
-
-# DocProject is a documentation generator add-in
-DocProject/buildhelp/
-DocProject/Help/*.HxT
-DocProject/Help/*.HxC
-DocProject/Help/*.hhc
-DocProject/Help/*.hhk
-DocProject/Help/*.hhp
-DocProject/Help/Html2
-DocProject/Help/html
-
-# Click-Once directory
-publish
-
 # Publish Web Output
 *.Publish.xml
 
@@ -86,11 +62,6 @@ publish
 *.nupkg
 # The packages folder can be ignored because of Package Restore
 **/packages/*
-# except build/, which is used as an MSBuild target.
-!**/packages/build/
-# Uncomment if necessary however generally it will be regenerated when needed
-#!**/packages/repositories.config
-# Windows Azure Build Output
 csx
 *.build.csdef
 
@@ -115,17 +86,6 @@ _UpgradeReport_Files/
 Backup*/
 UpgradeLog*.XML
 
-#node
+#package managers
 node_modules
-
-# Ticketing-specific ignores
-FixRemovePreviousVersions.vbs
-src/POS.UI/connectionStrings.config
-src/POS.UI/serviceUnity.Config
-src/SalesOrders.Services.RoutingHost/connectionstrings.config
-src/SalesOrders.Services.RoutingHost/serviceModel.behaviors.config
-src/SalesOrders.Services.RoutingHost/serviceModel.bindings.config
-
-AccessControl.Api.Web/NLog.Release.config
-AccessControl.Api.Web/NLog.config
-AccessControl.Api.Web/NLog.xsd
+bower_components

@@ -1,0 +1,60 @@
+// Table of Contents
+//
+// a. Brand Colors
+// b. Link Colors
+// c. Base Colors
+// d. Alpha Colors
+// e. Message Colors
+// f. Data Grid Colors
+// g. Color Maps
+
+// a. Brand Colors
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// b. Link Colors
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// c. Base Colors
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+$white: #fff;
+
+// d. Alpha Colors
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+$zero-percent-white: rgba( 255,255,255, .0 );
+$ten-percent-white: rgba( 255,255,255, .1 );
+$sixty-percent-white: rgba( 255,255,255, .6 );
+
+// e. Message Colors
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+$danger-bg: #D9534F;
+
+// f. Data Grid Colors
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+$grid-border: #C5C5C5;
+$grid-bar-bg: #E3E3E3;
+$grid-btn-secondary-color: rbg( 85, 85, 85 );
+$grid-btn-secondary-bg: #E9E9E9;
+$grid-btn-secondary-border: #C5C5C5;
+$grid-highlight-bg: #FFF8DC;
+
+// g. Color Maps
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+$grid-btn-color: (
+    "secondary": $grid-btn-secondary-color,
+    "danger": $white
+);
+
+$grid-btn-bg-gradient: (
+    "secondary": $sixty-percent-white,
+    "danger": $ten-percent-white
+);
+
+$grid-btn-bg: (
+    "secondary": $grid-btn-secondary-bg,
+    "danger": $danger-bg
+);
+
+$grid-btn-border: (
+    "secondary": $grid-btn-secondary-border,
+    "danger": $danger-bg
+);

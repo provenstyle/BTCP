@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
-
-namespace BibleTraining.Web.UI
+﻿namespace BibleTraining.Web.UI
 {
-    using System.Configuration;
     using System.Reflection;
+    using System.Web;
     using System.Web.Http.Cors;
+    using System.Web.Mvc;
+    using System.Web.Optimization;
+    using System.Web.Routing;
     using Castle.Facilities.Logging;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.Resolvers.SpecializedResolvers;
@@ -35,8 +29,6 @@ namespace BibleTraining.Web.UI
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             _logger = _container.Resolve<Castle.Core.Logging.ILogger>();
             _logger.InfoFormat("Started {0}", nameof(BibleTrainingApplication));
@@ -54,16 +46,6 @@ namespace BibleTraining.Web.UI
                 new CollectionResolver(_container.Kernel, true));
             _container.AddFacility<LoggingFacility>(f => f.UseNLog());
             _container.Install(
-                FromAssembly.This(),
-                FromAssembly.Containing<IBibleTrainingDomain>(),
-                new WebApiInstaller(Classes.FromThisAssembly())
-                    .EnableCors(new EnableCorsAttribute("*", "*", "*"))
-                    .UseCamelCaseJsonPropertyNames()
-                    .UseDefaultRoutesAndAttributeRoutes()
-                    .UseJsonAsTheDefault()
-                    .TypeNameHandling()
-                    .IgnoreNulls()
-                    .UseGlobalExceptionLogging(),
                 new MediatRInstaller(
                     Classes.FromThisAssembly(),
                     Classes.FromAssemblyContaining<IBibleTrainingDomain>()
@@ -71,6 +53,23 @@ namespace BibleTraining.Web.UI
                 new RepositoryInstaller(
                     Classes.FromAssemblyContaining<IBibleTrainingDomain>()
                 ),
+                new WebApiInstaller(Classes.FromThisAssembly())
+                    .EnableCors(new EnableCorsAttribute("*", "*", "*"))
+                    .UseCamelCaseJsonPropertyNames()
+                    .UseDefaultRoutesAndAttributeRoutes()
+                    .UseJsonAsTheDefault()
+                    .TypeNameHandling()
+                    .IgnoreNulls()
+                    .UseGlobalExceptionLogging()
+                    .UseFilters(filters => filters.Add(new ServiceBusExceptionFilter())
+                ),
+                new MvcInstaller(Classes.FromThisAssembly())
+                    .UseFeaturePaths()
+                    .UseDefaultRoutes()
+                    .UseFluentValidation()
+                    .UseFilters(filters => filters.Add(new HandleErrorAttribute())
+                ),
+                new TypedConfigurationInstaller(Types.FromThisAssembly()),
                 FromAssembly.Containing<IBibleTrainingDomain>()
              );
         }

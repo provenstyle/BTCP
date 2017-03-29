@@ -1,0 +1,319 @@
+//
+// Padding
+// --------------------------------------------------
+
+.padding-base-bottom {
+    padding-bottom: $padding-base-horizontal;
+}
+
+.padding-large-bottom {
+    padding-bottom: $padding-large-horizontal;
+}
+
+.padding-small-bottom {
+    padding-bottom: $padding-small-horizontal;
+}
+
+.padding-xs-bottom {
+    padding-bottom: $padding-xs-horizontal;
+}
+
+.padding-none-bottom {
+    padding-bottom: 0;
+}
+
+.padding-base-left {
+    padding-left: $padding-base-vertical;
+}
+
+.padding-large-left {
+    padding-left: $padding-large-vertical;
+}
+
+.padding-small-left {
+    padding-left: $padding-small-vertical;
+}
+
+.padding-xs-left {
+    padding-left: $padding-xs-vertical;
+}
+
+.padding-none-left {
+    padding-left: 0;
+}
+
+.padding-base-right {
+    padding-right: $padding-base-vertical;
+}
+
+.padding-large-right {
+    padding-right: $padding-large-vertical;
+}
+
+.padding-small-right {
+    padding-right: $padding-small-vertical;
+}
+
+.padding-xs-right {
+    padding-right: $padding-xs-vertical;
+}
+
+.padding-none-right {
+    padding-right: 0;
+}
+
+.padding-base-top {
+    padding-top: $padding-base-horizontal;
+}
+ 
+.padding-large-top {
+    padding-top: $padding-large-horizontal;
+}
+
+.padding-small-top {
+    padding-top: $padding-small-horizontal;
+}
+
+.padding-xs-top {
+    padding-top: $padding-xs-horizontal;
+}
+
+.padding-none-top {
+    padding-top: 0;
+}
+
+.padding-base-horizontal {
+    @extend .padding-base-bottom;
+    @extend .padding-base-top;
+}
+
+.padding-large-horizontal {
+    @extend .padding-large-top;
+    @extend .padding-large-bottom;
+}
+
+.padding-small-horizontal {
+    @extend .padding-small-top;
+    @extend .padding-small-bottom;
+}
+
+.padding-xs-horizontal {
+    @extend .padding-xs-top;
+    @extend .padding-xs-bottom;
+}
+
+.padding-none-horizontal {
+    @extend .padding-none-top;
+    @extend .padding-none-bottom;
+}
+
+
+.padding-base-vertical {
+    @extend .padding-base-left;
+    @extend .padding-base-right;
+}
+
+.padding-large-vertical {
+    @extend .padding-large-left;
+    @extend .padding-large-right;
+}
+
+.padding-small-vertical {
+    @extend .padding-small-left;
+    @extend .padding-small-right;
+}
+
+.padding-xs-vertical {
+    @extend .padding-xs-left;
+    @extend .padding-xs-right;
+}
+
+.padding-none-vertical {
+    @extend .padding-none-left;
+    @extend .padding-none-right;
+}
+
+.padding-base {
+    @extend .padding-base-horizontal;
+    @extend .padding-base-vertical;
+}
+
+.padding-large {
+    @extend .padding-large-horizontal;
+    @extend .padding-large-vertical;
+}
+
+.padding-small {
+    @extend .padding-small-horizontal;
+    @extend .padding-small-vertical;
+}
+
+.padding-xs {
+    @extend .padding-xs-vertical;
+    @extend .padding-xs-horizontal;
+}
+
+.padding-none {
+    @extend .padding-none-vertical;
+    @extend .padding-none-horizontal;
+}
+
+
+//
+// Margin
+// --------------------------------------------------
+
+.margin-base-bottom {
+    margin-bottom: $padding-base-horizontal;
+}
+
+.margin-large-bottom {
+    margin-bottom: $padding-large-horizontal;
+}
+
+.margin-small-bottom {
+    margin-bottom: $padding-small-horizontal;
+}
+
+.margin-xs-bottom {
+    margin-bottom: $padding-xs-horizontal;
+}
+
+.margin-none-bottom {
+    margin-bottom: 0;
+}
+
+.margin-base-left {
+    margin-left: $padding-base-vertical;
+}
+
+.margin-large-left {
+    margin-left: $padding-large-vertical;
+}
+
+.margin-small-left {
+    margin-left: $padding-small-vertical;
+}
+
+.margin-xs-left {
+    margin-left: $padding-xs-vertical;
+}
+
+.margin-none-left {
+    margin-left: 0;
+}
+
+.margin-base-right {
+    margin-right: $padding-base-vertical;
+}
+
+.margin-large-right {
+    margin-right: $padding-large-vertical;
+}
+
+.margin-small-right {
+    margin-right: $padding-small-vertical;
+}
+
+.margin-xs-right {
+    margin-right: $padding-xs-vertical;
+}
+
+.margin-none-right {
+    margin-right: 0;
+}
+
+.margin-base-top {
+    margin-top: $padding-base-horizontal;
+}
+ 
+.margin-large-top {
+    margin-top: $padding-large-horizontal;
+}
+
+.margin-small-top {
+    margin-top: $padding-small-horizontal;
+}
+
+.margin-xs-top {
+    margin-top: $padding-xs-horizontal;
+}
+
+.margin-none-top {
+    margin-top: 0;
+}
+
+.margin-base-horizontal {
+    @extend .margin-base-bottom;
+    @extend .margin-base-top;
+}
+
+.margin-large-horizontal {
+    @extend .margin-large-top;
+    @extend .margin-large-bottom;
+}
+
+.margin-small-horizontal {
+    @extend .margin-small-top;
+    @extend .margin-small-bottom;
+}
+
+.margin-xs-horizontal {
+    @extend .margin-xs-top;
+    @extend .margin-xs-bottom;
+}
+
+.margin-none-horizontal {
+    @extend .margin-none-top;
+    @extend .margin-none-bottom;
+}
+
+.margin-base-vertical {
+    @extend .margin-base-left;
+    @extend .margin-base-right;
+}
+
+.margin-large-vertical {
+    @extend .margin-large-left;
+    @extend .margin-large-right;
+}
+
+.margin-small-vertical {
+    @extend .margin-small-left;
+    @extend .margin-small-right;
+}
+
+.margin-xs-vertical {
+    @extend .margin-xs-left;
+    @extend .margin-xs-right;
+}
+
+.margin-none-vertical {
+    @extend .margin-none-left;
+    @extend .margin-none-right;
+}
+
+.margin-base {
+    @extend .margin-base-horizontal;
+    @extend .margin-base-vertical;
+}
+
+.margin-large {
+    @extend .margin-large-horizontal;
+    @extend .margin-large-vertical;
+}
+
+.margin-small {
+    @extend .margin-small-horizontal;
+    @extend .margin-small-vertical;
+}
+
+.margin-xs {
+    @extend .margin-xs-vertical;
+    @extend .margin-xs-horizontal;
+}
+
+.margin-none {
+    @extend .margin-none-vertical;
+    @extend .margin-none-horizontal;
+}

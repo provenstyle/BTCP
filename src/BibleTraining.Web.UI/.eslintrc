@@ -1,0 +1,24 @@
+{
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "consistent-return": 0,
+    "eqeqeq": 0,
+    "key-spacing": 0,
+    "new-cap": 0,
+    "no-console": 0,
+    "no-eval": 0,
+    "no-loop-func": 0,
+    "no-multi-spaces": 0,
+    "no-new": 0,
+    "no-sparse-arrays": 0,
+    "no-undef": 0,
+    "no-underscore-dangle": 0,
+    "no-unused-vars": 0,
+    "no-use-before-define": 0,
+    "quotes": 0,
+    "semi": [ "error", "always" ],
+    "strict": 0
+  }
+}

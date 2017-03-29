@@ -1,0 +1,10 @@
+﻿.error-banner{
+    //overlay: is z-index 1040
+    //modal:   is z-index 1050
+    z-index: 1060;
+    position: relative;
+
+    .alert{
+        border-radius: 0;
+    }
+}

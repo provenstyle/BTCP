@@ -17,7 +17,7 @@
     <AssemblyName>BibleTraining.Web.UI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -284,14 +284,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Features\BaseData.cs" />
+    <Compile Include="Features\Home\HomeController.cs" />
+    <Compile Include="Features\Home\HomeData.cs" />
+    <Compile Include="Features\Home\IBibleTrainingConfig.cs" />
+    <Compile Include="Features\VersionHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -302,17 +304,41 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="build\babel-options.js" />
+    <Content Include="build\paths.js" />
+    <Content Include="build\tasks\build.js" />
+    <Content Include="build\tasks\buildAngularTemplateCache.js" />
+    <Content Include="build\tasks\buildFonts.js" />
+    <Content Include="build\tasks\buildHtml.js" />
+    <Content Include="build\tasks\buildImages.js" />
+    <Content Include="build\tasks\buildJavascript.js" />
+    <Content Include="build\tasks\buildStyles.js" />
+    <Content Include="build\tasks\bundle.js" />
+    <Content Include="build\tasks\clean.js" />
+    <Content Include="build\tasks\dist.js" />
+    <Content Include="build\tasks\inject.js" />
+    <Content Include="build\tasks\lint.js" />
+    <Content Include="build\tasks\serve.js" />
+    <Content Include="build\tasks\test.js" />
+    <Content Include="build\tasks\watch.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="gulpfile.babel.js" />
+    <Content Include="karma.config.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="package.json" />
+    <Content Include=".eslintrc" />
+    <Content Include="bower.json" />
+    <Content Include="Features\Home\Index\View.cshtml" />
+    <Content Include="Features\Web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -327,6 +353,29 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="src\app\domain\activeOptions.js" />
+    <Content Include="src\app\error\error.html" />
+    <Content Include="src\app\error\errorController.js" />
+    <Content Include="src\app\infrastructure\locale.js" />
+    <Content Include="src\app\infrastructure\mappings.js" />
+    <Content Include="src\app\infrastructure\message.js" />
+    <Content Include="src\app\infrastructure\query.js" />
+    <Content Include="src\app\message\message.html" />
+    <Content Include="src\app\message\messageController.js" />
+    <Content Include="src\app\productGroup\createProductGroupController.js" />
+    <Content Include="src\app\productGroup\productGroupFeature.js" />
+    <Content Include="src\app\productGroup\productGroupHandler.js" />
+    <Content Include="src\app\productGroup\searchProductGroupsController.js" />
+    <Content Include="src\app\productGroup\setup.js" />
+    <Content Include="src\app\productGroup\updateProductGroupController.js" />
+    <Content Include="src\app\productType\createProductTypeController.js" />
+    <Content Include="src\app\productType\productTypeFeature.js" />
+    <Content Include="src\app\productType\productTypeHandler.js" />
+    <Content Include="src\app\productType\searchProductTypesController.js" />
+    <Content Include="src\app\productType\setup.js" />
+    <Content Include="src\app\productType\updateProductTypeController.js" />
+    <Content Include="src\app\setup.js" />
+    <Content Include="src\scripts\polyfill.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -338,9 +387,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -361,16 +407,34 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="src\app\productGroup\searchProductGroups.pug" />
+    <Content Include="src\app\productGroup\updateProductGroup.pug" />
+    <Content Include="src\app\productType\searchProductTypes.pug" />
+    <Content Include="src\app\productType\updateProductType.pug" />
+    <Content Include="src\app\status\active.pug" />
+    <Content Include="src\styles\base\_base.scss" />
+    <Content Include="src\styles\layout\_page.scss" />
+    <Content Include="src\styles\module\_activeStatus.scss" />
+    <Content Include="src\styles\module\_error.scss" />
+    <Content Include="src\styles\state\_state.scss" />
+    <Content Include="src\styles\style.scss" />
+    <Content Include="src\styles\_shame.scss" />
+    <Content Include="src\styles\abstracts\_colors.scss" />
+    <Content Include="src\styles\abstracts\_mixins.scss" />
+    <Content Include="src\styles\abstracts\_variables.scss" />
+    <Content Include="src\styles\components\_buttons.scss" />
+    <Content Include="src\styles\base\_spacing.scss" />
+    <Content Include="src\styles\base\_text.scss" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
@@ -401,7 +465,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61325</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:61325/</IISUrl>
+          <IISUrl>http://localhost/BibleTraining</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
