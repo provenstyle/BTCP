@@ -2,11 +2,11 @@
 const gulp  = require("gulp");
 
 var images = [
-    "Content/improving.web.ui/images/logo.png"
+    "src/img/**/*"
 ];
 
 gulp.task("buildImages", () => {
     gulp.src(images)
-        .pipe(gulp.dest(paths.built + "images"))
-        .pipe(gulp.dest(paths.dist + "images"));
+        .pipe(gulp.dest(paths.built + "img"))
+        .pipe(gulp.dest(paths.dist + "img"));
 });

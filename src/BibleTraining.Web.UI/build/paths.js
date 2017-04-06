@@ -22,31 +22,44 @@ const paths   = {
 };
 
 paths.vendor = [
-    "scripts/polyfill.min.js",
+    "src/scripts/polyfill.min.js",
+
+    //jquery and boostrap
     "bower_components/jquery/dist/jquery.min.js",
+    "bower_components/jquery-ui/jquery-ui.min.js",
     "bower_components/chosen/chosen.jquery.js",
-    "bower_components/angular/angular.min.js",
-    "bower_components/angular-ui-router/release/angular-ui-router.min.js",
+    "bower_components/bootstrap/dist/js/bootstrap.min.js",
+    "bower_components/metismenu/dist/metisMenu.min.js",
+    "bower_components/slimScroll/jquery.slimscroll.min.js",
+    "bower_components/pace/pace.min.js",
+    "src/scripts/inspinia/inspinia.js",
+
+    //Angular
+    "bower_components/angular/angular.js",
+    "bower_components/angular-ui-router/release/angular-ui-router.js",
     "bower_components/angular-messages/angular-messages.min.js",
+    "bower_components/angular-sanitize/angular-sanitize.min.js",
+    "bower_components/angular-idle/angular-idle.min.js",
+    "bower_components/angular-translate/angular-translate.min.js",
     "bower_components/angular-chosen-localytics/dist/angular-chosen.min.js",
+    "bower_components/angular-localization/dist/angular-localization.min.js",
     "bower_components/miruken-es5-angular/miruken-ng-bundle.js",
     "bower_components/moment/min/moment.min.js",
-    "bower_components/angular-cookies/angular-cookies.min.js",
-    "bower_components/angular-sanitize/angular-sanitize.min.js",
-    "bower_components/angular-localization/dist/angular-localization.min.js",
-    "bower_components/bootstrap/dist/js/bootstrap.min.js"
+    "src/scripts/bootstrap/ui-bootstrap-tpls-1.1.2.min.js",
+    "src/scripts/inspinia/app.js",
+    "src/scripts/inspinia/directives.js"
+
+
+    //"bower_components/angular-cookies/angular-cookies.min.js",
+    //"bower_components/angular-sanitize/angular-sanitize.min.js",
 ];
 
 paths.files = [
-    //"Scripts/improving.web.ui/infrastructure/**/*.js",
-    //"Scripts/improving.web.ui/serviceBus/*.js",
-    "src/app/setup.js",
+    "src/app/bt.js",
     "src/app/infrastructure/**/*.js",
-    "src/app/api/**/*.js",
+    "src/app/setup.js",
     "src/app/domain/**/*.js",
     "src/app/**/*Feature.js",
-    "src/app/productGroup/updateProductGroupController.js",
-    "src/app/productType/updateProductTypeController.js",
     "src/app/**/*.js"
 ];
 

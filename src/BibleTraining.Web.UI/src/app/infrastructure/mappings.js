@@ -1,7 +1,7 @@
 ﻿new function() {
 
     base2.package(this, {
-        name:    "em",
+        name:    "bt",
         imports: "miruken,miruken.mvc",
         exports: "toMoment,mapMoment,toMomentTime,mapMomentTime," +
                  "toMomentDuration,mapMomentDuration," +

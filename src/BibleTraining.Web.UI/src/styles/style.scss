@@ -11,44 +11,47 @@
 
 // a. vendors
 // - - - - - - - - - - - - - - - - - - - - - - - - -
-@import "../../bower_components/bootswatch/cerulean/variables";
+//@import "../../bower_components/bootswatch/cerulean/variables";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "../../bower_components/bootswatch/cerulean/bootswatch";
-@import "../../bower_components/bootstrap-chosen/bootstrap-chosen";
+//@import "../../bower_components/bootswatch/cerulean/bootswatch";
+//@import "../../bower_components/bootstrap-chosen/bootstrap-chosen";
+@import "vendor/font-awesome/scss/font-awesome";
+@import "vendor/inspinia/style";
+
 
 // b. abstracts
 // - - - - - - - - - - - - - - - - - - - - - - - - -
-@import "abstracts/variables";
-@import "abstracts/colors";
-@import "abstracts/mixins";
+//@import "abstracts/variables";
+//@import "abstracts/colors";
+//@import "abstracts/mixins";
 
 
 // c. base
 // - - - - - - - - - - - - - - - - - - - - - - - - -
-@import "base/base";
-@import "base/spacing";
-@import "base/text";
+//@import "base/base";
+//@import "base/spacing";
+//@import "base/text";
 
 
 // d. layout
 // - - - - - - - - - - - - - - - - - - - - - - - - -
-@import "layout/page";
+//@import "layout/page";
 
 
 // e. components
 // - - - - - - - - - - - - - - - - - - - - - - - - -
-@import "components/buttons";
+//@import "components/buttons";
 
 
 // f. modules
 // - - - - - - - - - - - - - - - - - - - - - - - - -
-@import "module/activeStatus";
-@import "module/error";
+//@import "module/activeStatus";
+//@import "module/error";
 
 
 // g. state
 // - - - - - - - - - - - - - - - - - - - - - - - - -
-@import "state/state";
+//@import "state/state";
 
 
 // g. shame

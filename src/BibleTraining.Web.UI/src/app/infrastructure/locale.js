@@ -1,7 +1,7 @@
 ﻿new function() {
 
     base2.package(this, {
-        name:    "em",
+        name:    "bt",
         imports: "miruken,miruken.callback,miruken.context",
         exports: "Localize,Locale,LocaleHandler,LocaleBundleHandler"
     });
