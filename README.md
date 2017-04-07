@@ -58,6 +58,12 @@ $ bower install
 ### Build solution in Visual Studio 
 Build > Build Solution
 
+### Install the local database
+
+1. Set BibleTraining.Migrations as startup project
+2. Run project to install/update database
+3. If errors occur set a breakpoint in the program.cs to see the console output
+
 ### Run Application
 ```
 gulp serve
