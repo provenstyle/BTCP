@@ -19,7 +19,17 @@
 </head>
 <body landing-scrollspy id="page-top">
 
-    <div ng-include="'app/layout/layout.html'"></div>
+    @*<div ng-include="'app/layout/layout.html'"></div>*@
+
+    <div id="wrapper">
+        <div ng-include="'app/layout/navigation.html'"></div>
+        <div id="page-wrapper" class="gray-bg {{$state.current.name}}">
+            <div ng-include="'app/layout/topNavBar.html'"></div>
+            <div ui-view></div>
+            <div ng-include="'app/layout/footer.html'"></div>
+        </div>
+        <div ng-include="'app/layout/right_sidebar.html'"></div>
+    </div>
 
     <script>
         var appConfig = {

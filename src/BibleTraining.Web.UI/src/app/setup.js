@@ -33,7 +33,8 @@
 
     const Temp = Runner.extend({
         $inject: ["$rootScope", "$state"],
-        constructor($state, $rootScope) {
+        constructor($rootScope, $state) {
+            window.$state = $state;
             $rootScope.$state = $state;
             window.$rootScope = $rootScope;
         }

@@ -325,7 +325,9 @@
     <Content Include="Features\Home\Index\View.cshtml" />
     <Content Include="Features\Web.config" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="src\app\courses\courses.html" />
+    <Content Include="src\app\courses\course.pug" />
+    <None Include="src\app\courses\courses.pug" />
+    <Content Include="src\app\courses\courseController.js" />
     <Content Include="src\app\courses\coursesController.js" />
     <Content Include="src\app\domain\activeOptions.js" />
     <Content Include="src\app\error\error.html" />
