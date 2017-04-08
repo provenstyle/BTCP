@@ -17,8 +17,8 @@ new function() {
         },
         initialize() {
             this.base();
-            //return PlayerFeature(this.io).players()
-            //    .then(players => this.players = players);
+            return CourseFeature(this.io).courses()
+                .then(courses => this.courses = courses);
         },
 
         showCourses() {

@@ -325,11 +325,12 @@
     <Content Include="Features\Home\Index\View.cshtml" />
     <Content Include="Features\Web.config" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="src\app\courses\course.pug" />
+    <Content Include="src\app\courses\courseFeature.js" />
+    <Content Include="src\app\courses\courseHandler.js" />
+    <Content Include="src\app\courses\createEditCourse.pug" />
     <None Include="src\app\courses\courses.pug" />
     <Content Include="src\app\courses\courseController.js" />
     <Content Include="src\app\courses\coursesController.js" />
-    <Content Include="src\app\domain\activeOptions.js" />
     <Content Include="src\app\error\error.html" />
     <Content Include="src\app\error\errorController.js" />
     <Content Include="src\app\infrastructure\locale.js" />
@@ -348,6 +349,7 @@
     <Content Include="src\app\message\messageController.js" />
     <Content Include="src\app\bt.js" />
     <Content Include="src\app\setup.js" />
+    <Content Include="src\app\domain\course.js" />
     <Content Include="src\img\a1.jpg" />
     <Content Include="src\img\a2.jpg" />
     <Content Include="src\img\a3.jpg" />
@@ -1257,6 +1259,7 @@
     <Content Include="src\styles\components\_buttons.scss" />
     <Content Include="src\styles\base\_spacing.scss" />
     <Content Include="src\styles\base\_text.scss" />
+    <Content Include="src\app\courses\displayCourse.pug" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="test\" />

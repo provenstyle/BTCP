@@ -24,7 +24,7 @@ new function() {
 
     const KeysResult = Base.extend({
         $properties: {
-            $type: "SixFlags.MediatR.KeysResult`1[[System.Int32, mscorlib]], SixFlags.MediatR",
+            $type: "Improving.MediatR.KeysResult`1[[System.Int32, mscorlib]], Improving.MediatR",
             keys: mapKey
         }
     });
@@ -84,7 +84,7 @@ new function() {
 
     const Cached = Request.extend({
         $properties: {
-            $type: "SixFlags.MediatR.Cache.Cached`1[[%1]], SixFlags.MediatR",
+            $type: "Improving.MediatR.Cache.Cached`1[[%1]], Improving.MediatR",
             request:    undefined,
             timeToLive: "1:00:00"
         },
@@ -115,7 +115,7 @@ new function() {
 
     const Concurrent = Request.extend({
         $properties: {
-            $type: "SixFlags.MediatR.Concurrency.Concurrent,SixFlags.MediatR",
+            $type: "Improving.MediatR.Concurrency.Concurrent,Improving.MediatR",
             requests: undefined,
             tag: undefined
         },
@@ -175,7 +175,7 @@ new function() {
 			  config   = route.hasOwnProperty("timeout")
 			           ? { timeout: route.timeout }
 			           : null;
-		    
+
                     if (!(request instanceof Request)) {
                         request = new AnonymousRequest(request);
                     }
@@ -207,7 +207,7 @@ new function() {
 		    const route    = new RoutePolicy(),
 		          hasRoute = $composer.handle(route, true),
 			  baseUrl  = route.baseUrl;
-		    
+
                     let group = _groups.get(baseUrl);
                     if (!group) {
                         _groups.set(baseUrl, group = {

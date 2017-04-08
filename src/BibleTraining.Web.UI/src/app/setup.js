@@ -32,11 +32,13 @@
     });
 
     const Temp = Runner.extend({
-        $inject: ["$rootScope", "$state"],
-        constructor($rootScope, $state) {
+        $inject: ["$rootScope", "$state", "$appContext", "$http"],
+        constructor($rootScope, $state, $appContext, $http) {
             window.$state = $state;
             $rootScope.$state = $state;
             window.$rootScope = $rootScope;
+
+            $appContext.addHandlers(new ServiceBusHandler($http));
         }
     });
 

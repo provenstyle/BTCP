@@ -1,2 +1,7 @@
 ﻿div
     h2 Courses
+
+    ul
+        li(ng-repeat="course in ctrl.courses | orderBy: 'name'")
+            span {{ course.name }}
+            span {{ course.description }}
