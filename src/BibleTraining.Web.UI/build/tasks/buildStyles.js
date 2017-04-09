@@ -25,6 +25,7 @@ gulp.task("buildCssDependencies", () => {
 
 const fonts = [
     "src/styles/vendor/font-awesome/fonts/*",
+    "src/styles/vendor/footable/fonts/*",
     "bower_components/bootstrap-sass/assets/fonts/bootstrap/*"
 ];
 
@@ -35,7 +36,8 @@ gulp.task("buildFonts", () => {
 });
 
 const css = [
-    "src/styles/vendor/animate.css"
+    "src/styles/vendor/animate.css",
+    "src/styles/vendor/footable/footable.core.css"
 ];
 
 gulp.task("buildCssFiles", () => {

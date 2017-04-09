@@ -9,7 +9,8 @@
             "ngLocalize.InstalledLanguages",
             "localytics.directives",
             "inspinia",
-            "ui.bootstrap"
+            "ui.bootstrap",
+            "ui.footable"
         ]
     });
 

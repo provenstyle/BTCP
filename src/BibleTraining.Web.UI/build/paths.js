@@ -47,11 +47,9 @@ paths.vendor = [
     "bower_components/moment/min/moment.min.js",
     "src/scripts/bootstrap/ui-bootstrap-tpls-1.1.2.min.js",
     "src/scripts/inspinia/app.js",
-    "src/scripts/inspinia/directives.js"
-
-
-    //"bower_components/angular-cookies/angular-cookies.min.js",
-    //"bower_components/angular-sanitize/angular-sanitize.min.js",
+    "src/scripts/inspinia/directives.js",
+    "src/scripts/footable/footable.all.min.js",
+    "src/scripts/footable/angular-footable.js"
 ];
 
 paths.files = [
