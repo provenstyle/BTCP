@@ -10,7 +10,8 @@
             "localytics.directives",
             "inspinia",
             "ui.bootstrap",
-            "ui.footable"
+            "datatables",
+            "datatables.buttons"
         ]
     });
 

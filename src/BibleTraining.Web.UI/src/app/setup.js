@@ -3,7 +3,6 @@
     base2.package(this, {
         name:     "bt",
         imports:  "miruken.ioc,miruken.ng,miruken.mvc,miruken.error,serviceBus",
-        //exports:  "Bootstraper,Temp,Configuration,SetupRunner"
         exports:  "Bootstraper,Temp"
     });
 
@@ -42,9 +41,9 @@
         }
     });
 
-    angular.element(function () {
-        return angular.bootstrap(document, ["bt"]);
-    });
+    //angular.element(function () {
+    //    return angular.bootstrap(document, ["bt"]);
+    //});
 
     //const Configuration = Model.extend({
     //    $properties: {

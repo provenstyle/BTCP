@@ -4,7 +4,7 @@ const plumber      = require("gulp-plumber");
 const sass         = require("gulp-sass");
 const autoprefixer = require("gulp-autoprefixer");
 
-gulp.task("buildStyles", ["buildApplicationStyles", "buildCssFiles", "buildCssDependencies", "buildFonts"]);
+gulp.task("buildStyles", ["buildApplicationStyles", "buildCssFiles", "buildCssDependencies", "buildFonts", "buildBootstrapFonts"]);
 
 gulp.task("buildApplicationStyles", function () {
     return gulp.src(["src/styles/style.scss"])
@@ -35,9 +35,19 @@ gulp.task("buildFonts", () => {
         .pipe(gulp.dest(`${paths.dist}fonts`));
 });
 
+const bootstrapFonts = [
+    "bower_components/bootstrap-sass/assets/fonts/bootstrap/*"
+];
+
+gulp.task("buildBootstrapFonts", () => {
+    return gulp.src(bootstrapFonts)
+        .pipe(gulp.dest(`${paths.built}fonts/bootstrap`))
+        .pipe(gulp.dest(`${paths.dist}fonts/bootstrap`));
+});
+
 const css = [
     "src/styles/vendor/animate.css",
-    "src/styles/vendor/footable/footable.core.css"
+    "src/styles/vendor/datatables/datatables.min.css"
 ];
 
 gulp.task("buildCssFiles", () => {

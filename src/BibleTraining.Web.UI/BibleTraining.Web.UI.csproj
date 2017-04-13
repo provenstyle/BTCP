@@ -285,6 +285,7 @@
     <Compile Include="Features\Home\HomeController.cs" />
     <Compile Include="Features\Home\HomeData.cs" />
     <Compile Include="Features\Home\IBibleTrainingConfig.cs" />
+    <Compile Include="Features\Search\CoursesController.cs" />
     <Compile Include="Features\VersionHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -329,7 +330,9 @@
     <Content Include="src\app\courses\courseHandler.js" />
     <Content Include="src\app\courses\createEditCourse.pug" />
     <Content Include="src\app\courses\course.pug" />
-    <None Include="src\app\courses\courses.pug" />
+    <None Include="src\app\courses\courses.pug">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="src\app\courses\courseController.js" />
     <Content Include="src\app\courses\coursesController.js" />
     <Content Include="src\app\error\error.html" />
@@ -1204,8 +1207,9 @@
     <Content Include="src\img\p_big3.jpg" />
     <Content Include="src\img\zender_logo.png" />
     <Content Include="src\scripts\bootstrap\ui-bootstrap-tpls-1.1.2.min.js" />
-    <Content Include="src\scripts\footable\angular-footable.js" />
-    <Content Include="src\scripts\footable\footable.all.min.js" />
+    <Content Include="src\scripts\datatables\angular-datatables.buttons.min.js" />
+    <Content Include="src\scripts\datatables\angular-datatables.min.js" />
+    <Content Include="src\scripts\datatables\datatables.min.js" />
     <Content Include="src\scripts\inspinia\app.js" />
     <Content Include="src\scripts\inspinia\config.js" />
     <Content Include="src\scripts\inspinia\controllers.js" />
@@ -1214,11 +1218,10 @@
     <Content Include="src\scripts\inspinia\translations.js" />
     <Content Include="src\scripts\polyfill.min.js" />
     <Content Include="src\styles\vendor\animate.css" />
+    <Content Include="src\styles\vendor\datatables\datatables.min.css" />
     <Content Include="src\styles\vendor\font-awesome\css\font-awesome.css" />
     <Content Include="src\styles\vendor\font-awesome\css\font-awesome.min.css" />
     <Content Include="src\styles\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
-    <Content Include="src\styles\vendor\footable\fonts\footable.svg" />
-    <Content Include="src\styles\vendor\footable\footable.core.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1265,9 +1268,6 @@
     <Content Include="src\styles\base\_spacing.scss" />
     <Content Include="src\styles\base\_text.scss" />
     <Content Include="src\app\courses\displayCourse.pug" />
-    <Content Include="src\styles\vendor\footable\fonts\footable.eot" />
-    <Content Include="src\styles\vendor\footable\fonts\footable.ttf" />
-    <Content Include="src\styles\vendor\footable\fonts\footable.woff" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="test\" />

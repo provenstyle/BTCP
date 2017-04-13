@@ -48,8 +48,11 @@ paths.vendor = [
     "src/scripts/bootstrap/ui-bootstrap-tpls-1.1.2.min.js",
     "src/scripts/inspinia/app.js",
     "src/scripts/inspinia/directives.js",
-    "src/scripts/footable/footable.all.min.js",
-    "src/scripts/footable/angular-footable.js"
+
+    "src/scripts/datatables/datatables.min.js",
+    "src/scripts/datatables/angular-datatables.min.js",
+    "src/scripts/datatables/angular-datatables.buttons.min.js"
+
 ];
 
 paths.files = [
