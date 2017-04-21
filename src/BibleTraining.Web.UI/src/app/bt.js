@@ -11,7 +11,8 @@
             "inspinia",
             "ui.bootstrap",
             "datatables",
-            "datatables.buttons"
+            "datatables.buttons",
+            "datatables.light-columnfilter"
         ]
     });
 

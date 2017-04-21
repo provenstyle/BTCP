@@ -19,7 +19,9 @@
     "pace": "1.0.0",
     "jquery-ui": "1.12.1",
     "angular-idle": "1.3.2",
-    "angular-translate": "2.5.2"
+    "angular-translate": "2.5.2",
+    "angular-datatables": "0.6.2",
+    "datatables-light-columnfilter": "1.0.3"
   },
   "overrides": {},
   "devDependencies": {

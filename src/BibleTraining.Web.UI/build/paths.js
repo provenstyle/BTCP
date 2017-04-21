@@ -50,9 +50,11 @@ paths.vendor = [
     "src/scripts/inspinia/directives.js",
 
     "src/scripts/datatables/datatables.min.js",
-    "src/scripts/datatables/angular-datatables.min.js",
-    "src/scripts/datatables/angular-datatables.buttons.min.js"
+    "bower_components/angular-datatables/dist/angular-datatables.min.js",
+    "bower_components/angular-datatables/dist/plugins/buttons/angular-datatables.buttons.min.js",
 
+    "bower_components/datatables-light-columnfilter/dist/dataTables.lightColumnFilter.js",
+    "bower_components/angular-datatables/dist/plugins/light-columnfilter/angular-datatables.light-columnfilter.js"
 ];
 
 paths.files = [

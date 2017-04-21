@@ -19,20 +19,21 @@ new function() {
         },
         $inject: ["DTOptionsBuilder", "DTColumnBuilder", $appContext],
         constructor(optionsBuilder, columnBuilder, appContext) {
-            this.dtOptions = optionsBuilder
-                .fromFnPromise(() => {
-                    return CourseFeature(appContext).courses()
-                        .then(courses => {
-                            return courses;
-                        });
+            this.dtOptions = optionsBuilder.newOptions()
+                .withOption('ajax', {
+                    url: 'api/courses',
+                    type: 'POST'
                 })
+                .withDataProp('data')
+                .withOption('processing', true)
+                .withOption('serverSide', true)
+                .withPaginationType('full_numbers')
                 .withDOM('<"html5buttons"B>lTfgitp')
                 .withButtons([
                     {extend: 'copy'},
                     {extend: 'csv'},
                     {extend: 'excel', title: 'ExampleFile'},
                     {extend: 'pdf', title: 'ExampleFile'},
-
                     {extend: 'print',
                         customize: function (win){
                             $(win.document.body).addClass('white-bg');
@@ -43,7 +44,12 @@ new function() {
                                 .css('font-size', 'inherit');
                         }
                     }
-                ]);
+                ])
+                .withLightColumnFilter({
+                    '0' : { html: 'input', type: 'text', attr: { class: 'form-control' }},
+                    '1' : { html: 'input', type: 'text', attr: { class: 'form-control' }}
+                });
+
             this.dtColumns = [
                 columnBuilder.newColumn('name').withTitle('Name'),
                 columnBuilder.newColumn('description').withTitle('Description')

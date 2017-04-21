@@ -73,6 +73,14 @@
       <HintPath>..\..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DataTables.AspNet.Core, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DataTables.AspNet.Core.2.0.2\lib\net45\DataTables.AspNet.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DataTables.AspNet.WebApi2, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DataTables.AspNet.WebApi2.2.0.2\lib\net45\DataTables.AspNet.WebApi2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentValidation, Version=6.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentValidation.6.4.1\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
@@ -286,6 +294,7 @@
     <Compile Include="Features\Home\HomeData.cs" />
     <Compile Include="Features\Home\IBibleTrainingConfig.cs" />
     <Compile Include="Features\Search\CoursesController.cs" />
+    <Compile Include="Features\Search\DataTablesSearchController.cs" />
     <Compile Include="Features\VersionHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
