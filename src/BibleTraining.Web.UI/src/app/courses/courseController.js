@@ -5,7 +5,7 @@ new function() {
 
     bt.package(this, {
         name:    "course",
-        imports: "miruken.mvc,bt",
+        imports: "bt,miruken.mvc",
         exports: "CourseController"
     });
 
@@ -13,23 +13,19 @@ new function() {
 
     const CourseController = Controller.extend({
         $properties: {
-            courses:   []
-        },
-        initialize() {
-            this.base();
-            //return PlayerFeature(this.io).players()
-            //    .then(players => this.players = players);
+            course: []
         },
 
-        showCourse() {
-            return ViewRegion(this.io).show("app/courses/course");
+        showCourse(data) {
+            return CourseFeature(this.io).course(data.id).then(course => {
+                this.course = course;
+                return ViewRegion(this.io).show("app/courses/course");
+            });
+        },
+        goToEdit() {
+            return bt.course.EditCourseController(this.io)
+                .push(ctrl => ctrl.showEditCourse(this.course));
         }
-        //goToPlayer(player) {
-        //    PlayerController(this.io).next(ctrl => ctrl.showPlayer({ id: player.id }));
-        //},
-        //create() {
-        //    CreatePlayerController(this.io).next(ctrl => ctrl.createPlayer());
-        //}
     });
 
     eval(this.exports);

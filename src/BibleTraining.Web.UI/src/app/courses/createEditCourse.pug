@@ -1,30 +1,25 @@
-﻿.row.wrapper.border-bottom.white-bg.page-heading
-    .col-lg-10
-        h2 Course
-        ol.breadcrumb
-            li
-                a(href="index.html") Home
-            li
-                a(href="#/courses/showcourses") Courses
-            li.active
-                strong Course
-.wrapper.wrapper-content.animated.fadeInRight
+﻿.wrapper.wrapper-content.animated.fadeInRight
     .row
         .col-lg-6
             .ibox.float-e-margins
                 .ibox-title
-                    h5 Create a new course
+                    h5 {{ctrl.title}}
 
                 .ibox-content
                     form.form-horizontal
                         .form-group
                             label.col-lg-2.control-label Name
                             .col-lg-10
-                                input.form-control(type="email" placeholder="Name")
+                                input.form-control(type="text" placeholder="Name" ng-model="ctrl.course.name")
+                                div.text-danger(ng-messages='ctrl.$validation.course.name.errors')
+                                    div.small(ng-message='presence') Course name is required
                         .form-group
                             label.col-lg-2.control-label Description
                             .col-lg-10
-                                input.form-control(type="text" placeholder="Description")
+                                input.form-control(type="text" placeholder="Description" ng-model="ctrl.course.description")
+                                div.text-danger(ng-messages='ctrl.$validation.course.description.errors')
+                                    div.small(ng-message='presence') Course description is required
                         .form-group
                             .col-lg-offset-2.col-lg-10
-                                 button.btn.btn-sm.btn-primary.pull-right(type="submit") Create
+                                 button.btn.btn-sm.btn-white(type="submit" ng-click="ctrl.cancel()") Cancel
+                                 button.btn.btn-sm.btn-primary(type="submit" ng-click="ctrl.save()") {{ctrl.buttonText}}

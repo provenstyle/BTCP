@@ -1,2 +1,11 @@
-﻿div
-    h2 Course
+﻿.wrapper.wrapper-content.animated.fadeInRight
+    .row
+        .col-lg-6
+            .ibox.float-e-margins
+                .ibox-title
+                    h5 Course
+                    .ibox-tools
+                        button.btn.btn-primary.btn-xs(ng-click="ctrl.goToEdit()") Edit Course
+                .ibox-content
+                    h3 {{ ctrl.course.name }}
+                    p  {{ ctrl.course.description }}

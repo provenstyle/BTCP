@@ -335,8 +335,10 @@
     <Content Include="Features\Home\Index\View.cshtml" />
     <Content Include="Features\Web.config" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="src\app\courses\editCourseController.js" />
     <Content Include="src\app\courses\courseFeature.js" />
     <Content Include="src\app\courses\courseHandler.js" />
+    <Content Include="src\app\courses\createCourseController.js" />
     <Content Include="src\app\courses\createEditCourse.pug" />
     <Content Include="src\app\courses\course.pug" />
     <None Include="src\app\courses\courses.pug">

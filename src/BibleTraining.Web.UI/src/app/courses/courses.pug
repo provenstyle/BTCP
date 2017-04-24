@@ -1,19 +1,10 @@
-﻿.row.wrapper.border-bottom.white-bg.page-heading
-    col-lg-10
-        h2 FooTable
-        ol.breadcrumb
-            li
-                a(href="index.html") Home
-            li
-                a Tables
-            li.active
-                strong FooTable
-
-.wrapper.wrapper-content.animated.fadeInRight
+﻿.wrapper.wrapper-content.animated.fadeInRight
     .row
         col-lg-12
             ibox.float-e-margins
                 .ibox-title
                     h5 Courses
+                    .ibox-tools
+                        button.btn.btn-primary.btn-xs(ng-click="ctrl.goToCreate()") Create a Course
                 .ibox-content
                     table.table.table-striped.table-bordered.table-hover(datatable dt-options="ctrl.dtOptions" dt-columns="ctrl.dtColumns")

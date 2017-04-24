@@ -2,7 +2,7 @@
 
     base2.package(this, {
         name:    "bt",
-        imports: "miruken,miruken.mvc",
+        imports: "miruken,miruken.mvc,miruken.validate",
         exports: "Course,Key"
     });
 
@@ -10,8 +10,11 @@
 
     const Course = Model.extend({
         $properties: {
-            name:        undefined,
-            description: undefined
+            id:          undefined,
+            name:        { validate: $required },
+            description: { validate: $required },
+            createdBy:   undefined,
+            modifiedBy:  undefined
         }
     });
 

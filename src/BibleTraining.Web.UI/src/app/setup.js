@@ -3,7 +3,7 @@
     base2.package(this, {
         name:     "bt",
         imports:  "miruken.ioc,miruken.ng,miruken.mvc,miruken.error,serviceBus",
-        exports:  "Bootstraper,Temp"
+        exports:  "Bootstraper,Temp,Configuration"
     });
 
     eval(this.imports);
@@ -41,22 +41,19 @@
         }
     });
 
-    //angular.element(function () {
-    //    return angular.bootstrap(document, ["bt"]);
-    //});
+    const Configuration = Model.extend({
+        $properties: {
+            applicationName: undefined,
+            clientIp:        undefined,
+            dataApiBaseUrl:  undefined,
+            locale:          "en-US",
+            version:         undefined,
+            userName:        "Hard coded user"
+        }
+    });
 
-    //const Configuration = Model.extend({
-    //    $properties: {
-    //        applicationName: undefined,
-    //        clientIp:        undefined,
-    //        dataApiBaseUrl:  undefined,
-    //        locale:          "en-US",
-    //        version:         undefined
-    //    }
-    //});
-
-    //const configuration = new Configuration(appConfig);
-    //miruken.callback.$provide($appContext, configuration);
+    const configuration = new Configuration(appConfig);
+    miruken.callback.$provide($appContext, configuration);
 
     //const defaultRoute = new RoutePolicy({
     //    baseUrl:         configuration.dataApiBaseUrl,

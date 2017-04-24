@@ -18,7 +18,7 @@ new function() {
             dtColumns: undefined
         },
         $inject: ["DTOptionsBuilder", "DTColumnBuilder", $appContext],
-        constructor(optionsBuilder, columnBuilder, appContext) {
+        constructor(optionsBuilder, columnBuilder) {
             this.dtOptions = optionsBuilder.newOptions()
                 .withOption('ajax', {
                     url: 'api/courses',
@@ -55,12 +55,11 @@ new function() {
                 columnBuilder.newColumn('description').withTitle('Description')
             ];
         },
-        getCourses() {
-            return CourseFeature(this.io).courses()
-                .then(courses => this.courses = courses);
-        },
         showCourses() {
             return ViewRegion(this.io).show("app/courses/courses");
+        },
+        goToCreate() {
+            bt.course.CreateCourseController(this.io).next(ctrl => ctrl.showCreateCourse());
         }
     });
 

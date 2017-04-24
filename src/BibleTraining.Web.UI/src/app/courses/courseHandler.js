@@ -25,6 +25,20 @@
         }
     });
 
+    const CreateCourse = Request(Course).extend({
+        $properties: {
+            "$type": "BibleTraining.Api.Course.CreateCourse, BibleTraining.Api",
+            resource: undefined
+        }
+    });
+
+    const UpdateCourse = Request(Course).extend({
+        $properties: {
+            "$type": "BibleTraining.Api.Course.UpdateCourse, BibleTraining.Api",
+            resource: undefined
+        }
+    });
+
     const CourseHandler = CallbackHandler.extend(CourseFeature, {
         courses() {
             return ServiceBus($composer).process(new GetCourses()).then(data => {
@@ -32,21 +46,27 @@
             });
         },
         course(id) {
-            return ServiceBus($composer).process(new GetCourses({ids: [id]}));
+            return ServiceBus($composer).process(new GetCourses({ids: [id]})).then(data => {
+                return (data.courses && data.courses.length > 0)
+                    ? data.courses[0]
+                    : undefined;
+            });
         },
         createCourse(course) {
-            course.id = nextId();
-            courses.push(course);
-            return Promise.resolve(course);
+            const config = $composer.resolve(Configuration);
+            course.createdBy = course.modifiedBy = config.userName;
+            return ServiceBus($composer).process(new CreateCourse({ resource: course })).then(data => {
+                return course.fromData(data);
+            });
         },
         deleteCourse(course) {
         },
         updateCourse(course) {
-            const existing = courses.find(item => item.id === course.id);
-            if (existing) {
-                let result = existing.fromData(course);
-            }
-            return Promise.resolve(existing);
+            const config = $composer.resolve(Configuration);
+            course.modifiedBy = config.userName;
+            return ServiceBus($composer).process(new UpdateCourse({ resource: course })).then(data => {
+                return course.fromData(data);
+            });
         }
     });
 
