@@ -12,6 +12,7 @@
         $properties: {
             title:      "Edit A Course",
             buttonText: "Save Course",
+            showDelete: true,
             course:     { validate: $nested }
         },
 
