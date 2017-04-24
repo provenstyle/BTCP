@@ -26,6 +26,10 @@
                 .createCourse(this.course)
                 .then(course => CourseController(this.io).next(
                     ctrl => ctrl.showCourse({id: this.course.id })));
+        },
+        cancel() {
+            return CoursesController(this.io).next(
+                ctrl => ctrl.showCourses());
         }
     });
 
