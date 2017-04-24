@@ -62,10 +62,12 @@
                     queryable = DefaultSort(queryable);
                 }
 
+                var filteredCount = queryable.Count();
+
                 //page
                 var page = queryable.Skip(request.Start).Take(request.Length).ToArray();
 
-                return new DataTablesJsonResult(request.CreateResponse(dataCount, page.Length, page), Request);
+                return new DataTablesJsonResult(request.CreateResponse(dataCount, filteredCount, page), Request);
             }
         }
     }
