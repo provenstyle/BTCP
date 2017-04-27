@@ -26,7 +26,7 @@ new function() {
                     { text: NO,  css: "btn-default" }
                 ]
             })
-            ).present({ template: `<p>${message}</p>` }).then(function (context) {
+            ).show({ template: `<p>${message}</p>` }).then(function (context) {
                 return context.modalResult.then(
                     result => result.button.text === YES);
             });

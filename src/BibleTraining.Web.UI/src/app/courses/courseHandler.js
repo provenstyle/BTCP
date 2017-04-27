@@ -39,6 +39,13 @@
         }
     });
 
+    const RemoveCourse = Request(Course).extend({
+        $properties: {
+            "$type": "BibleTraining.Api.Course.RemoveCourse, BibleTraining.Api",
+            resource: undefined
+        }
+    });
+
     const CourseHandler = CallbackHandler.extend(CourseFeature, {
         courses() {
             return ServiceBus($composer).process(new GetCourses()).then(data => {
@@ -59,17 +66,21 @@
                 return course.fromData(data);
             });
         },
-        deleteCourse(course) {
-        },
         updateCourse(course) {
             const config = $composer.resolve(Configuration);
             course.modifiedBy = config.userName;
             return ServiceBus($composer).process(new UpdateCourse({ resource: course })).then(data => {
                 return course.fromData(data);
             });
+        },
+        removeCourse(course) {
+            const config = $composer.resolve(Configuration);
+            course.modifiedBy = config.userName;
+            return ServiceBus($composer).process(new RemoveCourse({ resource: course })).then(data => {
+                return course.fromData(data);
+            });
         }
     });
-
 
     eval(this.exports);
 

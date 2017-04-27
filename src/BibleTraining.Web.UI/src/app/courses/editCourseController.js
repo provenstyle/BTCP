@@ -31,6 +31,12 @@
         cancel() {
             return CourseController(this.io).next(
                 ctrl => ctrl.showCourse({ id: this.course.id }));
+        },
+        remove() {
+            return CourseFeature(this.io
+                .$confirm(`Delete Course "${course.name}"?`))
+                .removeCourse(this.course).then(() =>
+                    CoursesController(this.io).next(ctrl => ctrl.showCourses()));
         }
     });
 
