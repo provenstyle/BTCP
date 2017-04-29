@@ -13,11 +13,11 @@ new function() {
           NO            = "No";
 
     const SideEffects = StrictProtocol.extend(Resolving, {
-        confirm: function(message) {}
+        confirm(message) {}
     });
 
     const SideEffectsHandler = CallbackHandler.extend(SideEffects, {
-        confirm (message) {
+        confirm(message) {
             return ViewRegion($composer.modal({
                 css:   "confirm-modal",
                 title: CONFIRM_TITLE,
@@ -26,15 +26,17 @@ new function() {
                     { text: NO,  css: "btn-default" }
                 ]
             })
-            ).show({ template: `<p>${message}</p>` }).then(function (context) {
-                return context.modalResult.then(
-                    result => result.button.text === YES);
-            });
+            ).show({ template: `<p>${message}</p>` })
+             .then(layer  => layer.modalResult.then(result => {
+                 layer.dispose();
+                 const button = result.button;
+                 return !!button && button.text === YES;
+            }));
         }
     });
 
     CallbackHandler.implement({
-        $confirm (message) {
+        $confirm(message) {
             return this.aspect((_, composer) =>
                 SideEffects(composer).confirm(message));
         }
