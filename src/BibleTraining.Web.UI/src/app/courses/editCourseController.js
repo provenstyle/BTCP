@@ -34,7 +34,7 @@
         },
         remove() {
             return CourseFeature(this.io
-                .$confirm(`Delete Course "${course.name}"?`))
+                .$confirm(`Delete Course "${this.course.name}"?`))
                 .removeCourse(this.course).then(() =>
                     CoursesController(this.io).next(ctrl => ctrl.showCourses()));
         }

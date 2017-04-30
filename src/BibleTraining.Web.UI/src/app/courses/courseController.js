@@ -24,7 +24,7 @@ new function() {
         },
         goToEdit() {
             return bt.course.EditCourseController(this.io)
-                .push(ctrl => ctrl.showEditCourse(this.course));
+                .next(ctrl => ctrl.showEditCourse(this.course));
         }
     });
 
