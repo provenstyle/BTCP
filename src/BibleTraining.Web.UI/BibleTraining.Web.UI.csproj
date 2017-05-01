@@ -341,9 +341,7 @@
     <Content Include="src\app\courses\createCourseController.js" />
     <Content Include="src\app\courses\createEditCourse.pug" />
     <Content Include="src\app\courses\course.pug" />
-    <None Include="src\app\courses\courses.pug">
-      <SubType>Designer</SubType>
-    </None>
+    <Content Include="src\app\courses\courses.pug" />
     <Content Include="src\app\courses\courseController.js" />
     <Content Include="src\app\courses\coursesController.js" />
     <Content Include="src\app\error\error.html" />
@@ -1279,7 +1277,6 @@
     <Content Include="src\styles\components\_buttons.scss" />
     <Content Include="src\styles\base\_spacing.scss" />
     <Content Include="src\styles\base\_text.scss" />
-    <Content Include="src\app\courses\displayCourse.pug" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="test\" />
