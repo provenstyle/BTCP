@@ -1,7 +1,4 @@
-﻿//import "./playerFeature.js";
-//import "./createPlayerController.js";
-
-new function() {
+﻿new function() {
 
     bt.package(this, {
         name:    "course",

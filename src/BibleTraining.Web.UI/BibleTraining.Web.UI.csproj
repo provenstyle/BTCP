@@ -348,6 +348,7 @@
     <Content Include="src\app\courses\coursesController.js" />
     <Content Include="src\app\error\error.html" />
     <Content Include="src\app\error\errorController.js" />
+    <Content Include="src\app\infrastructure\tables.js" />
     <Content Include="src\app\infrastructure\locale.js" />
     <Content Include="src\app\infrastructure\mappings.js" />
     <Content Include="src\app\infrastructure\message.js" />
