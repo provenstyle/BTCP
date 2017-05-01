@@ -115,9 +115,8 @@
             this.extend({
                 initialize() {
                     this.table = new TableManager(this.io);
-                    if (this.configure) {
+                    if (this.configure)
                         this.configure(this.table);
-                    }
                 }
             });
         }
