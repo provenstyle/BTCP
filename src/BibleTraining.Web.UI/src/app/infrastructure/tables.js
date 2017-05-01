@@ -46,7 +46,7 @@
                     index: _index++,
                     name:  name,
                     title: title
-                }
+                };
 
                 if (filterType)
                     config.filterType = filterType;
@@ -84,8 +84,8 @@
                         }
                     ])
                     .withLightColumnFilter(_columns.reduce((x, y) => {
-                        if(y.filterType)
-                            x[y.index] = { html: 'input', type: y.filterType, attr: { class: 'form-control' } }
+                        if (y.filterType)
+                            x[y.index] = { html: 'input', type: y.filterType, attr: { class: 'form-control' } };
                         return x;
                     },{}))
                     .withOption('rowCallback', _wireClickEvent);
