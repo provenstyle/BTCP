@@ -1,13 +1,13 @@
-namespace BibleTraining.Maps
+namespace BibleTraining.EntityTypeConfigurations
 {
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.ModelConfiguration;
     using Entities;
 
-    public abstract class BaseMap<T> : EntityTypeConfiguration<T> where T: Entity
+    public abstract class BaseEntityTypeConfiguration<T> : EntityTypeConfiguration<T> where T: Entity
     {
         public const string DateTime2 = "DateTime2";
-        protected BaseMap()
+        protected BaseEntityTypeConfiguration()
         {
             HasKey(x => x.Id);
             Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

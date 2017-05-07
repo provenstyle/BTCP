@@ -122,18 +122,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\ContactType\ContactTypeConcurency.cs" />
+    <Compile Include="Api\ContactType\ContactTypeDataExtensions.cs" />
+    <Compile Include="Api\ContactType\ContactTypeExtensions.cs" />
+    <Compile Include="Api\ContactType\CreateContactTypeIntegrity.cs" />
+    <Compile Include="Api\Email\CreateEmailIntegrity.cs" />
+    <Compile Include="Api\Email\EmailAggregateHandler.cs" />
+    <Compile Include="Api\Email\EmailConcurency.cs" />
+    <Compile Include="Api\Email\EmailDataExtensions.cs" />
+    <Compile Include="Api\Email\EmailExtensions.cs" />
+    <Compile Include="Api\Email\UpdateEmailIntegrity.cs" />
+    <Compile Include="Entities\Email.cs" />
+    <Compile Include="EntityTypeConfigurations\EmailEntityTypeConfiguration.cs" />
+    <Compile Include="Queries\GetContactTypesById.cs" />
+    <Compile Include="Api\ContactType\UpdateContactTypeIntegrity.cs" />
     <Compile Include="Api\Course\CourseAggregateHandler.cs" />
     <Compile Include="Api\Course\CourseConcurency.cs" />
     <Compile Include="Api\Course\CreateCourseIntegrity.cs" />
     <Compile Include="Api\Course\UpdateCourseIntegrity.cs" />
+    <Compile Include="Api\ContactType\ContactTypeAggregateHandler.cs" />
+    <Compile Include="Api\Person\CreatePersonIntegrity.cs" />
+    <Compile Include="Api\Person\PersonAggregateHandler.cs" />
+    <Compile Include="Api\Person\PersonConcurency.cs" />
+    <Compile Include="Api\Person\UpdatePersonIntegrity.cs" />
     <Compile Include="BibleTrainingDomain.cs" />
+    <Compile Include="Entities\EmailType.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\Person.cs" />
+    <Compile Include="EntityTypeConfigurations\ContactTypeEntityTypeConfiguration.cs" />
     <Compile Include="MappingConfiguration.cs" />
-    <Compile Include="Maps\BaseMap.cs" />
-    <Compile Include="Maps\CourseMap.cs" />
+    <Compile Include="EntityTypeConfigurations\BaseEntityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\CourseEntityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\PersonEntityTypeConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetCoursesById.cs" />
+    <Compile Include="Queries\GetEmailsById.cs" />
+    <Compile Include="Queries\GetPeopleById.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

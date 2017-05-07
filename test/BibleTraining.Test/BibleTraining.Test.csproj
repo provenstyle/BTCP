@@ -154,6 +154,27 @@
     <Compile Include="Infrastructure\TestDbAsyncEnumerable.cs" />
     <Compile Include="Infrastructure\TestDbAsyncEnumerator.cs" />
     <Compile Include="Infrastructure\TestDbAsyncQueryProvider.cs" />
+    <Compile Include="Person\CreatePersonIntegrityTests.cs" />
+    <Compile Include="Person\CreatePersonTests.cs" />
+    <Compile Include="Person\GetPeopleTests.cs" />
+    <Compile Include="Person\PersonConcurrencyTests.cs" />
+    <Compile Include="Person\RemovePersonTests.cs" />
+    <Compile Include="Person\UpdatePersonIntegrityTests.cs" />
+    <Compile Include="Person\UpdatePersonTests.cs" />
+    <Compile Include="ContactType\CreateContactTypeIntegrityTests.cs" />
+    <Compile Include="ContactType\CreateContactTypeTests.cs" />
+    <Compile Include="ContactType\GetContactTypeTests.cs" />
+    <Compile Include="ContactType\RemoveContactTypeTests.cs" />
+    <Compile Include="ContactType\UpdateContactTypeIntegrityTests.cs" />
+    <Compile Include="ContactType\UpdateContactTypeTests.cs" />
+    <Compile Include="ContactType\ContactTypeConcurrencyTests.cs" />
+    <Compile Include="Email\CreateEmailIntegrityTests.cs" />
+    <Compile Include="Email\CreateEmailTests.cs" />
+    <Compile Include="Email\GetEmailsTests.cs" />
+    <Compile Include="Email\RemoveEmailTests.cs" />
+    <Compile Include="Email\UpdateEmailIntegrityTests.cs" />
+    <Compile Include="Email\UpdateEmailTests.cs" />
+    <Compile Include="Email\EmailConcurrencyTests.cs" />
     <Compile Include="TestScenario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -170,6 +191,9 @@
       <Project>{6F8DBB97-F65C-4CCF-A34B-C7B5DE527B32}</Project>
       <Name>BibleTraining</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="_CodeGeneration\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

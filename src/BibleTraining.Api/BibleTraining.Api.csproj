@@ -81,18 +81,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContactType\ContactTypeData.cs" />
+    <Compile Include="ContactType\ContactTypeResult.cs" />
+    <Compile Include="ContactType\CreateContactType.cs" />
+    <Compile Include="ContactType\GetContactTypes.cs" />
+    <Compile Include="ContactType\RemoveContactType.cs" />
+    <Compile Include="ContactType\UpdateContactType.cs" />
     <Compile Include="Course\CourseData.cs" />
     <Compile Include="Course\CourseResult.cs" />
     <Compile Include="Course\CreateCourse.cs" />
     <Compile Include="Course\GetCourses.cs" />
     <Compile Include="Course\RemoveCourse.cs" />
     <Compile Include="Course\UpdateCourse.cs" />
+    <Compile Include="Email\CreateEmail.cs" />
+    <Compile Include="Email\EmailData.cs" />
+    <Compile Include="Email\EmailResult.cs" />
+    <Compile Include="Email\GetEmails.cs" />
+    <Compile Include="Email\RemoveEmail.cs" />
+    <Compile Include="Email\UpdateEmail.cs" />
+    <Compile Include="Person\CreatePerson.cs" />
+    <Compile Include="Person\Gender.cs" />
+    <Compile Include="Person\GetPeople.cs" />
+    <Compile Include="Person\PersonData.cs" />
+    <Compile Include="Person\PersonResult.cs" />
+    <Compile Include="Person\RemovePerson.cs" />
+    <Compile Include="Person\UpdatePerson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

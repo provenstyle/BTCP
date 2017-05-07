@@ -4,9 +4,9 @@ go;
 IF OBJECT_ID(N'dbo.ClassStudent') IS NULL
 BEGIN
     CREATE TABLE ClassStudent (
-        Id        INT NOT NULL IDENTITY(1,1),
-        ClassId   INT NOT NULL,
-        StudentId INT NOT NULL,
+        Id       INT NOT NULL IDENTITY(1,1),
+        ClassId  INT NOT NULL,
+        PersonId INT NOT NULL,
 
         Created     DATETIME2      NOT NULL,
         CreatedBy   NVARCHAR(500)  NOT NULL,

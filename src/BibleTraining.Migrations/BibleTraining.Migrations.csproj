@@ -72,10 +72,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Scripts\Hash\5000_Keys\ClassTeacher.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\ClassTeacher.sql" />
-    <EmbeddedResource Include="Scripts\Hash\2000_Tables\Teacher.sql" />
     <EmbeddedResource Include="Scripts\Hash\5000_Keys\ClassStudent.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\ClassStudent.sql" />
-    <EmbeddedResource Include="Scripts\Hash\2000_Tables\Student.sql" />
+    <EmbeddedResource Include="Scripts\Hash\2000_Tables\Person.sql" />
     <EmbeddedResource Include="Scripts\Hash\5000_Keys\Class.sql" />
     <EmbeddedResource Include="Scripts\Hash\9000_PostScripts\SeedCourse.sql" />
     <EmbeddedResource Include="Scripts\Hash\9000_PostScripts\SeedCountry.sql" />
@@ -97,11 +96,15 @@
     <Content Include="Scripts\Hash\1000_Users\readme.txt" />
     <Content Include="Scripts\Hash\1500_Types\readme.txt" />
     <Content Include="Scripts\Hash\1750_Functions\readme.txt" />
+    <EmbeddedResource Include="Scripts\Hash\2000_Tables\EmailType.sql" />
+    <EmbeddedResource Include="Scripts\Hash\2000_Tables\Email.sql" />
     <Content Include="Scripts\Hash\2000_Tables\readme.txt" />
     <Content Include="Scripts\Hash\3000_Synonyms\readme.txt" />
     <Content Include="Scripts\Hash\3500_StoredProcedures\readme.txt" />
     <Content Include="Scripts\Hash\4000_Views\readme.txt" />
     <Content Include="Scripts\Hash\4500_Jobs\readme.txt" />
+    <EmbeddedResource Include="Scripts\Hash\5000_Keys\FK_Email_EmailType.sql" />
+    <EmbeddedResource Include="Scripts\Hash\5000_Keys\FK_Email_Person.sql" />
     <Content Include="Scripts\Hash\5000_Keys\readme.txt" />
     <Content Include="Scripts\Hash\9000_PostScripts\readme.txt" />
     <Content Include="Scripts\Hash\readme.txt" />

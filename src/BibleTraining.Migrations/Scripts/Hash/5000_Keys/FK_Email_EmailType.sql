@@ -1,0 +1,8 @@
+﻿USE $DbName$;
+GO
+
+IF OBJECT_ID(N'FK_Email_EmailType') IS NULL
+BEGIN
+	ALTER TABLE dbo.Email WITH CHECK ADD CONSTRAINT FK_Email_EmailType FOREIGN KEY(EmailTypeId)
+	REFERENCES dbo.EmailType (Id);
+END;

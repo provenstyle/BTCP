@@ -9,6 +9,6 @@ END;
 
 IF OBJECT_ID(N'FK_ClassStudent_Student') IS NULL
 BEGIN
-	ALTER TABLE dbo.ClassStudent WITH CHECK ADD CONSTRAINT FK_ClassStudent_Student FOREIGN KEY(StudentId)
-	REFERENCES dbo.Student (Id);
+	ALTER TABLE dbo.ClassStudent WITH CHECK ADD CONSTRAINT FK_ClassStudent_Student FOREIGN KEY(PersonId)
+	REFERENCES dbo.Person (Id);
 END;

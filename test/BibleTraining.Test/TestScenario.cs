@@ -2,7 +2,10 @@ namespace BibleTraining.Test
 {
     using System.Linq;
     using System.Threading.Tasks;
+    using Api.ContactType;
     using Api.Course;
+    using Api.Email;
+    using Api.Person;
     using BibleTraining;
     using Castle.DynamicProxy;
     using Castle.MicroKernel.Lifestyle;
@@ -69,9 +72,21 @@ namespace BibleTraining.Test
         protected virtual void SetupChoices()
         {
             InvalidateCache(new GetCourses());
+            InvalidateCache(new GetPeople());
+            InvalidateCache(new GetEmails());
+            InvalidateCache(new GetContactTypes());
 
             _context.Stub(p => p.AsQueryable<Entities.Course>())
                 .Return(TestChoice<Entities.Course>(3).TestAsync());
+
+            _context.Stub(p => p.AsQueryable<Entities.Person>())
+                .Return(TestChoice<Entities.Person>(3).TestAsync());
+
+            _context.Stub(p => p.AsQueryable<Entities.Email>())
+                .Return(TestChoice<Entities.Email>(3).TestAsync());
+
+            _context.Stub(p => p.AsQueryable<Entities.EmailType>())
+                .Return(TestChoice<Entities.EmailType>(3).TestAsync());
 
         }
 
