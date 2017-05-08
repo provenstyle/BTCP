@@ -1,15 +1,15 @@
-namespace BibleTraining.Api.ContactType
+namespace BibleTraining.Api.EmailType
 {
     using Improving.MediatR;
 
-    public class GetContactTypes : Request.WithResponse<ContactTypeResult>
+    public class GetEmailTypes : Request.WithResponse<EmailTypeResult>
     {
-        public GetContactTypes()
+        public GetEmailTypes()
         {
             Ids = new int[0];
         }
 
-        public GetContactTypes(params int[] ids)
+        public GetEmailTypes(params int[] ids)
         {
             Ids = ids;
         }

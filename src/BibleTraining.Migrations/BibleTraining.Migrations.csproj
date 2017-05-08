@@ -76,7 +76,7 @@
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\ClassStudent.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\Person.sql" />
     <EmbeddedResource Include="Scripts\Hash\5000_Keys\Class.sql" />
-    <EmbeddedResource Include="Scripts\Hash\9000_PostScripts\SeedCourse.sql" />
+    <EmbeddedResource Include="Scripts\Hash\9000_PostScripts\SeedEmailTypes.sql" />
     <EmbeddedResource Include="Scripts\Hash\9000_PostScripts\SeedCountry.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\Course.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\Country.sql" />
@@ -107,6 +107,7 @@
     <EmbeddedResource Include="Scripts\Hash\5000_Keys\FK_Email_Person.sql" />
     <Content Include="Scripts\Hash\5000_Keys\readme.txt" />
     <Content Include="Scripts\Hash\9000_PostScripts\readme.txt" />
+    <EmbeddedResource Include="Scripts\Hash\9000_PostScripts\SeedCourse.sql" />
     <Content Include="Scripts\Hash\readme.txt" />
     <None Include="Scripts\Migration\readme.txt" />
     <None Include="Scripts\readme.txt" />

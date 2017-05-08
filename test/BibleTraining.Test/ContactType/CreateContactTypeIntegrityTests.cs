@@ -1,40 +1,41 @@
-namespace BibleTraining.Test.ContactType
+namespace BibleTraining.Test.EmailType
 {
-    using Api.ContactType;
+    using Api.EmailType;
+    using Api.EmailType;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class CreateContactTypeIntegrityTests
+    public class CreateEmailTypeIntegrityTests
     {
-        private CreateContactType createContactType;
-        private CreateContactTypeIntegrity validator;
+        private CreateEmailType _createEmailType;
+        private CreateEmailTypeIntegrity validator;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            createContactType = new CreateContactType
+            _createEmailType = new CreateEmailType
             {
-                Resource = new ContactTypeData
+                Resource = new EmailTypeData
                 {
                     Name = "my name"
                 }
             };
 
-            validator = new CreateContactTypeIntegrity();
+            validator = new CreateEmailTypeIntegrity();
         }
 
         [TestMethod]
         public void IsValid()
         {
-            var result = validator.Validate(createContactType);
+            var result = validator.Validate(_createEmailType);
             Assert.IsTrue(result.IsValid);
         }
 
         [TestMethod]
         public void MustHaveText()
         {
-            createContactType.Resource.Name = string.Empty;
-            var result = validator.Validate(createContactType);
+            _createEmailType.Resource.Name = string.Empty;
+            var result = validator.Validate(_createEmailType);
             Assert.IsFalse(result.IsValid);
         }
     }

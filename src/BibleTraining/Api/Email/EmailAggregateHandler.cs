@@ -45,10 +45,10 @@ namespace BibleTraining.Api.Email
                 var data = new EmailData();
 
                 await scope.SaveChangesAsync((dbScope, count) =>
-                                                 {
-                                                     data.Id = email.Id;
-                                                     data.RowVersion = email.RowVersion;
-                                                 });
+                 {
+                     data.Id = email.Id;
+                     data.RowVersion = email.RowVersion;
+                 });
 
                 return data;
             }
@@ -137,12 +137,6 @@ namespace BibleTraining.Api.Email
                 RowVersion = Email.RowVersion
             });
         }
-
-        #endregion
-
-        #region Mapping
-
-
 
         #endregion
     }

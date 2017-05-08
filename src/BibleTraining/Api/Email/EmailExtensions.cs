@@ -1,7 +1,6 @@
 namespace BibleTraining.Api.Email
 {
     using System;
-    using ContactType;
     using Entities;
 
     public static class EmailExtensions
@@ -11,8 +10,8 @@ namespace BibleTraining.Api.Email
             if (data.Address != null)
                 email.Address = data.Address;
 
-            if (data.ContactType != null)
-                email.EmailType.Map(data.ContactType);
+            if (data.EmailType?.Id > 0)
+                email.EmailTypeId = data.EmailType.Id;
 
             if (data.CreatedBy != null)
                 email.CreatedBy = data.CreatedBy;

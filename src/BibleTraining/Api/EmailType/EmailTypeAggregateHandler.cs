@@ -1,4 +1,4 @@
-namespace BibleTraining.Api.ContactType
+namespace BibleTraining.Api.EmailType
 {
     using System;
     using System.Linq;
@@ -12,28 +12,28 @@ namespace BibleTraining.Api.ContactType
     using Queries;
 
     [RelativeOrder(Stage.Validation - 1)]
-    public class ContactTypeAggregateHandler :
-        IAsyncRequestHandler<CreateContactType, ContactTypeData>,
-        IAsyncRequestHandler<GetContactTypes, ContactTypeResult>,
-        IAsyncRequestHandler<UpdateContactType, ContactTypeData>,
-        IRequestMiddleware<UpdateContactType, ContactTypeData>,
-        IAsyncRequestHandler<RemoveContactType, ContactTypeData>,
-        IRequestMiddleware<RemoveContactType, ContactTypeData>
+    public class EmailTypeAggregateHandler :
+        IAsyncRequestHandler<CreateEmailType, EmailTypeData>,
+        IAsyncRequestHandler<GetEmailTypes, EmailTypeResult>,
+        IAsyncRequestHandler<UpdateEmailType, EmailTypeData>,
+        IRequestMiddleware<UpdateEmailType, EmailTypeData>,
+        IAsyncRequestHandler<RemoveEmailType, EmailTypeData>,
+        IRequestMiddleware<RemoveEmailType, EmailTypeData>
     {
         private readonly IRepository<IBibleTrainingDomain> _repository;
         private readonly DateTime _now;
 
         public EmailType EmailType { get; set; }
 
-        public ContactTypeAggregateHandler(IRepository<IBibleTrainingDomain> repository)
+        public EmailTypeAggregateHandler(IRepository<IBibleTrainingDomain> repository)
         {
             _repository = repository;
             _now = DateTime.Now;
         }
 
-        #region Create ContactType
+        #region Create EmailType
 
-        public async Task<ContactTypeData> Handle(CreateContactType message)
+        public async Task<EmailTypeData> Handle(CreateEmailType message)
         {
             using (var scope = _repository.Scopes.Create())
             {
@@ -42,7 +42,7 @@ namespace BibleTraining.Api.ContactType
 
                 _repository.Context.Add(contactType);
 
-                var data = new ContactTypeData();
+                var data = new EmailTypeData();
 
                 await scope.SaveChangesAsync((dbScope, count) =>
                                                  {
@@ -56,29 +56,29 @@ namespace BibleTraining.Api.ContactType
 
         #endregion
 
-        #region Get ContactType
+        #region Get EmailType
 
-        public async Task<ContactTypeResult> Handle(GetContactTypes message)
+        public async Task<EmailTypeResult> Handle(GetEmailTypes message)
         {
             using (_repository.Scopes.CreateReadOnly())
             {
-                var contactTypes = (await _repository.FindAsync(new GetContactTypesById(message.Ids)
+                var contactTypes = (await _repository.FindAsync(new GetEmailTypesById(message.Ids)
                 {
                     KeyProperties = message.KeyProperties
-                })).Select(x => new ContactTypeData().Map(x)).ToArray();
+                })).Select(x => new EmailTypeData().Map(x)).ToArray();
 
-                return new ContactTypeResult
+                return new EmailTypeResult
                 {
-                    ContactTypes = contactTypes
+                    EmailTypes = contactTypes
                 };
             }
         }
 
         #endregion
 
-        #region Update ContactType
+        #region Update EmailType
 
-        public async Task<ContactTypeData> Apply(UpdateContactType request, Func<UpdateContactType, Task<ContactTypeData>> next)
+        public async Task<EmailTypeData> Apply(UpdateEmailType request, Func<UpdateEmailType, Task<EmailTypeData>> next)
         {
             using (var scope = _repository.Scopes.Create())
             {
@@ -97,11 +97,11 @@ namespace BibleTraining.Api.ContactType
             }
         }
 
-        public Task<ContactTypeData> Handle(UpdateContactType request)
+        public Task<EmailTypeData> Handle(UpdateEmailType request)
         {
             EmailType.Map(request.Resource);
 
-            return Task.FromResult(new ContactTypeData
+            return Task.FromResult(new EmailTypeData
             {
                 Id = request.Resource.Id
             });
@@ -109,10 +109,10 @@ namespace BibleTraining.Api.ContactType
 
         #endregion
 
-        #region Remove ContactType
+        #region Remove EmailType
 
-        public async Task<ContactTypeData> Apply(
-            RemoveContactType request, Func<RemoveContactType, Task<ContactTypeData>> next)
+        public async Task<EmailTypeData> Apply(
+            RemoveEmailType request, Func<RemoveEmailType, Task<EmailTypeData>> next)
         {
             using (var scope = _repository.Scopes.Create())
             {
@@ -129,11 +129,11 @@ namespace BibleTraining.Api.ContactType
             }
         }
 
-        public Task<ContactTypeData> Handle(RemoveContactType request)
+        public Task<EmailTypeData> Handle(RemoveEmailType request)
         {
             _repository.Context.Remove(EmailType);
 
-            return Task.FromResult(new ContactTypeData
+            return Task.FromResult(new EmailTypeData
             {
                 Id = EmailType.Id,
                 RowVersion = EmailType.RowVersion

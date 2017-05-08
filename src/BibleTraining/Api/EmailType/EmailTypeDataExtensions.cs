@@ -1,10 +1,10 @@
-namespace BibleTraining.Api.ContactType
+namespace BibleTraining.Api.EmailType
 {
     using Entities;
 
-    public static class ContactTypeDataExtensions
+    public static class EmailTypeDataExtensions
     {
-        public static ContactTypeData Map(this ContactTypeData data, EmailType emailType)
+        public static EmailTypeData Map(this EmailTypeData data, EmailType emailType)
         {
             data.Id = emailType.Id;
             data.Name = emailType.Name;

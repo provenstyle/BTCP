@@ -2,7 +2,7 @@ namespace BibleTraining.Test
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using Api.ContactType;
+    using Api.EmailType;
     using Api.Course;
     using Api.Email;
     using Api.Person;
@@ -74,7 +74,7 @@ namespace BibleTraining.Test
             InvalidateCache(new GetCourses());
             InvalidateCache(new GetPeople());
             InvalidateCache(new GetEmails());
-            InvalidateCache(new GetContactTypes());
+            InvalidateCache(new GetEmailTypes());
 
             _context.Stub(p => p.AsQueryable<Entities.Course>())
                 .Return(TestChoice<Entities.Course>(3).TestAsync());

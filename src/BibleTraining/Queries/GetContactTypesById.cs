@@ -5,11 +5,11 @@ namespace BibleTraining.Queries
     using Entities;
     using Highway.Data;
 
-    public class GetContactTypesById : Query<EmailType>
+    public class GetEmailTypesById : Query<EmailType>
     {
         public bool KeyProperties { get; set; }
 
-        public GetContactTypesById(int[] ids)
+        public GetEmailTypesById(int[] ids)
         {
             ContextQuery = c =>
                {

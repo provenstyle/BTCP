@@ -2,9 +2,9 @@ namespace BibleTraining.EntityTypeConfigurations
 {
     using Entities;
 
-    public class ContactTypeEntityTypeConfiguration : BaseEntityTypeConfiguration<EmailType>
+    public class EmailTypeEntityTypeConfiguration : BaseEntityTypeConfiguration<EmailType>
     {
-        public ContactTypeEntityTypeConfiguration()
+        public EmailTypeEntityTypeConfiguration()
         {
             ToTable(nameof(EmailType));
         }

@@ -1,40 +1,41 @@
-namespace BibleTraining.Test.ContactType
+namespace BibleTraining.Test.EmailType
 {
-    using Api.ContactType;
+    using Api.EmailType;
+    using Api.EmailType;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class UpdateContactTypeIntegrityTests
+    public class UpdateEmailTypeIntegrityTests
     {
-        private UpdateContactType updateContactType;
-        private UpdateContactTypeIntegrity validator;
+        private UpdateEmailType _updateEmailType;
+        private UpdateEmailTypeIntegrity validator;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            updateContactType = new UpdateContactType
+            _updateEmailType = new UpdateEmailType
             {
-                Resource = new ContactTypeData
+                Resource = new EmailTypeData
                 {
                     Name = "my name"
                 }
             };
 
-            validator = new UpdateContactTypeIntegrity();
+            validator = new UpdateEmailTypeIntegrity();
         }
 
         [TestMethod]
         public void IsValid()
         {
-            var result = validator.Validate(updateContactType);
+            var result = validator.Validate(_updateEmailType);
             Assert.IsTrue(result.IsValid);
         }
 
         [TestMethod]
         public void MustHaveName()
         {
-            updateContactType.Resource.Name = string.Empty;
-            var result = validator.Validate(updateContactType);
+            _updateEmailType.Resource.Name = string.Empty;
+            var result = validator.Validate(_updateEmailType);
             Assert.IsFalse(result.IsValid);
         }
     }

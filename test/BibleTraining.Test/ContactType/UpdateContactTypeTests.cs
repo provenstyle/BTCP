@@ -1,8 +1,9 @@
-namespace BibleTraining.Test.ContactType
+namespace BibleTraining.Test.EmailType
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using Api.ContactType;
+    using Api.EmailType;
+    using Api.EmailType;
     using Entities;
     using FizzWare.NBuilder;
     using Infrastructure;
@@ -11,10 +12,10 @@ namespace BibleTraining.Test.ContactType
     using Test;
 
     [TestClass]
-    public class UpdateContactTypeTests : TestScenario
+    public class UpdateEmailTypeTests : TestScenario
     {
         [TestMethod]
-        public async Task ShouldUpdateContactType()
+        public async Task ShouldUpdateEmailType()
         {
             var contactType = new EmailType()
             {
@@ -23,7 +24,7 @@ namespace BibleTraining.Test.ContactType
                 RowVersion = new byte[] { 0x01 }
             };
 
-            var contactTypeData = Builder<ContactTypeData>.CreateNew()
+            var contactTypeData = Builder<EmailTypeData>.CreateNew()
                 .With(c => c.Id = 1).And(c => c.RowVersion = new byte[] { 0x01 })
                 .Build();
 
@@ -34,7 +35,7 @@ namespace BibleTraining.Test.ContactType
                 .WhenCalled(inv => contactType.RowVersion = new byte[] { 0x02 })
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new UpdateContactType(contactTypeData));
+            var result = await _mediator.SendAsync(new UpdateEmailType(contactTypeData));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x02 }, result.RowVersion);
 

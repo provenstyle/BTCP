@@ -1,7 +1,8 @@
-namespace BibleTraining.Test.ContactType
+namespace BibleTraining.Test.EmailType
 {
     using System.Threading.Tasks;
-    using Api.ContactType;
+    using Api.EmailType;
+    using Api.EmailType;
     using Entities;
     using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,12 +10,12 @@ namespace BibleTraining.Test.ContactType
     using Test;
 
     [TestClass]
-    public class CreateContactTypeTests : TestScenario
+    public class CreateEmailTypeTests : TestScenario
     {
         [TestMethod]
-        public async Task ShouldCreateContactType()
+        public async Task ShouldCreateEmailType()
         {
-            var contactType = Builder<ContactTypeData>.CreateNew()
+            var contactType = Builder<EmailTypeData>.CreateNew()
                 .With(pg => pg.Id = 0).And(pg => pg.RowVersion = null)
                 .Build();
 
@@ -31,7 +32,7 @@ namespace BibleTraining.Test.ContactType
             _context.Expect(pg => pg.CommitAsync())
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new CreateContactType(contactType));
+            var result = await _mediator.SendAsync(new CreateEmailType(contactType));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x01 }, result.RowVersion);
 

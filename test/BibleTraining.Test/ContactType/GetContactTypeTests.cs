@@ -1,8 +1,9 @@
-namespace BibleTraining.Test.ContactType
+namespace BibleTraining.Test.EmailType
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using Api.ContactType;
+    using Api.EmailType;
+    using Api.EmailType;
     using Entities;
     using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,15 +11,15 @@ namespace BibleTraining.Test.ContactType
     using Test;
 
     [TestClass]
-    public class GetContactTypeTests : TestScenario
+    public class GetEmailTypeTests : TestScenario
     {
         [TestMethod]
-        public async Task ShouldGetContactTypes()
+        public async Task ShouldGetEmailTypes()
         {
             SetupChoices();
 
-            var result = await _mediator.SendAsync(new GetContactTypes());
-            Assert.AreEqual(3, result.ContactTypes.Length);
+            var result = await _mediator.SendAsync(new GetEmailTypes());
+            Assert.AreEqual(3, result.EmailTypes.Length);
 
             _context.VerifyAllExpectations();
         }
@@ -29,10 +30,10 @@ namespace BibleTraining.Test.ContactType
             _context.Stub(p => p.AsQueryable<EmailType>())
                 .Return(TestChoice<EmailType>(3).TestAsync());
 
-            var result = await _mediator.SendAsync(new GetContactTypes { KeyProperties = true });
+            var result = await _mediator.SendAsync(new GetEmailTypes { KeyProperties = true });
 
-            Assert.IsTrue(result.ContactTypes.All(x => x.Name != null));
-            Assert.IsTrue(result.ContactTypes.All(x => x.CreatedBy == null));
+            Assert.IsTrue(result.EmailTypes.All(x => x.Name != null));
+            Assert.IsTrue(result.EmailTypes.All(x => x.CreatedBy == null));
 
             _context.VerifyAllExpectations();
         }

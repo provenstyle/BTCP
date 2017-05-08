@@ -1,11 +1,11 @@
 namespace BibleTraining.Api.Email
 {
-    using ContactType;
+    using EmailType;
     using Improving.MediatR;
 
     public class EmailData : Resource<int>
     {
-        public string          Address     { get; set; }
-        public ContactTypeData ContactType { get; set; }
+        public string        Address     { get; set; }
+        public EmailTypeData EmailType { get; set; }
     }
 }

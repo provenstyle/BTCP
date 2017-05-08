@@ -1,9 +1,11 @@
 namespace BibleTraining.Api.Person
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using BibleTraining;
+    using Email;
     using Entities;
     using Improving.Highway.Data.Scope.Repository;
     using Improving.MediatR;
@@ -162,6 +164,9 @@ namespace BibleTraining.Api.Person
 
             if (data.Image != null)
                 person.Image = data.Image;
+
+            if (data.Emails != null && data.Emails.Any())
+                person.Emails = data.Emails?.Select(x => new Email().Map(x)).ToList();
 
             if (data.CreatedBy != null)
                 person.CreatedBy = data.CreatedBy;

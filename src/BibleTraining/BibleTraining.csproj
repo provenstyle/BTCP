@@ -122,10 +122,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\ContactType\ContactTypeConcurency.cs" />
-    <Compile Include="Api\ContactType\ContactTypeDataExtensions.cs" />
-    <Compile Include="Api\ContactType\ContactTypeExtensions.cs" />
-    <Compile Include="Api\ContactType\CreateContactTypeIntegrity.cs" />
+    <Compile Include="Api\EmailType\EmailTypeConcurency.cs" />
+    <Compile Include="Api\EmailType\EmailTypeDataExtensions.cs" />
+    <Compile Include="Api\EmailType\EmailTypeExtensions.cs" />
+    <Compile Include="Api\EmailType\CreateEmailTypeIntegrity.cs" />
     <Compile Include="Api\Email\CreateEmailIntegrity.cs" />
     <Compile Include="Api\Email\EmailAggregateHandler.cs" />
     <Compile Include="Api\Email\EmailConcurency.cs" />
@@ -135,12 +135,12 @@
     <Compile Include="Entities\Email.cs" />
     <Compile Include="EntityTypeConfigurations\EmailEntityTypeConfiguration.cs" />
     <Compile Include="Queries\GetContactTypesById.cs" />
-    <Compile Include="Api\ContactType\UpdateContactTypeIntegrity.cs" />
+    <Compile Include="Api\EmailType\UpdateEmailTypeIntegrity.cs" />
     <Compile Include="Api\Course\CourseAggregateHandler.cs" />
     <Compile Include="Api\Course\CourseConcurency.cs" />
     <Compile Include="Api\Course\CreateCourseIntegrity.cs" />
     <Compile Include="Api\Course\UpdateCourseIntegrity.cs" />
-    <Compile Include="Api\ContactType\ContactTypeAggregateHandler.cs" />
+    <Compile Include="Api\EmailType\EmailTypeAggregateHandler.cs" />
     <Compile Include="Api\Person\CreatePersonIntegrity.cs" />
     <Compile Include="Api\Person\PersonAggregateHandler.cs" />
     <Compile Include="Api\Person\PersonConcurency.cs" />

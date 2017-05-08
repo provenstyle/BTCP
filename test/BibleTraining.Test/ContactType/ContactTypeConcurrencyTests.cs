@@ -1,8 +1,8 @@
-﻿namespace BibleTraining.Test.ContactType
+﻿namespace BibleTraining.Test.EmailType
 {
     using System.Data.Entity.Core;
     using System.Linq;
-    using Api.ContactType;
+    using Api.EmailType;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using Entities;
@@ -14,7 +14,7 @@
     using Test;
 
     [TestClass]
-    public class ContactTypeConcurrencyTests : TestScenario
+    public class EmailTypeConcurrencyTests : TestScenario
     {
         private EmailType _emailType;
 
@@ -30,18 +30,18 @@
         [TestMethod]
         public void DetectsConcurrencyViolationOnUpdate()
         {
-            var contactType = Builder<ContactTypeData>.CreateNew()
+            var contactType = Builder<EmailTypeData>.CreateNew()
                 .With(c => c.Id = 1).And(c => c.RowVersion = new byte[] { 0x01 })
                 .Build();
 
             _context.Expect(c => c.AsQueryable<EmailType>())
                 .Return(new[] { _emailType }.AsQueryable().TestAsync());
 
-            var request = new UpdateContactType(contactType);
+            var request = new UpdateEmailType(contactType);
 
             try
             {
-                AssertNoValidationErrors<ContactTypeConcurency, UpdateResource<ContactTypeData, int>>(request);
+                AssertNoValidationErrors<EmailTypeConcurency, UpdateResource<EmailTypeData, int>>(request);
                 Assert.Fail("Should have thrown OptimisticConcurrencyException");
             }
             catch (OptimisticConcurrencyException ex)
@@ -54,18 +54,18 @@
         [TestMethod]
         public void DetectsConcurrencyViolationOnRemove()
         {
-            var contactType = Builder<ContactTypeData>.CreateNew()
+            var contactType = Builder<EmailTypeData>.CreateNew()
                 .With(c => c.Id = 1).And(c => c.RowVersion = new byte[] { 0x01 })
                 .Build();
 
             _context.Expect(c => c.AsQueryable<EmailType>())
                 .Return(new[] { _emailType }.AsQueryable().TestAsync());
 
-            var request = new RemoveContactType(contactType);
+            var request = new RemoveEmailType(contactType);
 
             try
             {
-                AssertNoValidationErrors<ContactTypeConcurency, UpdateResource<ContactTypeData, int>>(request);
+                AssertNoValidationErrors<EmailTypeConcurency, UpdateResource<EmailTypeData, int>>(request);
                 Assert.Fail("Should have thrown OptimisticConcurrencyException");
             }
             catch (OptimisticConcurrencyException ex)

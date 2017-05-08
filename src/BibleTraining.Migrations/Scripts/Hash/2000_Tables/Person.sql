@@ -8,7 +8,7 @@ BEGIN
 		Gender    INT            NOT NULL,
 		FirstName NVARCHAR(500)  NOT NULL,
 		LastName  NVARCHAR(500)  NOT NULL,
-        BirthDate Datetime2      NULL,
+        BirthDate DATE           NULL,
 		Image     NVARCHAR(500)  NULL,
 		Bio       NVARCHAR(4000) NULL,
 

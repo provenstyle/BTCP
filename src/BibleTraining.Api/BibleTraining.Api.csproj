@@ -81,12 +81,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContactType\ContactTypeData.cs" />
-    <Compile Include="ContactType\ContactTypeResult.cs" />
-    <Compile Include="ContactType\CreateContactType.cs" />
-    <Compile Include="ContactType\GetContactTypes.cs" />
-    <Compile Include="ContactType\RemoveContactType.cs" />
-    <Compile Include="ContactType\UpdateContactType.cs" />
+    <Compile Include="EmailType\EmailTypeData.cs" />
+    <Compile Include="EmailType\EmailTypeResult.cs" />
+    <Compile Include="EmailType\CreateEmailType.cs" />
+    <Compile Include="EmailType\GetEmailTypes.cs" />
+    <Compile Include="EmailType\RemoveEmailType.cs" />
+    <Compile Include="EmailType\UpdateEmailType.cs" />
     <Compile Include="Course\CourseData.cs" />
     <Compile Include="Course\CourseResult.cs" />
     <Compile Include="Course\CreateCourse.cs" />
