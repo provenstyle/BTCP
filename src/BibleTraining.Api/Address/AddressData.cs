@@ -1,5 +1,6 @@
 namespace BibleTraining.Api.Address
 {
+    using AddressType;
     using Improving.MediatR;
 
     public class AddressData : Resource<int?>
@@ -7,6 +8,9 @@ namespace BibleTraining.Api.Address
         public string Name        { get; set; }
         public string Description { get; set; }
 
-        public int?   PersonId    { get; set; }
+        public int?   PersonId      { get; set; }
+
+        public AddressTypeData AddressType { get; set; }
+        public int?            AddressTypeId { get; set; }
     }
 }

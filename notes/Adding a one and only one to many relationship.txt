@@ -3,17 +3,20 @@ One and only one to many
 C#
 1 Add foreign key to the many side Entity
 2 Add foreign key to the many side Data object.  Make sure it is nullable.
+2 Add data object ot the   many side Data object.  (if desired)
 3 Map the foreign key in the mapping extensions
-4 Add ICollection to the one side
-5 Map the IColleciton in the one side mapping extensions.
-6 Add array to the one side data object 
-7 Add relationship logic to the one side update command 
+3 Add the foreign key to the mapping tests
+4 Add ICollection to the one side (if you want to)
+5 Map the ICollection in the one side mapping extensions.
+6 Add array to the one side data object
+7 Add relationship logic to the one side update command
 8 update Get message with and include property
 9 update Update message handler middleware to include the new relationship in the query
 10 update Get message handler to include the new relationship in the query
 11 update GetById query with and include property and implement include logic
 12 add the foreign key to the create and update integrity rules if needed
 13 add foreign key integrity tests
+14 script any seed data
 
 SQL
 1 Create the table

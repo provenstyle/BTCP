@@ -81,6 +81,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressType\AddressTypeData.cs" />
+    <Compile Include="AddressType\AddressTypeResult.cs" />
+    <Compile Include="AddressType\CreateAddressType.cs" />
+    <Compile Include="AddressType\GetAddressTypes.cs" />
+    <Compile Include="AddressType\RemoveAddressType.cs" />
+    <Compile Include="AddressType\UpdateAddressType.cs" />
     <Compile Include="Address\AddressData.cs" />
     <Compile Include="Address\AddressResult.cs" />
     <Compile Include="Address\CreateAddress.cs" />

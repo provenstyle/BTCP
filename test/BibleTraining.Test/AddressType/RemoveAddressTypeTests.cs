@@ -1,34 +1,31 @@
-﻿namespace BibleTraining.Test.EmailType
+namespace BibleTraining.Test.AddressType
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using Api.EmailType;
-    using Api.EmailType;
-    using Entities;
+    using Api.AddressType;
     using FizzWare.NBuilder;
     using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Rhino.Mocks;
-    using Test;
 
     [TestClass]
-    public class RemoveEmailTypeTests : TestScenario
+    public class RemoveAddressTypeTests : TestScenario
     {
         [TestMethod]
-        public async Task ShouldRemoveEmailType()
+        public async Task ShouldRemoveAddressType()
         {
-            var entity = new EmailType
+            var entity = new AddressType
             {
-                Id = 1,
-                Name = "ABC",
+                Id         = 1,
+                Name       = "a",
                 RowVersion = new byte[] { 0x01 }
             };
 
-            var contactTypeData = Builder<EmailTypeData>.CreateNew()
+            var addressTypeData = Builder<AddressTypeData>.CreateNew()
                 .With(pg => pg.Id = 1).And(c => c.RowVersion = new byte[] { 0x01 })
                 .Build();
 
-            _context.Expect(pg => pg.AsQueryable<EmailType>())
+            _context.Expect(pg => pg.AsQueryable<AddressType>())
                 .Return(new[] { entity }.AsQueryable().TestAsync());
 
             _context.Expect(c => c.Remove(entity))
@@ -37,7 +34,7 @@
             _context.Expect(c => c.CommitAsync())
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new RemoveEmailType(contactTypeData));
+            var result = await _mediator.SendAsync(new RemoveAddressType(addressTypeData));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x01 }, result.RowVersion);
 

@@ -1,7 +1,6 @@
 namespace BibleTraining.Test.EmailType
 {
     using Api.EmailType;
-    using Api.EmailType;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

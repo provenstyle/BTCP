@@ -9,9 +9,11 @@ namespace BibleTraining.Api.Address
         {
             ResourceMapper.Map(data, address);
 
-            data.Name        = address.Name;
-            data.Description = address.Description;
-            data.PersonId    = address.PersonId;
+            data.Name          = address.Name;
+            data.Description   = address.Description;
+
+            data.PersonId      = address.PersonId;
+            data.AddressTypeId = address.AddressTypeId;
 
             return data;
         }

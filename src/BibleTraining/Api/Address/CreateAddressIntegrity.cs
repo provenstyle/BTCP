@@ -17,6 +17,8 @@ namespace BibleTraining.Api.Address
             {
                 RuleFor(x => x.PersonId)
                     .NotNull();
+                RuleFor(x => x.AddressTypeId)
+                    .NotNull();
                 RuleFor(x => x.Name)
                     .NotEmpty();
             }

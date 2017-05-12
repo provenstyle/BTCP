@@ -122,6 +122,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\AddressType\AddressType.cs" />
+    <Compile Include="Api\AddressType\AddressTypeAggregateHandler.cs" />
+    <Compile Include="Api\AddressType\AddressTypeConcurency.cs" />
+    <Compile Include="Api\AddressType\AddressTypeDataExtensions.cs" />
+    <Compile Include="Api\AddressType\AddressTypeExtensions.cs" />
+    <Compile Include="Api\AddressType\CreateAddressTypeIntegrity.cs" />
+    <Compile Include="Api\AddressType\UpdateAddressTypeIntegrity.cs" />
     <Compile Include="Api\Address\AddressAggregateHandler.cs" />
     <Compile Include="Api\Address\AddressConcurency.cs" />
     <Compile Include="Api\Address\AddressDataExtensions.cs" />
@@ -147,8 +154,10 @@
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\Email.cs" />
     <Compile Include="EntityTypeConfigurations\AddressEntityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\AddressTypeEntityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\EmailEntityTypeConfiguration.cs" />
     <Compile Include="Queries\GetAddressesById.cs" />
+    <Compile Include="Queries\GetAddressTypesById.cs" />
     <Compile Include="Queries\GetEmailTypesById.cs" />
     <Compile Include="Api\EmailType\UpdateEmailTypeIntegrity.cs" />
     <Compile Include="Api\Course\CourseAggregateHandler.cs" />

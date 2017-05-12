@@ -3,7 +3,6 @@ namespace BibleTraining.Test.EmailType
     using System.Linq;
     using System.Threading.Tasks;
     using Api.EmailType;
-    using Api.EmailType;
     using Entities;
     using FizzWare.NBuilder;
     using Infrastructure;

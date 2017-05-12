@@ -18,6 +18,9 @@ namespace BibleTraining.Api.Address
             if (data.PersonId.HasValue)
                 address.PersonId = data.PersonId.Value;
 
+            if (data.AddressTypeId.HasValue)
+                address.AddressTypeId = data.AddressTypeId.Value;
+
             return address;
         }
     }

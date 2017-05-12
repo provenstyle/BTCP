@@ -2,7 +2,9 @@ namespace BibleTraining.Test
 {
     using System.Linq;
     using System.Threading.Tasks;
+    using AddressType;
     using Api.Address;
+    using Api.AddressType;
     using Api.EmailType;
     using Api.Course;
     using Api.Email;
@@ -78,6 +80,7 @@ namespace BibleTraining.Test
             InvalidateCache(new GetEmails());
             InvalidateCache(new GetEmailTypes());
             InvalidateCache(new GetAddresses());
+            InvalidateCache(new GetAddressTypes());
 
             _context.Stub(p => p.AsQueryable<Entities.Course>())
                 .Return(TestChoice<Entities.Course>(3).TestAsync());
@@ -93,6 +96,9 @@ namespace BibleTraining.Test
 
             _context.Stub(p => p.AsQueryable<Entities.Address>())
                 .Return(TestChoice<Entities.Address>(3).TestAsync());
+
+            _context.Stub(p => p.AsQueryable<Api.AddressType.AddressType>())
+                .Return(TestChoice<Api.AddressType.AddressType>(3).TestAsync());
         }
 
         protected void InvalidateCache<TResponse>(Request.WithResponse<TResponse> request)

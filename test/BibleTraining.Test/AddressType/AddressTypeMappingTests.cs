@@ -1,58 +1,50 @@
-namespace BibleTraining.Test.Address
+namespace BibleTraining.Test.AddressType
 {
-    using Api.Address;
-    using Entities;
+    using Api.AddressType;
     using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using _CodeGeneration;
 
     [TestClass]
-    public class AddressMappingTests : TestScenario
+    public class AddressTypeMappingTests : TestScenario
     {
         [TestMethod]
         public void ShouldMapResourcesToEntities()
         {
-            var resource = Builder<AddressData>.CreateNew()
+            var resource = Builder<AddressTypeData>.CreateNew()
                 .With(c => c.RowVersion = new byte[] { 0x01 })
                 .Build();
-            var entity = new Address().Map(resource);
+            var entity = new AddressType().Map(resource);
 
             AssertResourcesMapToEntities(entity, resource);
 
             Assert.AreEqual(resource.Name, entity.Name);
             Assert.AreEqual(resource.Description, entity.Description);
-
-            Assert.AreEqual(resource.PersonId, entity.PersonId);
-            Assert.AreEqual(resource.AddressTypeId, entity.AddressTypeId);
         }
 
         [TestMethod]
         public void ShouldMapDefaultResourcesToEntitiesWithNoErrors()
         {
-            new Address().Map(new AddressData());
+            new AddressType().Map(new AddressTypeData());
         }
 
         [TestMethod]
         public void ShouldMapEntitiesToResources()
         {
-            var entity = Builder<Address>.CreateNew()
+            var entity = Builder<AddressType>.CreateNew()
                 .With(c => c.RowVersion = new byte[] { 0x01 })
                 .Build();
-            var resource = new AddressData().Map(entity);
+            var resource = new AddressTypeData().Map(entity);
 
             AssertEntitiesMapToResources(resource, entity);
 
             Assert.AreEqual(entity.Name,        resource.Name);
             Assert.AreEqual(entity.Description, resource.Description);
-
-            Assert.AreEqual(entity.PersonId, resource.PersonId);
-            Assert.AreEqual(entity.AddressTypeId, resource.AddressTypeId);
         }
 
         [TestMethod]
         public void ShouldMapDefaultEntitiesToResourcesWithNoErrors()
         {
-            new AddressData().Map(new Address());
+            new AddressTypeData().Map(new AddressType());
         }
     }
 }

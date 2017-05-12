@@ -143,6 +143,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AddressType\AddressTypeMappingTests.cs" />
+    <Compile Include="AddressType\CreateAddressTypeIntegrityTests.cs" />
+    <Compile Include="AddressType\CreateAddressTypeTests.cs" />
+    <Compile Include="AddressType\GetAddressTypesTests.cs" />
+    <Compile Include="AddressType\RemoveAddressTypeTests.cs" />
+    <Compile Include="AddressType\UpdateAddressTypeIntegrityTests.cs" />
+    <Compile Include="AddressType\UpdateAddressTypeTests.cs" />
+    <Compile Include="AddressType\AddressTypeConcurrencyTests.cs" />
     <Compile Include="Address\CreateAddressIntegrityTests.cs" />
     <Compile Include="Address\CreateAddressTests.cs" />
     <Compile Include="Address\GetAddressesTests.cs" />
@@ -167,13 +175,13 @@
     <Compile Include="Person\RemovePersonTests.cs" />
     <Compile Include="Person\UpdatePersonIntegrityTests.cs" />
     <Compile Include="Person\UpdatePersonTests.cs" />
-    <Compile Include="ContactType\CreateContactTypeIntegrityTests.cs" />
-    <Compile Include="ContactType\CreateContactTypeTests.cs" />
-    <Compile Include="ContactType\GetContactTypeTests.cs" />
-    <Compile Include="ContactType\RemoveContactTypeTests.cs" />
-    <Compile Include="ContactType\UpdateContactTypeIntegrityTests.cs" />
-    <Compile Include="ContactType\UpdateContactTypeTests.cs" />
-    <Compile Include="ContactType\ContactTypeConcurrencyTests.cs" />
+    <Compile Include="EmailType\CreateEmailTypeIntegrityTests.cs" />
+    <Compile Include="EmailType\CreateEmailTypeTests.cs" />
+    <Compile Include="EmailType\GetEmailTypeTests.cs" />
+    <Compile Include="EmailType\RemoveEmailTypeTests.cs" />
+    <Compile Include="EmailType\UpdateEmailTypeIntegrityTests.cs" />
+    <Compile Include="EmailType\UpdateEmailTypeTests.cs" />
+    <Compile Include="EmailType\EmailTypeConcurrencyTests.cs" />
     <Compile Include="Email\CreateEmailIntegrityTests.cs" />
     <Compile Include="Email\CreateEmailTests.cs" />
     <Compile Include="Email\GetEmailsTests.cs" />

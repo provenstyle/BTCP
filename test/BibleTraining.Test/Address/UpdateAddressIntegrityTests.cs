@@ -17,9 +17,10 @@ namespace BibleTraining.Test.Address
             {
                 Resource = new AddressData
                 {
-                    Id       = 1,
-                    PersonId = 1,
-                    Name     = "a"
+                    Id            = 1,
+                    PersonId      = 1,
+                    AddressTypeId = 1,
+                    Name          = "a"
                 }
             };
 
