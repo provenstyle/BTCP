@@ -15,5 +15,6 @@ namespace BibleTraining.Entities
 
         public virtual ICollection<Email>   Emails    { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<Phone>   Phones { get; set; }
     }
 }

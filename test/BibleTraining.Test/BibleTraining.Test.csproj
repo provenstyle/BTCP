@@ -189,6 +189,14 @@
     <Compile Include="Email\UpdateEmailIntegrityTests.cs" />
     <Compile Include="Email\UpdateEmailTests.cs" />
     <Compile Include="Email\EmailConcurrencyTests.cs" />
+    <Compile Include="Phone\CreatePhoneIntegrityTests.cs" />
+    <Compile Include="Phone\CreatePhoneTests.cs" />
+    <Compile Include="Phone\GetPhonesTests.cs" />
+    <Compile Include="Phone\PhoneMappingTests.cs" />
+    <Compile Include="Phone\RemovePhoneTests.cs" />
+    <Compile Include="Phone\UpdatePhoneIntegrityTests.cs" />
+    <Compile Include="Phone\UpdatePhoneTests.cs" />
+    <Compile Include="Phone\PhoneConcurrencyTests.cs" />
     <Compile Include="TestScenario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Address\AddressMappingTests.cs" />

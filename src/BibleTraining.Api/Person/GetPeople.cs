@@ -6,6 +6,7 @@ namespace BibleTraining.Api.Person
     {
         public bool IncludeEmails    { get; set; }
         public bool IncludeAddresses { get; set; }
+        public bool IncludePhones    { get; set; }
 
         public GetPeople()
         {

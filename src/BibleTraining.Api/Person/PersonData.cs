@@ -4,6 +4,7 @@ namespace BibleTraining.Api.Person
     using Address;
     using Email;
     using Improving.MediatR;
+    using Phone;
 
     public class PersonData : Resource<int?>
     {
@@ -16,5 +17,6 @@ namespace BibleTraining.Api.Person
 
         public EmailData[]   Emails    { get; set; }
         public AddressData[] Addresses { get; set; }
+        public PhoneData[]   Phones    { get; set; }
     }
 }

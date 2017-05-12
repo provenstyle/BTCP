@@ -150,12 +150,20 @@
     <Compile Include="Api\EntityMapper.cs" />
     <Compile Include="Api\Person\PersonDataExtensions.cs" />
     <Compile Include="Api\Person\PersonExtensions.cs" />
+    <Compile Include="Api\Phone\CreatePhoneIntegrity.cs" />
+    <Compile Include="Api\Phone\PhoneAggregateHandler.cs" />
+    <Compile Include="Api\Phone\PhoneConcurency.cs" />
+    <Compile Include="Api\Phone\PhoneDataExtensions.cs" />
+    <Compile Include="Api\Phone\PhoneExtensions.cs" />
+    <Compile Include="Api\Phone\UpdatePhoneIntegrity.cs" />
     <Compile Include="Api\ResourceMapper.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\Email.cs" />
+    <Compile Include="Entities\Phone.cs" />
     <Compile Include="EntityTypeConfigurations\AddressEntityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\AddressTypeEntityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\EmailEntityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\PhoneEntityTypeConfiguration.cs" />
     <Compile Include="Queries\GetAddressesById.cs" />
     <Compile Include="Queries\GetAddressTypesById.cs" />
     <Compile Include="Queries\GetEmailTypesById.cs" />
@@ -184,6 +192,7 @@
     <Compile Include="Queries\GetEmailsById.cs" />
     <Compile Include="Queries\GetPersonDetails.cs" />
     <Compile Include="Queries\GetPeopleById.cs" />
+    <Compile Include="Queries\GetPhonesById.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

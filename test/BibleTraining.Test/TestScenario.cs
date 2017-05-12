@@ -2,13 +2,13 @@ namespace BibleTraining.Test
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using AddressType;
     using Api.Address;
     using Api.AddressType;
     using Api.EmailType;
     using Api.Course;
     using Api.Email;
     using Api.Person;
+    using Api.Phone;
     using BibleTraining;
     using Castle.DynamicProxy;
     using Castle.MicroKernel.Lifestyle;
@@ -25,6 +25,7 @@ namespace BibleTraining.Test
     using Infrastructure;
     using MediatR;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Phone;
     using Rhino.Mocks;
 
     public class TestScenario
@@ -81,6 +82,7 @@ namespace BibleTraining.Test
             InvalidateCache(new GetEmailTypes());
             InvalidateCache(new GetAddresses());
             InvalidateCache(new GetAddressTypes());
+            InvalidateCache(new GetPhones());
 
             _context.Stub(p => p.AsQueryable<Entities.Course>())
                 .Return(TestChoice<Entities.Course>(3).TestAsync());
@@ -99,6 +101,9 @@ namespace BibleTraining.Test
 
             _context.Stub(p => p.AsQueryable<Api.AddressType.AddressType>())
                 .Return(TestChoice<Api.AddressType.AddressType>(3).TestAsync());
+
+            _context.Stub(p => p.AsQueryable<Entities.Phone>())
+                .Return(TestChoice<Entities.Phone>(3).TestAsync());
         }
 
         protected void InvalidateCache<TResponse>(Request.WithResponse<TResponse> request)

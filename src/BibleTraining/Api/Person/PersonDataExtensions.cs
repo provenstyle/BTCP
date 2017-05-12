@@ -4,6 +4,7 @@ namespace BibleTraining.Api.Person
     using Address;
     using Email;
     using Entities;
+    using Phone;
 
     public static class PersonDataExtensions
     {
@@ -19,6 +20,7 @@ namespace BibleTraining.Api.Person
 
             data.Emails     = person.Emails?.Select(x => new EmailData().Map(x)).ToArray();
             data.Addresses  = person.Addresses?.Select(x => new AddressData().Map(x)).ToArray();
+            data.Phones     = person.Phones?.Select(x => new PhoneData().Map(x)).ToArray();
 
             data.RowVersion = person.RowVersion;
             data.CreatedBy  = person.CreatedBy;

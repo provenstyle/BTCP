@@ -1,44 +1,45 @@
 One and only one to many
 
 C#
-1 Add foreign key to the many side Entity
-2 Add foreign key to the many side Data object.  Make sure it is nullable.
-2 Add data object ot the   many side Data object.  (if desired)
-3 Map the foreign key in the mapping extensions
-3 Add the foreign key to the mapping tests
-4 Add ICollection to the one side (if you want to)
-5 Map the ICollection in the one side mapping extensions.
-6 Add array to the one side data object
-7 Add relationship logic to the one side update command
-8 update Get message with and include property
-9 update Update message handler middleware to include the new relationship in the query
-10 update Get message handler to include the new relationship in the query
-11 update GetById query with and include property and implement include logic
-12 add the foreign key to the create and update integrity rules if needed
-13 add foreign key integrity tests
-14 script any seed data
+1 Add the new type to the TestScenario.cs SetupChoices method
+2 Add foreign key to the many side Entity
+3 Add foreign key to the many side Data object.  Make sure it is nullable.
+4 Add data object to the many side Data object.  (if desired)
+5 Map the foreign key in the mapping extensions
+6 Add the foreign key to the mapping tests
+7 Add ICollection to the one side (if you want to)
+8 Add array to the one side data object (if you want to)
+9 Map the ICollection in the one side mapping extensions.
+10 Add relationship logic to the one side update command
+11 update Get message with and include property
+12 update GetById query with and include property and implement include logic
+13 update Update message handler middleware to include the new relationship in the query
+14 update Get message handler to include the new relationship in the query
+15 add the foreign key to the create and update integrity rules (if needed)
+16 add foreign key integrity tests
 
 SQL
 1 Create the table
 
-USE $DbName$
-go;
+    USE $DbName$
+    go;
 
-IF OBJECT_ID(N'dbo.Address') IS NULL
-BEGIN
-	CREATE TABLE Address (
-		Id          INT           NOT NULL IDENTITY(1,1),
-		Name        NVARCHAR(500) NOT NULL,
-		Description NVARCHAR(500) NULL,
+    IF OBJECT_ID(N'dbo.Address') IS NULL
+    BEGIN
+        CREATE TABLE Address (
+            Id          INT           NOT NULL IDENTITY(1,1),
+            Name        NVARCHAR(500) NOT NULL,
+            Description NVARCHAR(500) NULL,
 
-		Created     DATETIME2     NOT NULL,
-		CreatedBy   NVARCHAR(500) NOT NULL,
-		Modified    DATETIME2     NOT NULL,
-		ModifiedBy  NVARCHAR(500) NOT NULL,
-		RowVersion  ROWVERSION
+            Created     DATETIME2     NOT NULL,
+            CreatedBy   NVARCHAR(500) NOT NULL,
+            Modified    DATETIME2     NOT NULL,
+            ModifiedBy  NVARCHAR(500) NOT NULL,
+            RowVersion  ROWVERSION
 
-		CONSTRAINT PK_Address PRIMARY KEY CLUSTERED (Id ASC)
-	);
-END
+            CONSTRAINT PK_Address PRIMARY KEY CLUSTERED (Id ASC)
+        );
+    END
 
 2 Create the FK
+3 script any seed data
