@@ -13,6 +13,7 @@ namespace BibleTraining.Entities
         public string   Bio       { get; set; }
         public string   Image     { get; set; }
 
-        public virtual ICollection<Email> Emails { get; set; }
+        public virtual ICollection<Email>   Emails    { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
     }
 }

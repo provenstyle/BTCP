@@ -75,12 +75,12 @@
       <HintPath>..\..\packages\Highway.Pavement.0.3.0.0\lib\net40\Highway.Pavement.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Improving.Highway.Data.Scope, Version=0.2.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Improving.Highway.Data.Scope.0.2.0.6\lib\net461\Improving.Highway.Data.Scope.dll</HintPath>
+    <Reference Include="Improving.Highway.Data.Scope, Version=0.2.1.11, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Improving.Highway.Data.Scope.0.2.1.11-prerelease\lib\net461\Improving.Highway.Data.Scope.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Improving.MediatR, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Improving.MediatR.3.0.2.2\lib\net452\Improving.MediatR.dll</HintPath>
+      <HintPath>..\..\packages\Improving.MediatR.3.0.3.7-prerelease\lib\net452\Improving.MediatR.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MediatR, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -122,6 +122,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Address\AddressAggregateHandler.cs" />
+    <Compile Include="Api\Address\AddressConcurency.cs" />
+    <Compile Include="Api\Address\AddressDataExtensions.cs" />
+    <Compile Include="Api\Address\AddressExtensions.cs" />
+    <Compile Include="Api\Address\CreateAddressIntegrity.cs" />
+    <Compile Include="Api\Address\UpdateAddressIntegrity.cs" />
+    <Compile Include="Api\Course\CourseDataExtensions.cs" />
+    <Compile Include="Api\Course\CourseExtensions.cs" />
     <Compile Include="Api\EmailType\EmailTypeConcurency.cs" />
     <Compile Include="Api\EmailType\EmailTypeDataExtensions.cs" />
     <Compile Include="Api\EmailType\EmailTypeExtensions.cs" />
@@ -132,9 +140,16 @@
     <Compile Include="Api\Email\EmailDataExtensions.cs" />
     <Compile Include="Api\Email\EmailExtensions.cs" />
     <Compile Include="Api\Email\UpdateEmailIntegrity.cs" />
+    <Compile Include="Api\EntityMapper.cs" />
+    <Compile Include="Api\Person\PersonDataExtensions.cs" />
+    <Compile Include="Api\Person\PersonExtensions.cs" />
+    <Compile Include="Api\ResourceMapper.cs" />
+    <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\Email.cs" />
+    <Compile Include="EntityTypeConfigurations\AddressEntityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\EmailEntityTypeConfiguration.cs" />
-    <Compile Include="Queries\GetContactTypesById.cs" />
+    <Compile Include="Queries\GetAddressesById.cs" />
+    <Compile Include="Queries\GetEmailTypesById.cs" />
     <Compile Include="Api\EmailType\UpdateEmailTypeIntegrity.cs" />
     <Compile Include="Api\Course\CourseAggregateHandler.cs" />
     <Compile Include="Api\Course\CourseConcurency.cs" />
@@ -158,6 +173,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetCoursesById.cs" />
     <Compile Include="Queries\GetEmailsById.cs" />
+    <Compile Include="Queries\GetPersonDetails.cs" />
     <Compile Include="Queries\GetPeopleById.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,8 @@ namespace BibleTraining.Api.Email
         {
             data.Id         = email.Id;
             data.Address    = email.Address;
+            data.PersonId   = email.PersonId;
+
             data.RowVersion = email.RowVersion;
             data.CreatedBy  = email.CreatedBy;
             data.Created    = email.Created;

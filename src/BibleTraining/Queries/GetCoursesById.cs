@@ -1,6 +1,5 @@
 namespace BibleTraining.Queries
 {
-    using System.Data.Entity;
     using System.Linq;
     using Entities;
     using Highway.Data;
@@ -9,11 +8,16 @@ namespace BibleTraining.Queries
     {
         public bool KeyProperties { get; set; }
 
+        public GetCoursesById(int? id)
+            :this(new []{ id ?? 0 })
+        {
+        }
+
         public GetCoursesById(int[] ids)
         {
             ContextQuery = c =>
                {
-                   var query = Context.AsQueryable<Course>().AsNoTracking();
+                   var query = Context.AsQueryable<Course>();
 
                    if (ids?.Length == 1)
                    {

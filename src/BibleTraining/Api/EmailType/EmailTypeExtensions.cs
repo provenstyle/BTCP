@@ -7,8 +7,8 @@ namespace BibleTraining.Api.EmailType
     {
         public static EmailType Map(this EmailType emailType, EmailTypeData data)
         {
-            if(data.Id > 0)
-                emailType.Id = data.Id;
+            if(data.Id.HasValue)
+                emailType.Id = data.Id.Value;
 
             if (data.Name != null)
                 emailType.Name = data.Name;

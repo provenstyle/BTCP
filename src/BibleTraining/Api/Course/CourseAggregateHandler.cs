@@ -37,7 +37,7 @@ namespace BibleTraining.Api.Course
         {
             using(var scope = _repository.Scopes.Create())
             {
-                var course = Map(new Course(), message.Resource);
+                var course = new Course().Map(message.Resource);
                 course.Created = _now;
 
                 _repository.Context.Add(course);
@@ -64,7 +64,7 @@ namespace BibleTraining.Api.Course
             {
                 var courses = (await _repository.FindAsync(new GetCoursesById(message.Ids){
                     KeyProperties = message.KeyProperties
-                })).Select(x => Map(new CourseData(), x)).ToArray();
+                })).Select(x => new CourseData().Map(x)).ToArray();
 
                 return new CourseResult
                 {
@@ -81,10 +81,10 @@ namespace BibleTraining.Api.Course
         {
             using (var scope = _repository.Scopes.Create())
             {
-                var data = request.Resource;
-                if (Course == null && data != null)
+                var resource = request.Resource;
+                if (Course == null && resource != null)
                 {
-                    Course = await _repository.FetchByIdAsync<Course>(data.Id);
+                    Course = await _repository.FetchByIdAsync<Course>(resource.Id);
                     Env.Use(Course);
                 }
 
@@ -98,7 +98,7 @@ namespace BibleTraining.Api.Course
 
         public Task<CourseData> Handle(UpdateCourse request)
         {
-            Map(Course, request.Resource);
+            Course.Map(request.Resource);
 
             return Task.FromResult(new CourseData
             {
@@ -141,42 +141,5 @@ namespace BibleTraining.Api.Course
 
         #endregion
 
-
-        #region Mapping
-
-        public Course Map(Course course, CourseData data)
-        {
-            if (data.Name != null)
-                course.Name = data.Name;
-
-            if (data.Description != null)
-                course.Description = data.Description;
-
-            if (data.CreatedBy != null)
-                course.CreatedBy = data.CreatedBy;
-
-            if (data.ModifiedBy != null)
-                course.ModifiedBy = data.ModifiedBy;
-
-            course.Modified = _now;
-
-            return course;
-        }
-
-        public CourseData Map(CourseData data, Course course)
-        {
-            data.Id          = course.Id;
-            data.Name        = course.Name;
-            data.Description = course.Description;
-            data.RowVersion  = course.RowVersion;
-            data.CreatedBy   = course.CreatedBy;
-            data.Created     = course.Created;
-            data.ModifiedBy  = course.ModifiedBy;
-            data.Modified    = course.Modified;
-
-            return data;
-        }
-
-        #endregion
     }
 }

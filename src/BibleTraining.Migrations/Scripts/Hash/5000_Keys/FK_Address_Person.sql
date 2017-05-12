@@ -1,0 +1,8 @@
+﻿USE $DbName$;
+GO
+
+IF OBJECT_ID(N'FK_Address_Person') IS NULL
+BEGIN
+	ALTER TABLE dbo.Address WITH CHECK ADD CONSTRAINT FK_Address_Person FOREIGN KEY(PersonId)
+	REFERENCES dbo.Person (Id);
+END;

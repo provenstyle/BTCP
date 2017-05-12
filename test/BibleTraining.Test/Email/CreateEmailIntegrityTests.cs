@@ -16,7 +16,9 @@
             {
                 Resource = new EmailData
                 {
-                    Address = "my text"
+                    PersonId    = 1,
+                    EmailTypeId = 1,
+                    Address     = "a"
                 }
             };
 
@@ -34,6 +36,22 @@
         public void MustHaveText()
         {
             createEmail.Resource.Address = string.Empty;
+            var result = validator.Validate(createEmail);
+            Assert.IsFalse(result.IsValid);
+        }
+
+        [TestMethod]
+        public void MustHavePersonId()
+        {
+            createEmail.Resource.PersonId = null;
+            var result = validator.Validate(createEmail);
+            Assert.IsFalse(result.IsValid);
+        }
+
+        [TestMethod]
+        public void MustHaveEmailTypeId()
+        {
+            createEmail.Resource.EmailTypeId = null;
             var result = validator.Validate(createEmail);
             Assert.IsFalse(result.IsValid);
         }

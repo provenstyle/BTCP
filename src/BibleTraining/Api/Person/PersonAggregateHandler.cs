@@ -4,14 +4,17 @@ namespace BibleTraining.Api.Person
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Address;
     using BibleTraining;
     using Email;
     using Entities;
     using Improving.Highway.Data.Scope.Repository;
     using Improving.MediatR;
+    using Improving.MediatR.Concurrency;
     using Improving.MediatR.Pipeline;
     using MediatR;
     using Queries;
+    using Test._CodeGeneration;
 
     [RelativeOrder(Stage.Validation - 1)]
     public class PersonAggregateHandler :
@@ -23,13 +26,15 @@ namespace BibleTraining.Api.Person
         IRequestMiddleware<RemovePerson, PersonData>
     {
         private readonly IRepository<BibleTrainingDomain> _repository;
+        private readonly IMediator _mediator;
         private readonly DateTime _now;
 
         public Person Person { get; set; }
 
-        public PersonAggregateHandler(IRepository<IBibleTrainingDomain> repository)
+        public PersonAggregateHandler(IRepository<IBibleTrainingDomain> repository, IMediator mediator)
         {
             _repository = repository;
+            _mediator   = mediator;
             _now        = DateTime.Now;
         }
 
@@ -39,7 +44,7 @@ namespace BibleTraining.Api.Person
         {
             using(var scope = _repository.Scopes.Create())
             {
-                var person = Map(new Person(), message.Resource);
+                var person = new Person().Map(message.Resource);
                 person.Created = _now;
 
                 _repository.Context.Add(person);
@@ -64,8 +69,12 @@ namespace BibleTraining.Api.Person
         {
             using(_repository.Scopes.CreateReadOnly())
             {
-                var people = (await _repository.FindAsync(new GetPeopleById(message.Ids)))
-                    .Select(x => Map(new PersonData(), x)).ToArray();
+                var people = (await _repository.FindAsync(new GetPeopleById(message.Ids)
+                    {
+                        IncludeEmail     = message.IncludeEmails,
+                        IncludeAddresses = message.IncludeAddresses
+                    }))
+                    .Select(x => new PersonData().Map(x)).ToArray();
 
                 return new PersonResult
                 {
@@ -82,10 +91,16 @@ namespace BibleTraining.Api.Person
         {
             using (var scope = _repository.Scopes.Create())
             {
-                var data = request.Resource;
-                if (Person == null && data != null)
+                var resource = request.Resource;
+                if (Person == null && resource != null)
                 {
-                    Person = await _repository.FetchByIdAsync<Person>(data.Id);
+                    Person = (await _repository
+                        .FindAsync(new GetPeopleById(resource.Id)
+                          {
+                              IncludeEmail     = true,
+                              IncludeAddresses = true
+                          }))
+                        .FirstOrDefault();
                     Env.Use(Person);
                 }
 
@@ -97,14 +112,60 @@ namespace BibleTraining.Api.Person
             }
         }
 
-        public Task<PersonData> Handle(UpdatePerson request)
+        public async Task<PersonData> Handle(UpdatePerson request)
         {
-            Map(Person, request.Resource);
+            Person.Map(request.Resource);
 
-            return Task.FromResult(new PersonData
+            var relationships = new List<object>();
+
+            var emails = request.Resource.Emails;
+            if (emails != null)
+            {
+                var adds      = emails.Where(x => !x.Id.HasValue).ToArray();
+                var updates   = emails.Where(x => x.Id.HasValue).ToArray();
+                var updateIds = updates.Select(x => x.Id).ToArray();
+                var removes   = Person.Emails?.Where(x => !updateIds.Contains(x.Id)).ToArray();
+
+                foreach (var add in adds)
+                    relationships.Add(new CreateEmail(add));
+
+                foreach (var update in updates)
+                    relationships.Add(new UpdateEmail(update));
+
+                foreach (var remove in removes)
+                    relationships.Add(new RemoveEmail(new EmailData().Map(remove)));
+            }
+
+            var addresses = request.Resource.Addresses;
+            if (addresses != null)
+            {
+                var adds      = addresses.Where(x => !x.Id.HasValue).ToArray();
+                var updates   = addresses.Where(x => x.Id.HasValue).ToArray();
+                var updateIds = updates.Select(x => x.Id).ToArray();
+                var removes   = Person.Addresses?.Where(x => !updateIds.Contains(x.Id)).ToArray();
+
+                foreach (var add in adds)
+                    relationships.Add(new CreateAddress(add));
+
+                foreach (var update in updates)
+                    relationships.Add(new UpdateAddress(update));
+
+                foreach (var remove in removes)
+                    relationships.Add(new RemoveAddress(new AddressData().Map(remove)));
+            }
+
+            if (relationships.Any())
+            {
+                await _mediator.SendAsync(new Sequential
+                {
+                    Requests = relationships.ToArray()
+                });
+            }
+
+            return new PersonData
             {
                 Id = request.Resource.Id
-            });
+            };
         }
 
         #endregion
@@ -138,64 +199,6 @@ namespace BibleTraining.Api.Person
                 Id         = Person.Id,
                 RowVersion = Person.RowVersion
             });
-        }
-
-        #endregion
-
-
-        #region Mapping
-
-        public Person Map(Person person, PersonData data)
-        {
-            if (data.FirstName != null)
-                person.FirstName = data.FirstName;
-
-            if (data.LastName != null)
-                person.LastName = data.LastName;
-
-            if (data.Bio != null)
-                person.Bio = data.Bio;
-
-            if (data.BirthDate.HasValue)
-                person.BirthDate = data.BirthDate.Value;
-
-            if (data.Gender.HasValue)
-                person.Gender = data.Gender.Value;
-
-            if (data.Image != null)
-                person.Image = data.Image;
-
-            if (data.Emails != null && data.Emails.Any())
-                person.Emails = data.Emails?.Select(x => new Email().Map(x)).ToList();
-
-            if (data.CreatedBy != null)
-                person.CreatedBy = data.CreatedBy;
-
-            if (data.ModifiedBy != null)
-                person.ModifiedBy = data.ModifiedBy;
-
-            person.Modified = _now;
-
-            return person;
-        }
-
-        public PersonData Map(PersonData data, Person person)
-        {
-            data.Id         = person.Id;
-            data.FirstName  = person.FirstName;
-            data.LastName   = person.LastName;
-            data.Bio        = person.Bio;
-            data.BirthDate  = person.BirthDate;
-            data.Gender     = person.Gender;
-            data.Image      = person.Image;
-
-            data.RowVersion = person.RowVersion;
-            data.CreatedBy  = person.CreatedBy;
-            data.Created    = person.Created;
-            data.ModifiedBy = person.ModifiedBy;
-            data.Modified   = person.Modified;
-
-            return data;
         }
 
         #endregion

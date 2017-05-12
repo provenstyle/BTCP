@@ -7,11 +7,17 @@ namespace BibleTraining.Api.Email
     {
         public static Email Map(this Email email, EmailData data)
         {
+            if (data.Id.HasValue)
+                email.Id = data.Id.Value;
+
+            if (data.PersonId.HasValue)
+                email.PersonId = data.PersonId.Value;
+
             if (data.Address != null)
                 email.Address = data.Address;
 
-            if (data.EmailType?.Id > 0)
-                email.EmailTypeId = data.EmailType.Id;
+            if (data.EmailTypeId.HasValue)
+                email.EmailTypeId = data.EmailTypeId.Value;
 
             if (data.CreatedBy != null)
                 email.CreatedBy = data.CreatedBy;

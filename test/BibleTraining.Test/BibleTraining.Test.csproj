@@ -84,13 +84,13 @@
       <HintPath>..\..\packages\Highway.Pavement.0.3.0.0\lib\net40\Highway.Pavement.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Improving.Highway.Data.Scope, Version=0.2.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Improving.Highway.Data.Scope.0.2.0.6\lib\net461\Improving.Highway.Data.Scope.dll</HintPath>
+    <Reference Include="Improving.Highway.Data.Scope, Version=0.2.1.11, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Improving.Highway.Data.Scope.0.2.1.11-prerelease\lib\net461\Improving.Highway.Data.Scope.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Improving.MediatR, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Improving.MediatR.3.0.2.2\lib\net452\Improving.MediatR.dll</HintPath>
+      <HintPath>..\..\packages\Improving.MediatR.3.0.3.7-prerelease\lib\net452\Improving.MediatR.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="MediatR, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MediatR.2.1.0\lib\net45\MediatR.dll</HintPath>
@@ -143,6 +143,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Address\CreateAddressIntegrityTests.cs" />
+    <Compile Include="Address\CreateAddressTests.cs" />
+    <Compile Include="Address\GetAddressesTests.cs" />
+    <Compile Include="Address\RemoveAddressTests.cs" />
+    <Compile Include="Address\UpdateAddressIntegrityTests.cs" />
+    <Compile Include="Address\UpdateAddressTests.cs" />
     <Compile Include="Course\CourseConcurrencyTests.cs" />
     <Compile Include="Course\CreateCourseIntegrityTests.cs" />
     <Compile Include="Course\CreateCourseTests.cs" />
@@ -177,6 +183,8 @@
     <Compile Include="Email\EmailConcurrencyTests.cs" />
     <Compile Include="TestScenario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Address\AddressMappingTests.cs" />
+    <Compile Include="Address\AddressConcurrencyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -192,9 +200,7 @@
       <Name>BibleTraining</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="_CodeGeneration\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

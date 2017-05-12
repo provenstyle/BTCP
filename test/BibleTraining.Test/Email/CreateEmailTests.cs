@@ -3,7 +3,6 @@ namespace BibleTraining.Test.Email
     using System.Threading.Tasks;
     using Api.Email;
     using Entities;
-    using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Rhino.Mocks;
     using Test;
@@ -14,9 +13,12 @@ namespace BibleTraining.Test.Email
         [TestMethod]
         public async Task ShouldCreateEmail()
         {
-            var email = Builder<EmailData>.CreateNew()
-                .With(pg => pg.Id = 0).And(pg => pg.RowVersion = null)
-                .Build();
+            var email = new EmailData
+            {
+                PersonId    = 1,
+                EmailTypeId = 1,
+                Address     = "a"
+            };
 
             _context.Expect(pg => pg.Add(Arg<Email>.Is.Anything))
                 .WhenCalled(inv =>

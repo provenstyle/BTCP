@@ -18,9 +18,11 @@ namespace BibleTraining.Test.Email
         {
             var email= new Email()
             {
-                Id         = 1,
-                Address    = "A",
-                RowVersion = new byte[] { 0x01 }
+                Id          = 1,
+                PersonId    = 1,
+                EmailTypeId = 1,
+                Address     = "A",
+                RowVersion  = new byte[] { 0x01 }
             };
 
             var emailData = Builder<EmailData>.CreateNew()

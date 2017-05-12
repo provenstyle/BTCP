@@ -41,7 +41,7 @@
 
             try
             {
-                AssertNoValidationErrors<EmailConcurency, UpdateResource<EmailData, int>>(request);
+                AssertNoValidationErrors<EmailConcurency, UpdateResource<EmailData, int?>>(request);
                 Assert.Fail("Should have thrown OptimisticConcurrencyException");
             }
             catch (OptimisticConcurrencyException ex)
@@ -65,7 +65,7 @@
 
             try
             {
-                AssertNoValidationErrors<EmailConcurency, UpdateResource<EmailData, int>>(request);
+                AssertNoValidationErrors<EmailConcurency, UpdateResource<EmailData, int?>>(request);
                 Assert.Fail("Should have thrown OptimisticConcurrencyException");
             }
             catch (OptimisticConcurrencyException ex)

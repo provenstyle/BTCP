@@ -1,6 +1,7 @@
 ﻿namespace BibleTraining.Api.Email
 {
     using Entities;
+    using Improving.Highway.Data.Scope;
     using Improving.Highway.Data.Scope.Concurrency;
     using Improving.MediatR;
 

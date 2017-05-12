@@ -2,6 +2,7 @@ namespace BibleTraining.Test
 {
     using System.Linq;
     using System.Threading.Tasks;
+    using Api.Address;
     using Api.EmailType;
     using Api.Course;
     using Api.Email;
@@ -12,6 +13,7 @@ namespace BibleTraining.Test
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using Castle.Windsor.Installer;
+    using Entities;
     using FizzWare.NBuilder;
     using FluentValidation;
     using Highway.Data;
@@ -75,6 +77,7 @@ namespace BibleTraining.Test
             InvalidateCache(new GetPeople());
             InvalidateCache(new GetEmails());
             InvalidateCache(new GetEmailTypes());
+            InvalidateCache(new GetAddresses());
 
             _context.Stub(p => p.AsQueryable<Entities.Course>())
                 .Return(TestChoice<Entities.Course>(3).TestAsync());
@@ -88,6 +91,8 @@ namespace BibleTraining.Test
             _context.Stub(p => p.AsQueryable<Entities.EmailType>())
                 .Return(TestChoice<Entities.EmailType>(3).TestAsync());
 
+            _context.Stub(p => p.AsQueryable<Entities.Address>())
+                .Return(TestChoice<Entities.Address>(3).TestAsync());
         }
 
         protected void InvalidateCache<TResponse>(Request.WithResponse<TResponse> request)
@@ -136,6 +141,24 @@ namespace BibleTraining.Test
             }
         }
 
+        protected void AssertResourcesMapToEntities(Entity entity, Resource<int?> resource)
+        {
+            Assert.AreEqual(resource.Id,         entity.Id);
+            Assert.AreEqual(resource.RowVersion, entity.RowVersion);
+            Assert.AreEqual(resource.ModifiedBy, entity.ModifiedBy);
+
+            Assert.IsTrue(resource.Modified < entity.Modified);
+        }
+
+        protected void AssertEntitiesMapToResources(Resource<int?> resource, Entity entity)
+        {
+            Assert.AreEqual(entity.Id,         resource.Id);
+            Assert.AreEqual(entity.RowVersion, resource.RowVersion);
+            Assert.AreEqual(entity.Created,    resource.Created);
+            Assert.AreEqual(entity.CreatedBy,  resource.CreatedBy);
+            Assert.AreEqual(entity.Modified,   resource.Modified);
+            Assert.AreEqual(entity.ModifiedBy, resource.ModifiedBy);
+        }
     }
 
     class TestScenarioImpl : TestScenario

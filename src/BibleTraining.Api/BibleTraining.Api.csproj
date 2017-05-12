@@ -48,7 +48,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Improving.MediatR, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Improving.MediatR.3.0.2.2\lib\net452\Improving.MediatR.dll</HintPath>
+      <HintPath>..\..\packages\Improving.MediatR.3.0.3.7-prerelease\lib\net452\Improving.MediatR.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MediatR, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -81,6 +81,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Address\AddressData.cs" />
+    <Compile Include="Address\AddressResult.cs" />
+    <Compile Include="Address\CreateAddress.cs" />
+    <Compile Include="Address\GetAddresses.cs" />
+    <Compile Include="Address\RemoveAddress.cs" />
+    <Compile Include="Address\UpdateAddress.cs" />
     <Compile Include="EmailType\EmailTypeData.cs" />
     <Compile Include="EmailType\EmailTypeResult.cs" />
     <Compile Include="EmailType\CreateEmailType.cs" />

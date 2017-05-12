@@ -4,6 +4,9 @@ namespace BibleTraining.Api.Person
 
     public class GetPeople : Request.WithResponse<PersonResult>
     {
+        public bool IncludeEmails    { get; set; }
+        public bool IncludeAddresses { get; set; }
+
         public GetPeople()
         {
             Ids = new int[0];

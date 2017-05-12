@@ -82,10 +82,10 @@ namespace BibleTraining.Api.EmailType
         {
             using (var scope = _repository.Scopes.Create())
             {
-                var data = request.Resource;
-                if (EmailType == null && data != null)
+                var resource = request.Resource;
+                if (EmailType == null && resource != null)
                 {
-                    EmailType = await _repository.FetchByIdAsync<EmailType>(data.Id);
+                    EmailType = await _repository.FetchByIdAsync<EmailType>(resource.Id);
                     Env.Use(EmailType);
                 }
 

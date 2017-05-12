@@ -15,6 +15,12 @@
         {
             public EmailDataIntegrity()
             {
+                RuleFor(x => x.Id)
+                    .NotNull();
+                RuleFor(x => x.PersonId)
+                    .NotNull();
+                RuleFor(x => x.EmailTypeId)
+                    .NotNull();
                 RuleFor(x => x.Address)
                     .NotEmpty();
             }

@@ -98,6 +98,7 @@
     <Content Include="Scripts\Hash\1750_Functions\readme.txt" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\EmailType.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\Email.sql" />
+    <EmbeddedResource Include="Scripts\Hash\2000_Tables\Address.sql" />
     <Content Include="Scripts\Hash\2000_Tables\readme.txt" />
     <Content Include="Scripts\Hash\3000_Synonyms\readme.txt" />
     <Content Include="Scripts\Hash\3500_StoredProcedures\readme.txt" />
@@ -105,6 +106,7 @@
     <Content Include="Scripts\Hash\4500_Jobs\readme.txt" />
     <EmbeddedResource Include="Scripts\Hash\5000_Keys\FK_Email_EmailType.sql" />
     <EmbeddedResource Include="Scripts\Hash\5000_Keys\FK_Email_Person.sql" />
+    <EmbeddedResource Include="Scripts\Hash\5000_Keys\FK_Address_Person.sql" />
     <Content Include="Scripts\Hash\5000_Keys\readme.txt" />
     <Content Include="Scripts\Hash\9000_PostScripts\readme.txt" />
     <EmbeddedResource Include="Scripts\Hash\9000_PostScripts\SeedCourse.sql" />

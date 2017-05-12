@@ -109,12 +109,12 @@
       <HintPath>..\..\packages\Improving.AspNet.0.0.2.1\lib\net461\Improving.AspNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Improving.Highway.Data.Scope, Version=0.2.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Improving.Highway.Data.Scope.0.2.0.6\lib\net461\Improving.Highway.Data.Scope.dll</HintPath>
+    <Reference Include="Improving.Highway.Data.Scope, Version=0.2.1.11, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Improving.Highway.Data.Scope.0.2.1.11-prerelease\lib\net461\Improving.Highway.Data.Scope.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Improving.MediatR, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Improving.MediatR.3.0.2.2\lib\net452\Improving.MediatR.dll</HintPath>
+      <HintPath>..\..\packages\Improving.MediatR.3.0.3.7-prerelease\lib\net452\Improving.MediatR.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MediatR, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">

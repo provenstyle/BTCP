@@ -16,7 +16,10 @@ namespace BibleTraining.Test.Email
             {
                 Resource = new EmailData
                 {
-                    Address = "my text"
+                    Id          = 1,
+                    PersonId    = 1,
+                    EmailTypeId = 1,
+                    Address     = "a"
                 }
             };
 
@@ -34,6 +37,30 @@ namespace BibleTraining.Test.Email
         public void MustHaveText()
         {
             updateEmail.Resource.Address = string.Empty;
+            var result = validator.Validate(updateEmail);
+            Assert.IsFalse(result.IsValid);
+        }
+
+        [TestMethod]
+        public void MustHaveId()
+        {
+            updateEmail.Resource.Id = null;
+            var result = validator.Validate(updateEmail);
+            Assert.IsFalse(result.IsValid);
+        }
+
+        [TestMethod]
+        public void MustHavePersonId()
+        {
+            updateEmail.Resource.PersonId = null;
+            var result = validator.Validate(updateEmail);
+            Assert.IsFalse(result.IsValid);
+        }
+
+        [TestMethod]
+        public void MustHaveEmailTypeId()
+        {
+            updateEmail.Resource.EmailTypeId = null;
             var result = validator.Validate(updateEmail);
             Assert.IsFalse(result.IsValid);
         }
