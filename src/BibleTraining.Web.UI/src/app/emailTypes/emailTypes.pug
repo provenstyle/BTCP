@@ -1,0 +1,10 @@
+﻿.wrapper.wrapper-content
+    .row
+        col-lg-12
+            ibox.float-e-margins
+                .ibox-title
+                    h5 EmailTypes
+                    .ibox-tools
+                        button.btn.btn-primary.btn-xs(ng-click="ctrl.goToCreate()") Create a EmailType
+                .ibox-content
+                    table.table.table-striped.table-bordered.table-hover(datatable dt-options="ctrl.table.options" dt-columns="ctrl.table.columns")

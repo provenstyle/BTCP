@@ -3,16 +3,15 @@
     base2.package(this, {
         name:    "bt",
         imports: "miruken,miruken.mvc,miruken.validate",
-        exports: "Course"
+        exports: "EmailType"
     });
 
     eval(this.imports);
 
-    const Course = Model.extend({
+    const EmailType = Model.extend({
         $properties: {
             id:          undefined,
             name:        { validate: $required },
-            description: { validate: $required },
             createdBy:   undefined,
             modifiedBy:  undefined
         }

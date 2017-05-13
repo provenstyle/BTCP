@@ -293,6 +293,7 @@
     <Compile Include="Features\Home\HomeController.cs" />
     <Compile Include="Features\Home\HomeData.cs" />
     <Compile Include="Features\Home\IBibleTrainingConfig.cs" />
+    <Compile Include="Features\Search\EmailTypesController.cs" />
     <Compile Include="Features\Search\CoursesController.cs" />
     <Compile Include="Features\Search\DataTablesSearchController.cs" />
     <Compile Include="Features\VersionHelper.cs" />
@@ -335,6 +336,13 @@
     <Content Include="Features\Home\Index\View.cshtml" />
     <Content Include="Features\Web.config" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="src\app\domain\emailType.js" />
+    <Content Include="src\app\emailTypes\emailTypeController.js" />
+    <Content Include="src\app\emailTypes\emailTypeFeature.js" />
+    <Content Include="src\app\emailTypes\emailTypeHandler.js" />
+    <Content Include="src\app\emailTypes\emailTypesController.js" />
+    <Content Include="src\app\emailTypes\createEmailTypeController.js" />
+    <Content Include="src\app\emailTypes\editEmailTypeController.js" />
     <Content Include="src\app\courses\editCourseController.js" />
     <Content Include="src\app\courses\courseFeature.js" />
     <Content Include="src\app\courses\courseHandler.js" />
@@ -1352,6 +1360,15 @@
     <Content Include="src\styles\vendor\font-awesome\scss\_screen-reader.scss" />
     <Content Include="src\styles\vendor\font-awesome\scss\_stacked.scss" />
     <Content Include="src\styles\vendor\font-awesome\scss\_variables.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\app\emailTypes\emailType.pug" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\app\emailTypes\emailTypes.pug" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\app\emailTypes\createEditEmailType.pug" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
