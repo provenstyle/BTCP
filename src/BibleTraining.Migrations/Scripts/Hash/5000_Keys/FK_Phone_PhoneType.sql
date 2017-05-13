@@ -1,0 +1,8 @@
+﻿USE $DbName$;
+GO
+
+IF OBJECT_ID(N'FK_Phone_PhoneType') IS NULL
+BEGIN
+	ALTER TABLE dbo.Phone WITH CHECK ADD CONSTRAINT FK_Phone_PhoneType FOREIGN KEY(PhoneTypeId)
+	REFERENCES dbo.PhoneType (Id);
+END;

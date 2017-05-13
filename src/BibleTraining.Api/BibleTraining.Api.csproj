@@ -118,6 +118,7 @@
     <Compile Include="Person\PersonResult.cs" />
     <Compile Include="Person\RemovePerson.cs" />
     <Compile Include="Person\UpdatePerson.cs" />
+    <Compile Include="PhoneType\PhoneTypeData.cs" />
     <Compile Include="Phone\CreatePhone.cs" />
     <Compile Include="Phone\GetPhones.cs" />
     <Compile Include="Phone\PhoneData.cs" />

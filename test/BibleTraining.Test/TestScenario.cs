@@ -26,6 +26,7 @@ namespace BibleTraining.Test
     using MediatR;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Phone;
+    using PhoneType;
     using Rhino.Mocks;
 
     public class TestScenario
@@ -83,6 +84,7 @@ namespace BibleTraining.Test
             InvalidateCache(new GetAddresses());
             InvalidateCache(new GetAddressTypes());
             InvalidateCache(new GetPhones());
+            InvalidateCache(new GetPhoneTypes());
 
             _context.Stub(p => p.AsQueryable<Entities.Course>())
                 .Return(TestChoice<Entities.Course>(3).TestAsync());
@@ -104,6 +106,9 @@ namespace BibleTraining.Test
 
             _context.Stub(p => p.AsQueryable<Entities.Phone>())
                 .Return(TestChoice<Entities.Phone>(3).TestAsync());
+
+            _context.Stub(p => p.AsQueryable<Entities.PhoneType>())
+                .Return(TestChoice<Entities.PhoneType>(3).TestAsync());
         }
 
         protected void InvalidateCache<TResponse>(Request.WithResponse<TResponse> request)

@@ -15,6 +15,8 @@ namespace BibleTraining.Api.Phone
         {
             public PhoneDataIntegrity()
             {
+                RuleFor(x => x.PhoneTypeId)
+                    .NotNull();
                 RuleFor(x => x.Name)
                     .NotEmpty();
             }

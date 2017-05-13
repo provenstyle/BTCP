@@ -7,6 +7,8 @@ namespace BibleTraining.Api.Phone
     {
         public static Phone Map(this Phone phone, PhoneData data)
         {
+            if (data == null) return null;
+
             EntityMapper.Map(phone, data);
 
             if (data.Name != null)
@@ -17,6 +19,9 @@ namespace BibleTraining.Api.Phone
 
             if (data.PersonId.HasValue)
                 phone.PersonId = data.PersonId.Value;
+
+            if (data.PhoneTypeId.HasValue)
+                phone.PhoneTypeId = data.PhoneTypeId.Value;
 
             return phone;
         }

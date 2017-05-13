@@ -101,6 +101,7 @@
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\Address.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\AddressType.sql" />
     <EmbeddedResource Include="Scripts\Hash\2000_Tables\Phone.sql" />
+    <EmbeddedResource Include="Scripts\Hash\2000_Tables\PhoneType.sql" />
     <Content Include="Scripts\Hash\2000_Tables\readme.txt" />
     <Content Include="Scripts\Hash\3000_Synonyms\readme.txt" />
     <Content Include="Scripts\Hash\3500_StoredProcedures\readme.txt" />
@@ -111,6 +112,7 @@
     <EmbeddedResource Include="Scripts\Hash\5000_Keys\FK_Address_Person.sql" />
     <EmbeddedResource Include="Scripts\Hash\5000_Keys\FK_Address_AddressType.sql" />
     <EmbeddedResource Include="Scripts\Hash\5000_Keys\FK_Phone_Person.sql" />
+    <EmbeddedResource Include="Scripts\Hash\5000_Keys\FK_Phone_PhoneType.sql" />
     <Content Include="Scripts\Hash\5000_Keys\readme.txt" />
     <Content Include="Scripts\Hash\9000_PostScripts\readme.txt" />
     <EmbeddedResource Include="Scripts\Hash\9000_PostScripts\SeedCourse.sql" />

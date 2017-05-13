@@ -1,20 +1,19 @@
 namespace BibleTraining.Api.Email
 {
+    using EmailType;
     using Entities;
 
     public static class EmailDataExtensions
     {
         public static EmailData Map(this EmailData data, Email email)
         {
-            data.Id         = email.Id;
+            ResourceMapper.Map(data, email);
+
             data.Address    = email.Address;
             data.PersonId   = email.PersonId;
 
-            data.RowVersion = email.RowVersion;
-            data.CreatedBy  = email.CreatedBy;
-            data.Created    = email.Created;
-            data.ModifiedBy = email.ModifiedBy;
-            data.Modified   = email.Modified;
+            data.EmailTypeId = email.EmailTypeId;
+            data.EmailType   = new EmailTypeData().Map(email.EmailType);
 
             return data;
         }

@@ -1,12 +1,10 @@
 ﻿USE $DbName$
 go;
 
-IF OBJECT_ID(N'dbo.Phone') IS NULL
+IF OBJECT_ID(N'dbo.PhoneType') IS NULL
 BEGIN
-	CREATE TABLE Phone (
+	CREATE TABLE PhoneType (
 		Id            INT           NOT NULL IDENTITY(1,1),
-		PersonId      INT           NOT NULL,
-		PhoneTypeId   INT           NOT NULL,
 		Name          NVARCHAR(500) NOT NULL,
 		Description   NVARCHAR(500) NULL,
 
@@ -16,6 +14,6 @@ BEGIN
 		ModifiedBy    NVARCHAR(500) NOT NULL,
 		RowVersion    ROWVERSION
 
-		CONSTRAINT PK_Phone PRIMARY KEY CLUSTERED (Id ASC)
+		CONSTRAINT PK_PhoneType PRIMARY KEY CLUSTERED (Id ASC)
 	);
 END

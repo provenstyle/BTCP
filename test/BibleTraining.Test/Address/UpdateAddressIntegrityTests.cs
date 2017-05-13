@@ -49,5 +49,13 @@ namespace BibleTraining.Test.Address
             var result = validator.Validate(updateAddress);
             Assert.IsFalse(result.IsValid);
         }
+
+        [TestMethod]
+        public void MustHaveAddressTypeId()
+        {
+            updateAddress.Resource.AddressTypeId = null;
+            var result = validator.Validate(updateAddress);
+            Assert.IsFalse(result.IsValid);
+        }
     }
 }

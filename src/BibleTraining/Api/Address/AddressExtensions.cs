@@ -7,6 +7,8 @@ namespace BibleTraining.Api.Address
     {
         public static Address Map(this Address address, AddressData data)
         {
+            if (data == null) return null;
+
             EntityMapper.Map(address, data);
 
             if (data.Name != null)

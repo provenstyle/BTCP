@@ -150,6 +150,8 @@
     <Compile Include="Api\EntityMapper.cs" />
     <Compile Include="Api\Person\PersonDataExtensions.cs" />
     <Compile Include="Api\Person\PersonExtensions.cs" />
+    <Compile Include="Api\PhoneType\PhoneTypeDataExtensions.cs" />
+    <Compile Include="Api\PhoneType\PhoneTypeExtensions.cs" />
     <Compile Include="Api\Phone\CreatePhoneIntegrity.cs" />
     <Compile Include="Api\Phone\PhoneAggregateHandler.cs" />
     <Compile Include="Api\Phone\PhoneConcurency.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\Email.cs" />
     <Compile Include="Entities\Phone.cs" />
+    <Compile Include="Entities\PhoneType.cs" />
     <Compile Include="EntityTypeConfigurations\AddressEntityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\AddressTypeEntityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\EmailEntityTypeConfiguration.cs" />

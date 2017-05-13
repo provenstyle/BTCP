@@ -10,6 +10,7 @@ C#
 7 Add ICollection to the one side (if you want to)
 8 Add array to the one side data object (if you want to)
 9 Map the ICollection in the one side mapping extensions.
+9 Map the dataObject in the may side mapping extensions.
 10 Add relationship logic to the one side update command
 11 update Get message with and include property
 12 update GetById query with and include property and implement include logic

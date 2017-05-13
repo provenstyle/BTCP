@@ -6,6 +6,8 @@ namespace BibleTraining.Api.AddressType
     {
         public static AddressTypeData Map(this AddressTypeData data, AddressType addressType)
         {
+            if (addressType == null) return null;
+
             ResourceMapper.Map(data, addressType);
 
             data.Name        = addressType.Name;

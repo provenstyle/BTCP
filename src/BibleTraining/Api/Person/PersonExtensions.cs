@@ -1,12 +1,15 @@
 namespace BibleTraining.Api.Person
 {
-    using System;
     using Entities;
 
     public static class PersonExtensions
     {
         public static Person Map(this Person person, PersonData data)
         {
+            if (data == null) return null;
+
+            EntityMapper.Map(person, data);
+
             if (data.FirstName != null)
                 person.FirstName = data.FirstName;
 
@@ -24,14 +27,6 @@ namespace BibleTraining.Api.Person
 
             if (data.Image != null)
                 person.Image = data.Image;
-
-            if (data.CreatedBy != null)
-                person.CreatedBy = data.CreatedBy;
-
-            if (data.ModifiedBy != null)
-                person.ModifiedBy = data.ModifiedBy;
-
-            person.Modified = DateTime.Now;
 
             return person;
         }

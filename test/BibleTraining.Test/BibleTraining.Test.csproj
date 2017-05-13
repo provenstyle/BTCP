@@ -189,6 +189,7 @@
     <Compile Include="Email\UpdateEmailIntegrityTests.cs" />
     <Compile Include="Email\UpdateEmailTests.cs" />
     <Compile Include="Email\EmailConcurrencyTests.cs" />
+    <Compile Include="PhoneType\_PhoneType.cs" />
     <Compile Include="Phone\CreatePhoneIntegrityTests.cs" />
     <Compile Include="Phone\CreatePhoneTests.cs" />
     <Compile Include="Phone\GetPhonesTests.cs" />

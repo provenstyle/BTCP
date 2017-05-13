@@ -16,7 +16,8 @@ namespace BibleTraining.Test.Phone
             {
                 Resource = new PhoneData
                 {
-                    Name = "a"
+                    Name        = "a",
+                    PhoneTypeId = 1
                 }
             };
 
@@ -28,6 +29,14 @@ namespace BibleTraining.Test.Phone
         {
             var result = validator.Validate(createPhone);
             Assert.IsTrue(result.IsValid);
+        }
+
+        [TestMethod]
+        public void MustHavePhoneTypeId()
+        {
+            createPhone.Resource.PhoneTypeId = null;
+            var result = validator.Validate(createPhone);
+            Assert.IsFalse(result.IsValid);
         }
 
         [TestMethod]
