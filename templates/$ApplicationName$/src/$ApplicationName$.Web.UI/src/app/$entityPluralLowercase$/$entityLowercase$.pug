@@ -1,0 +1,11 @@
+﻿.wrapper.wrapper-content
+    .row
+        .col-lg-6
+            .ibox.float-e-margins
+                .ibox-title
+                    h5 $Entity$
+                    .ibox-tools
+                        button.btn.btn-primary.btn-xs(ng-click="ctrl.goToEdit()") Edit $Entity$
+                .ibox-content
+                    h3 {{ ctrl.$entityLowercase$.name }}
+                    p  {{ ctrl.$entityLowercase$.description }}
