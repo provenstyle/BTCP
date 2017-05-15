@@ -101,8 +101,8 @@ namespace BibleTraining.Test
             _context.Stub(p => p.AsQueryable<Entities.Address>())
                 .Return(TestChoice<Entities.Address>(3).TestAsync());
 
-            _context.Stub(p => p.AsQueryable<Api.AddressType.AddressType>())
-                .Return(TestChoice<Api.AddressType.AddressType>(3).TestAsync());
+            _context.Stub(p => p.AsQueryable<Entities.AddressType>())
+                .Return(TestChoice<Entities.AddressType>(3).TestAsync());
 
             _context.Stub(p => p.AsQueryable<Entities.Phone>())
                 .Return(TestChoice<Entities.Phone>(3).TestAsync());

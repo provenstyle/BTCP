@@ -1,6 +1,7 @@
 namespace BibleTraining.Api.AddressType
 {
     using Api;
+    using Entities;
 
     public static class AddressTypeDataExtensions
     {

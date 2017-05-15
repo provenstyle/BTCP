@@ -6,6 +6,7 @@
     using Api.AddressType;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
+    using Entities;
     using FizzWare.NBuilder;
     using Improving.MediatR;
     using Infrastructure;

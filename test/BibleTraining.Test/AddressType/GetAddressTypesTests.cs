@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Api.AddressType;
+    using Entities;
     using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Rhino.Mocks;

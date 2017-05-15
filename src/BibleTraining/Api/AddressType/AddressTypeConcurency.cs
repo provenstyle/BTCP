@@ -1,5 +1,6 @@
 namespace BibleTraining.Api.AddressType
 {
+    using Entities;
     using Improving.Highway.Data.Scope.Concurrency;
     using Improving.MediatR;
 

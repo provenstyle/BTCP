@@ -1,6 +1,6 @@
 namespace BibleTraining.EntityTypeConfigurations
 {
-    using Api.AddressType;
+    using Entities;
 
     public class AddressTypeEntityTypeConfiguration : BaseEntityTypeConfiguration<AddressType>
     {

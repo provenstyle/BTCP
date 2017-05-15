@@ -1,6 +1,7 @@
 namespace BibleTraining.Test.AddressType
 {
     using Api.AddressType;
+    using Entities;
     using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 

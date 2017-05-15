@@ -3,6 +3,7 @@ namespace BibleTraining.Api.AddressType
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+    using Entities;
     using Improving.Highway.Data.Scope.Repository;
     using Improving.MediatR;
     using Improving.MediatR.Pipeline;

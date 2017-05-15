@@ -122,7 +122,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\AddressType\AddressType.cs" />
     <Compile Include="Api\AddressType\AddressTypeAggregateHandler.cs" />
     <Compile Include="Api\AddressType\AddressTypeConcurency.cs" />
     <Compile Include="Api\AddressType\AddressTypeDataExtensions.cs" />
@@ -160,6 +159,7 @@
     <Compile Include="Api\Phone\UpdatePhoneIntegrity.cs" />
     <Compile Include="Api\ResourceMapper.cs" />
     <Compile Include="Entities\Address.cs" />
+    <Compile Include="Entities\AddressType.cs" />
     <Compile Include="Entities\Email.cs" />
     <Compile Include="Entities\Phone.cs" />
     <Compile Include="Entities\PhoneType.cs" />

@@ -1,7 +1,7 @@
 namespace BibleTraining.Queries
 {
     using System.Linq;
-    using Api.AddressType;
+    using Entities;
     using Highway.Data;
 
     public class GetAddressTypesById : Query<AddressType>

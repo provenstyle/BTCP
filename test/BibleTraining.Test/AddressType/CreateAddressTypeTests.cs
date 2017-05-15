@@ -2,6 +2,7 @@ namespace BibleTraining.Test.AddressType
 {
     using System.Threading.Tasks;
     using Api.AddressType;
+    using Entities;
     using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Rhino.Mocks;
