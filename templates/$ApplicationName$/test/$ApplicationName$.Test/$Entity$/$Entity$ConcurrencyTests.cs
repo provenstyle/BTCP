@@ -8,6 +8,8 @@ namespace $ApplicationName$.Test.$Entity$
     using FizzWare.NBuilder;
     using Improving.MediatR;
     using Rhino.Mocks;
+    using Entity;
+    using Infrastructure;
 
     [TestClass]
     public class $Entity$ConcurrencyTests : TestScenario

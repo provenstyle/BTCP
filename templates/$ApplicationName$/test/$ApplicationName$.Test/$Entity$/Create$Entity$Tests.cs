@@ -4,6 +4,8 @@ namespace $ApplicationName$.Test.$Entity$
     using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Rhino.Mocks;
+    using Entity;
+    using Infrastructure;
 
     [TestClass]
     public class Create$Entity$Tests : TestScenario

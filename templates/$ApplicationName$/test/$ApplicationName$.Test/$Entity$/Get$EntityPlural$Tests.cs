@@ -4,6 +4,8 @@ namespace $ApplicationName$.Test.$Entity$
     using System.Linq;
     using System.Threading.Tasks;
     using Rhino.Mocks;
+    using Entity;
+    using Infrastructure;
 
     [TestClass]
     public class Get$EntityPlural$Tests : TestScenario

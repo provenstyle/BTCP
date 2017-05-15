@@ -1,5 +1,7 @@
 namespace $ApplicationName$.Api.$Entity$
 {
+    using Entity;
+
     public static class $Entity$Extensions
     {
         public static $Entity$ Map(this $Entity$ $entityLowercase$, $Entity$Data data)

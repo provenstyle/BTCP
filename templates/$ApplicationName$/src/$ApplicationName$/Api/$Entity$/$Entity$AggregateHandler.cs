@@ -7,6 +7,7 @@ namespace $ApplicationName$.Api.$Entity$
     using Improving.MediatR;
     using Improving.MediatR.Pipeline;
     using MediatR;
+    using Entity;
 
     [RelativeOrder(Stage.Validation - 1)]
     public class $Entity$AggregateHandler :
