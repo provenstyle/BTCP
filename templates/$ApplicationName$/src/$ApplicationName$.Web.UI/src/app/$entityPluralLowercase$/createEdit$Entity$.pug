@@ -1,4 +1,4 @@
-﻿.div
+﻿div
     .row.wrapper.border-bottom.white-bg.page-heading
         .col-lg-10
             h2 {{ctrl.title}}
@@ -12,27 +12,23 @@
 
     .wrapper.wrapper-content
         .row
-            .col-lg-6
-                .ibox.float-e-margins
-                    .ibox-title
-                        h5 {{ctrl.title}}
-
-                    .ibox-content
-                        form.form-horizontal
-                            .form-group
-                                label.col-lg-2.control-label Name
-                                .col-lg-10
-                                    input.form-control(type="text" placeholder="Name" ng-model="ctrl.$entityLowercase$.name")
-                                    div.text-danger(ng-messages='ctrl.$validation.$entityLowercase$.name.errors')
-                                        div.small(ng-message='presence') $Entity$ name is required
-                            .form-group
-                                label.col-lg-2.control-label Description
-                                .col-lg-10
-                                    input.form-control(type="text" placeholder="Description" ng-model="ctrl.$entityLowercase$.description")
-                                    div.text-danger(ng-messages='ctrl.$validation.$entityLowercase$.description.errors')
-                                        div.small(ng-message='presence') $Entity$ description is required
-                            .form-group
-                                .col-lg-offset-2.col-lg-10
-                                     button.btn.btn-sm.btn-white(type="submit" ng-click="ctrl.cancel()") Cancel
-                                     button.btn.btn-sm.btn-primary(type="submit" ng-click="ctrl.save()") {{ctrl.buttonText}}
-                                     a.btn.btn-link.pull-right(ng-if="ctrl.idEdit" ng-click="ctrl.remove()") Delete
+            .col-lg-12
+                .ibox-content
+                    form.form-horizontal
+                        .form-group
+                            label.col-lg-2.control-label Name
+                            .col-lg-10
+                                input.form-control(type="text" placeholder="Name" ng-model="ctrl.$entityLowercase$.name")
+                                div.text-danger(ng-messages='ctrl.$validation.$entityLowercase$.name.errors')
+                                    div.small(ng-message='presence') $Entity$ name is required
+                        .form-group
+                            label.col-lg-2.control-label Description
+                            .col-lg-10
+                                input.form-control(type="text" placeholder="Description" ng-model="ctrl.$entityLowercase$.description")
+                                div.text-danger(ng-messages='ctrl.$validation.$entityLowercase$.description.errors')
+                                    div.small(ng-message='presence') $Entity$ description is required
+                        .form-group
+                            .col-lg-offset-2.col-lg-10
+                                 button.btn.btn-sm.btn-white(type="submit" ng-click="ctrl.cancel()") Cancel
+                                 button.btn.btn-sm.btn-primary(type="submit" ng-click="ctrl.save()") {{ctrl.buttonText}}
+                                 a.btn.btn-link.pull-right(ng-if="ctrl.idEdit" ng-click="ctrl.remove()") Delete

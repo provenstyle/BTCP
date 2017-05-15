@@ -8,13 +8,8 @@
                 li.active
                     a(href="#!/create$Entity$/showCreate$Entity$") Create $Entity$
 
-	.wrapper.wrapper-content
-	    .row
-	        col-lg-12
-	            ibox.float-e-margins
-	                .ibox-title
-	                    h5 $EntityPlural$
-	                    .ibox-tools
-	                        button.btn.btn-primary.btn-xs(ng-click="ctrl.goToCreate()") Create a $Entity$
-	                .ibox-content
-	                    table.table.table-striped.table-bordered.table-hover(datatable dt-options="ctrl.table.options" dt-columns="ctrl.table.columns")
+    .wrapper.wrapper-content
+        .row
+            col-lg-12
+                .ibox-content
+                    table.table.table-striped.table-bordered.table-hover(datatable dt-options="ctrl.table.options" dt-columns="ctrl.table.columns")
