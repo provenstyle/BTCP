@@ -1,9 +1,8 @@
 namespace $ApplicationName$.Test.$Entity$
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Entities;
-    using Infrastructure;
-
+    using Api.$Entity$;
+    
     [TestClass]
     public class Update$Entity$IntegrityTests
     {

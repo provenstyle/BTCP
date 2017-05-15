@@ -3,8 +3,8 @@ namespace $ApplicationName$.Test.$Entity$
     using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Entities;
-    using Infrastructure;
-
+    using Api.$Entity$;
+    
     [TestClass]
     public class $Entity$MappingTests : TestScenario
     {

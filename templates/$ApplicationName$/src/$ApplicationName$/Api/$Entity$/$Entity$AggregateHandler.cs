@@ -8,6 +8,7 @@ namespace $ApplicationName$.Api.$Entity$
     using Improving.MediatR.Pipeline;
     using MediatR;
     using Entities;
+    using Queries;
 
     [RelativeOrder(Stage.Validation - 1)]
     public class $Entity$AggregateHandler :

@@ -2,6 +2,7 @@ namespace $ApplicationName$.Queries
 {
     using System.Linq;
     using Highway.Data;
+    using Entities;
     
     public class Get$EntityPlural$ById : Query<$Entity$>
     {

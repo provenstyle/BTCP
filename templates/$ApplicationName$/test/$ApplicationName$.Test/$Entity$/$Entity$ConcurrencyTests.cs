@@ -10,6 +10,8 @@ namespace $ApplicationName$.Test.$Entity$
     using Rhino.Mocks;
     using Entities;
     using Infrastructure;
+    using Api.$Entity$;
+
 
     [TestClass]
     public class $Entity$ConcurrencyTests : TestScenario
