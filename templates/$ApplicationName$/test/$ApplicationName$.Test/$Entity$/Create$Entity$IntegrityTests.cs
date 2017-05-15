@@ -1,7 +1,7 @@
 namespace $ApplicationName$.Test.$Entity$ 
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Entity;
+    using Entities;
     using Infrastructure;
 
     [TestClass]

@@ -8,7 +8,7 @@ namespace $ApplicationName$.Test.$Entity$
     using FizzWare.NBuilder;
     using Improving.MediatR;
     using Rhino.Mocks;
-    using Entity;
+    using Entities;
     using Infrastructure;
 
     [TestClass]

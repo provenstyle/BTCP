@@ -1,6 +1,6 @@
 namespace $ApplicationName$.EntityTypeConfigurations
 {
-	using Entity;
+	using Entities;
 
     public class $Entity$EntityTypeConfiguration : BaseEntityTypeConfiguration<$Entity$>
     {

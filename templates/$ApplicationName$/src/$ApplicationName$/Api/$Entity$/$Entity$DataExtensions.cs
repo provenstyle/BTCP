@@ -1,6 +1,6 @@
 namespace $ApplicationName$.Api.$Entity$
 {
-    using Entity;
+    using Entities;
     
     public static class $Entity$DataExtensions
     {

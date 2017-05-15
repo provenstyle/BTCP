@@ -5,7 +5,7 @@ namespace $ApplicationName$.Test.$Entity$
     using System.Threading.Tasks;
     using FizzWare.NBuilder;
     using Rhino.Mocks;
-    using Entity;
+    using Entities;
     using Infrastructure;
 
 

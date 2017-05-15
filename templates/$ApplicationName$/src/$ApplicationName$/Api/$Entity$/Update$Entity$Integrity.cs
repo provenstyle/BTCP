@@ -1,7 +1,7 @@
 namespace $ApplicationName$.Api.$Entity$
 {
     using FluentValidation;
-    using Entity;
+    using Entities;
 
     public class Update$Entity$Integrity : AbstractValidator<Update$Entity$>
     {
