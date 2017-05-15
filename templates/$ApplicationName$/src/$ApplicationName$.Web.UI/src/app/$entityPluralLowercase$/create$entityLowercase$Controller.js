@@ -10,9 +10,10 @@
 
     const Create$Entity$Controller = Controller.extend({
         $properties:{
-            title:      "Create A $Entity$",
+            title:      "Create $Entity$",
             buttonText: "Create $Entity$",
-            $entityLowercase$:     { validate: $nested }
+            isCreate:   true,
+            $entityLowercase$: { validate: $nested }
         },
         constructor() {
             this.$entityLowercase$ = new $Entity$();

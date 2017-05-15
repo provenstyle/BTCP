@@ -10,10 +10,10 @@
 
     const Edit$Entity$Controller = Controller.extend({
         $properties: {
-            title:      "Edit A $Entity$",
+            title:      "Edit $Entity$",
             buttonText: "Save $Entity$",
-            showDelete: true,
-            $entityLowercase$:     { validate: $nested }
+            isEdit:     true,
+            $entityLowercase$: { validate: $nested }
         },
 
         showEdit$Entity$(data) {
