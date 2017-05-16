@@ -143,6 +143,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Address\AddressConcurrencyTests.cs" />
+    <Compile Include="Address\AddressMappingTests.cs" />
+    <Compile Include="Address\CreateAddressIntegrityTests.cs" />
+    <Compile Include="Address\CreateAddressTests.cs" />
+    <Compile Include="Address\GetAddressesTests.cs" />
+    <Compile Include="Address\RemoveAddressTests.cs" />
+    <Compile Include="Address\UpdateAddressIntegrityTests.cs" />
+    <Compile Include="Address\UpdateAddressTests.cs" />
+    <Compile Include="AddressType\AddressTypeConcurrencyTests.cs" />
     <Compile Include="AddressType\AddressTypeMappingTests.cs" />
     <Compile Include="AddressType\CreateAddressTypeIntegrityTests.cs" />
     <Compile Include="AddressType\CreateAddressTypeTests.cs" />
@@ -150,13 +159,6 @@
     <Compile Include="AddressType\RemoveAddressTypeTests.cs" />
     <Compile Include="AddressType\UpdateAddressTypeIntegrityTests.cs" />
     <Compile Include="AddressType\UpdateAddressTypeTests.cs" />
-    <Compile Include="AddressType\AddressTypeConcurrencyTests.cs" />
-    <Compile Include="Address\CreateAddressIntegrityTests.cs" />
-    <Compile Include="Address\CreateAddressTests.cs" />
-    <Compile Include="Address\GetAddressesTests.cs" />
-    <Compile Include="Address\RemoveAddressTests.cs" />
-    <Compile Include="Address\UpdateAddressIntegrityTests.cs" />
-    <Compile Include="Address\UpdateAddressTests.cs" />
     <Compile Include="Course\CourseConcurrencyTests.cs" />
     <Compile Include="Course\CreateCourseIntegrityTests.cs" />
     <Compile Include="Course\CreateCourseTests.cs" />
@@ -164,6 +166,20 @@
     <Compile Include="Course\RemoveCourseTests.cs" />
     <Compile Include="Course\UpdateCourseIntegrityTests.cs" />
     <Compile Include="Course\UpdateCourseTests.cs" />
+    <Compile Include="Email\CreateEmailIntegrityTests.cs" />
+    <Compile Include="Email\CreateEmailTests.cs" />
+    <Compile Include="Email\EmailConcurrencyTests.cs" />
+    <Compile Include="Email\GetEmailsTests.cs" />
+    <Compile Include="Email\RemoveEmailTests.cs" />
+    <Compile Include="Email\UpdateEmailIntegrityTests.cs" />
+    <Compile Include="Email\UpdateEmailTests.cs" />
+    <Compile Include="EmailType\CreateEmailTypeIntegrityTests.cs" />
+    <Compile Include="EmailType\CreateEmailTypeTests.cs" />
+    <Compile Include="EmailType\EmailTypeConcurrencyTests.cs" />
+    <Compile Include="EmailType\GetEmailTypeTests.cs" />
+    <Compile Include="EmailType\RemoveEmailTypeTests.cs" />
+    <Compile Include="EmailType\UpdateEmailTypeIntegrityTests.cs" />
+    <Compile Include="EmailType\UpdateEmailTypeTests.cs" />
     <Compile Include="Infrastructure\AsyncQueryTesting.cs" />
     <Compile Include="Infrastructure\TestDbAsyncEnumerable.cs" />
     <Compile Include="Infrastructure\TestDbAsyncEnumerator.cs" />
@@ -175,33 +191,24 @@
     <Compile Include="Person\RemovePersonTests.cs" />
     <Compile Include="Person\UpdatePersonIntegrityTests.cs" />
     <Compile Include="Person\UpdatePersonTests.cs" />
-    <Compile Include="EmailType\CreateEmailTypeIntegrityTests.cs" />
-    <Compile Include="EmailType\CreateEmailTypeTests.cs" />
-    <Compile Include="EmailType\GetEmailTypeTests.cs" />
-    <Compile Include="EmailType\RemoveEmailTypeTests.cs" />
-    <Compile Include="EmailType\UpdateEmailTypeIntegrityTests.cs" />
-    <Compile Include="EmailType\UpdateEmailTypeTests.cs" />
-    <Compile Include="EmailType\EmailTypeConcurrencyTests.cs" />
-    <Compile Include="Email\CreateEmailIntegrityTests.cs" />
-    <Compile Include="Email\CreateEmailTests.cs" />
-    <Compile Include="Email\GetEmailsTests.cs" />
-    <Compile Include="Email\RemoveEmailTests.cs" />
-    <Compile Include="Email\UpdateEmailIntegrityTests.cs" />
-    <Compile Include="Email\UpdateEmailTests.cs" />
-    <Compile Include="Email\EmailConcurrencyTests.cs" />
-    <Compile Include="PhoneType\_PhoneType.cs" />
     <Compile Include="Phone\CreatePhoneIntegrityTests.cs" />
     <Compile Include="Phone\CreatePhoneTests.cs" />
     <Compile Include="Phone\GetPhonesTests.cs" />
+    <Compile Include="Phone\PhoneConcurrencyTests.cs" />
     <Compile Include="Phone\PhoneMappingTests.cs" />
     <Compile Include="Phone\RemovePhoneTests.cs" />
     <Compile Include="Phone\UpdatePhoneIntegrityTests.cs" />
     <Compile Include="Phone\UpdatePhoneTests.cs" />
-    <Compile Include="Phone\PhoneConcurrencyTests.cs" />
-    <Compile Include="TestScenario.cs" />
+    <Compile Include="PhoneType\CreatePhoneTypeIntegrityTests.cs" />
+    <Compile Include="PhoneType\CreatePhoneTypeTests.cs" />
+    <Compile Include="PhoneType\GetPhoneTypesTests.cs" />
+    <Compile Include="PhoneType\PhoneTypeConcurrencyTests.cs" />
+    <Compile Include="PhoneType\PhoneTypeMappingTests.cs" />
+    <Compile Include="PhoneType\RemovePhoneTypeTests.cs" />
+    <Compile Include="PhoneType\UpdatePhoneTypeIntegrityTests.cs" />
+    <Compile Include="PhoneType\UpdatePhoneTypeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Address\AddressMappingTests.cs" />
-    <Compile Include="Address\AddressConcurrencyTests.cs" />
+    <Compile Include="TestScenario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

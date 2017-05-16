@@ -1,6 +1,5 @@
 namespace BibleTraining.Api.PhoneType
 {
-    using Api;
     using Entities;
 
     public static class PhoneTypeExtensions
@@ -13,7 +12,7 @@ namespace BibleTraining.Api.PhoneType
 
             if (data.Name != null)
                 phoneType.Name = data.Name;
-
+                
             if (data.Description != null)
                 phoneType.Description = data.Description;
 

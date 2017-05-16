@@ -1,10 +1,17 @@
-﻿.wrapper.wrapper-content
-    .row
-        .col-lg-6
-            .ibox.float-e-margins
-                .ibox-title
-                    h5 EmailType
-                    .ibox-tools
-                        button.btn.btn-primary.btn-xs(ng-click="ctrl.goToEdit()") Edit EmailType
+div
+    .row.wrapper.border-bottom.white-bg.page-heading
+        .col-lg-10
+            h2 EmailType
+            ol.breadcrumb
+                li
+                    a(href="#!/emailTypes/showEmailTypes") EmailTypes
+                li
+                    a(href="#!/createEmailType/showCreateEmailType") Create EmailType
+
+    .wrapper.wrapper-content
+        .row
+            .col-lg-12
                 .ibox-content
+                    button.btn.btn-primary.btn-xs.pull-right(ng-click="ctrl.goToEdit()") Edit EmailType
                     h3 {{ ctrl.emailType.name }}
+                    p  {{ ctrl.emailType.description }}

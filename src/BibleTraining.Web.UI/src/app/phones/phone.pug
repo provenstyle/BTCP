@@ -1,0 +1,17 @@
+div
+    .row.wrapper.border-bottom.white-bg.page-heading
+        .col-lg-10
+            h2 Phone
+            ol.breadcrumb
+                li
+                    a(href="#!/phones/showPhones") Phones
+                li
+                    a(href="#!/createPhone/showCreatePhone") Create Phone
+
+    .wrapper.wrapper-content
+        .row
+            .col-lg-12
+                .ibox-content
+                    button.btn.btn-primary.btn-xs.pull-right(ng-click="ctrl.goToEdit()") Edit Phone
+                    h3 {{ ctrl.phone.name }}
+                    p  {{ ctrl.phone.description }}

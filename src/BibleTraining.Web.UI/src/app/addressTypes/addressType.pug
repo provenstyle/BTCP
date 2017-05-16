@@ -1,0 +1,17 @@
+div
+    .row.wrapper.border-bottom.white-bg.page-heading
+        .col-lg-10
+            h2 AddressType
+            ol.breadcrumb
+                li
+                    a(href="#!/addressTypes/showAddressTypes") AddressTypes
+                li
+                    a(href="#!/createAddressType/showCreateAddressType") Create AddressType
+
+    .wrapper.wrapper-content
+        .row
+            .col-lg-12
+                .ibox-content
+                    button.btn.btn-primary.btn-xs.pull-right(ng-click="ctrl.goToEdit()") Edit AddressType
+                    h3 {{ ctrl.addressType.name }}
+                    p  {{ ctrl.addressType.description }}

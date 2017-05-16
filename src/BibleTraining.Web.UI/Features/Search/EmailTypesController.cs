@@ -1,4 +1,4 @@
-﻿namespace BibleTraining.Web.UI.Features.Search
+namespace BibleTraining.Web.UI.Features.Search
 {
     using System.Linq;
     using DataTables.AspNet.Core;
@@ -24,7 +24,6 @@
                 return column.Sort.Direction == SortDirection.Descending
                     ? queryable.OrderByDescending(x => x.Name)
                     : queryable.OrderBy(x => x.Name);
-
             return queryable;
         }
 

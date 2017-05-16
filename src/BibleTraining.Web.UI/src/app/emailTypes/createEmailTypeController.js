@@ -1,4 +1,4 @@
-﻿new function() {
+new function() {
 
     bt.package(this, {
         name:    "emailType",
@@ -10,9 +10,10 @@
 
     const CreateEmailTypeController = Controller.extend({
         $properties:{
-            title:      "Create An Email Type",
-            buttonText: "Create Email Type",
-            emailType:  { validate: $nested }
+            title:      "Create EmailType",
+            buttonText: "Create EmailType",
+            isCreate:   true,
+            emailType: { validate: $nested }
         },
         constructor() {
             this.emailType = new EmailType();

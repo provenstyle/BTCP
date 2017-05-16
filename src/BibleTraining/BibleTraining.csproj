@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -87,6 +87,7 @@
       <HintPath>..\..\packages\MediatR.2.1.0\lib\net45\MediatR.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -106,6 +107,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
@@ -114,88 +118,90 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\AddressType\AddressTypeAggregateHandler.cs" />
-    <Compile Include="Api\AddressType\AddressTypeConcurency.cs" />
-    <Compile Include="Api\AddressType\AddressTypeDataExtensions.cs" />
-    <Compile Include="Api\AddressType\AddressTypeExtensions.cs" />
-    <Compile Include="Api\AddressType\CreateAddressTypeIntegrity.cs" />
-    <Compile Include="Api\AddressType\UpdateAddressTypeIntegrity.cs" />
     <Compile Include="Api\Address\AddressAggregateHandler.cs" />
     <Compile Include="Api\Address\AddressConcurency.cs" />
     <Compile Include="Api\Address\AddressDataExtensions.cs" />
     <Compile Include="Api\Address\AddressExtensions.cs" />
     <Compile Include="Api\Address\CreateAddressIntegrity.cs" />
     <Compile Include="Api\Address\UpdateAddressIntegrity.cs" />
+    <Compile Include="Api\AddressType\AddressTypeAggregateHandler.cs" />
+    <Compile Include="Api\AddressType\AddressTypeConcurency.cs" />
+    <Compile Include="Api\AddressType\AddressTypeDataExtensions.cs" />
+    <Compile Include="Api\AddressType\AddressTypeExtensions.cs" />
+    <Compile Include="Api\AddressType\CreateAddressTypeIntegrity.cs" />
+    <Compile Include="Api\AddressType\UpdateAddressTypeIntegrity.cs" />
+    <Compile Include="Api\Course\CourseAggregateHandler.cs" />
+    <Compile Include="Api\Course\CourseConcurency.cs" />
     <Compile Include="Api\Course\CourseDataExtensions.cs" />
     <Compile Include="Api\Course\CourseExtensions.cs" />
-    <Compile Include="Api\EmailType\EmailTypeConcurency.cs" />
-    <Compile Include="Api\EmailType\EmailTypeDataExtensions.cs" />
-    <Compile Include="Api\EmailType\EmailTypeExtensions.cs" />
-    <Compile Include="Api\EmailType\CreateEmailTypeIntegrity.cs" />
+    <Compile Include="Api\Course\CreateCourseIntegrity.cs" />
+    <Compile Include="Api\Course\UpdateCourseIntegrity.cs" />
     <Compile Include="Api\Email\CreateEmailIntegrity.cs" />
     <Compile Include="Api\Email\EmailAggregateHandler.cs" />
     <Compile Include="Api\Email\EmailConcurency.cs" />
     <Compile Include="Api\Email\EmailDataExtensions.cs" />
     <Compile Include="Api\Email\EmailExtensions.cs" />
     <Compile Include="Api\Email\UpdateEmailIntegrity.cs" />
+    <Compile Include="Api\EmailType\CreateEmailTypeIntegrity.cs" />
+    <Compile Include="Api\EmailType\EmailTypeAggregateHandler.cs" />
+    <Compile Include="Api\EmailType\EmailTypeConcurency.cs" />
+    <Compile Include="Api\EmailType\EmailTypeDataExtensions.cs" />
+    <Compile Include="Api\EmailType\EmailTypeExtensions.cs" />
+    <Compile Include="Api\EmailType\UpdateEmailTypeIntegrity.cs" />
     <Compile Include="Api\EntityMapper.cs" />
+    <Compile Include="Api\Person\CreatePersonIntegrity.cs" />
+    <Compile Include="Api\Person\PersonAggregateHandler.cs" />
+    <Compile Include="Api\Person\PersonConcurency.cs" />
     <Compile Include="Api\Person\PersonDataExtensions.cs" />
     <Compile Include="Api\Person\PersonExtensions.cs" />
-    <Compile Include="Api\PhoneType\PhoneTypeDataExtensions.cs" />
-    <Compile Include="Api\PhoneType\PhoneTypeExtensions.cs" />
+    <Compile Include="Api\Person\UpdatePersonIntegrity.cs" />
     <Compile Include="Api\Phone\CreatePhoneIntegrity.cs" />
     <Compile Include="Api\Phone\PhoneAggregateHandler.cs" />
     <Compile Include="Api\Phone\PhoneConcurency.cs" />
     <Compile Include="Api\Phone\PhoneDataExtensions.cs" />
     <Compile Include="Api\Phone\PhoneExtensions.cs" />
     <Compile Include="Api\Phone\UpdatePhoneIntegrity.cs" />
+    <Compile Include="Api\PhoneType\CreatePhoneTypeIntegrity.cs" />
+    <Compile Include="Api\PhoneType\PhoneTypeAggregateHandler.cs" />
+    <Compile Include="Api\PhoneType\PhoneTypeConcurency.cs" />
+    <Compile Include="Api\PhoneType\PhoneTypeDataExtensions.cs" />
+    <Compile Include="Api\PhoneType\PhoneTypeExtensions.cs" />
+    <Compile Include="Api\PhoneType\UpdatePhoneTypeIntegrity.cs" />
     <Compile Include="Api\ResourceMapper.cs" />
+    <Compile Include="BibleTrainingDomain.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\AddressType.cs" />
+    <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\Email.cs" />
+    <Compile Include="Entities\EmailType.cs" />
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\Person.cs" />
     <Compile Include="Entities\Phone.cs" />
     <Compile Include="Entities\PhoneType.cs" />
     <Compile Include="EntityTypeConfigurations\AddressEntityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\AddressTypeEntityTypeConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\EmailEntityTypeConfiguration.cs" />
-    <Compile Include="EntityTypeConfigurations\PhoneEntityTypeConfiguration.cs" />
-    <Compile Include="Queries\GetAddressesById.cs" />
-    <Compile Include="Queries\GetAddressTypesById.cs" />
-    <Compile Include="Queries\GetEmailTypesById.cs" />
-    <Compile Include="Api\EmailType\UpdateEmailTypeIntegrity.cs" />
-    <Compile Include="Api\Course\CourseAggregateHandler.cs" />
-    <Compile Include="Api\Course\CourseConcurency.cs" />
-    <Compile Include="Api\Course\CreateCourseIntegrity.cs" />
-    <Compile Include="Api\Course\UpdateCourseIntegrity.cs" />
-    <Compile Include="Api\EmailType\EmailTypeAggregateHandler.cs" />
-    <Compile Include="Api\Person\CreatePersonIntegrity.cs" />
-    <Compile Include="Api\Person\PersonAggregateHandler.cs" />
-    <Compile Include="Api\Person\PersonConcurency.cs" />
-    <Compile Include="Api\Person\UpdatePersonIntegrity.cs" />
-    <Compile Include="BibleTrainingDomain.cs" />
-    <Compile Include="Entities\EmailType.cs" />
-    <Compile Include="Entities\Course.cs" />
-    <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\Person.cs" />
-    <Compile Include="EntityTypeConfigurations\ContactTypeEntityTypeConfiguration.cs" />
-    <Compile Include="MappingConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\BaseEntityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\CourseEntityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\EmailEntityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\EmailTypeEntityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\PersonEntityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\PhoneEntityTypeConfiguration.cs" />
+    <Compile Include="EntityTypeConfigurations\PhoneTypeEntityTypeConfiguration.cs" />
+    <Compile Include="MappingConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\GetAddressesById.cs" />
+    <Compile Include="Queries\GetAddressTypesById.cs" />
     <Compile Include="Queries\GetCoursesById.cs" />
     <Compile Include="Queries\GetEmailsById.cs" />
-    <Compile Include="Queries\GetPersonDetails.cs" />
+    <Compile Include="Queries\GetEmailTypesById.cs" />
     <Compile Include="Queries\GetPeopleById.cs" />
+    <Compile Include="Queries\GetPersonDetails.cs" />
     <Compile Include="Queries\GetPhonesById.cs" />
+    <Compile Include="Queries\GetPhoneTypesById.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

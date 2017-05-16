@@ -1,4 +1,4 @@
-﻿new function() {
+new function() {
 
     bt.package(this, {
         name:    "emailType",
@@ -10,10 +10,10 @@
 
     const EditEmailTypeController = Controller.extend({
         $properties: {
-            title:      "Edit A EmailType",
+            title:      "Edit EmailType",
             buttonText: "Save EmailType",
-            showDelete: true,
-            emailType:     { validate: $nested }
+            isEdit:     true,
+            emailType: { validate: $nested }
         },
 
         showEditEmailType(data) {

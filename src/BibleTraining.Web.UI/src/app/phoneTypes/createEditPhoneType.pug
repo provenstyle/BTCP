@@ -1,0 +1,34 @@
+div
+    .row.wrapper.border-bottom.white-bg.page-heading
+        .col-lg-10
+            h2 {{ctrl.title}}
+            ol.breadcrumb
+                li
+                    a(href="#!/phoneTypes/showPhoneTypes") PhoneTypes
+                li(ng-if="ctrl.isEdit")
+                    a(href="#!/createPhoneType/showCreatePhoneType") Create PhoneType
+                li.active(ng-if="ctrl.isCreate")
+                    strong Create PhoneType
+
+    .wrapper.wrapper-content
+        .row
+            .col-lg-12
+                .ibox-content
+                    form.form-horizontal
+                        .form-group
+                            label.col-lg-2.control-label Name
+                            .col-lg-10
+                                input.form-control(type="text" placeholder="Name" ng-model="ctrl.phoneType.name")
+                                div.text-danger(ng-messages='ctrl.$validation.phoneType.name.errors')
+                                    div.small(ng-message='presence') PhoneType name is required
+                        .form-group
+                            label.col-lg-2.control-label Description
+                            .col-lg-10
+                                input.form-control(type="text" placeholder="Description" ng-model="ctrl.phoneType.description")
+                                div.text-danger(ng-messages='ctrl.$validation.phoneType.description.errors')
+                                    div.small(ng-message='presence') PhoneType description is required
+                        .form-group
+                            .col-lg-offset-2.col-lg-10
+                                 button.btn.btn-sm.btn-white(type="submit" ng-click="ctrl.cancel()") Cancel
+                                 button.btn.btn-sm.btn-primary(type="submit" ng-click="ctrl.save()") {{ctrl.buttonText}}
+                                 a.btn.btn-link.pull-right(ng-if="ctrl.idEdit" ng-click="ctrl.remove()") Delete

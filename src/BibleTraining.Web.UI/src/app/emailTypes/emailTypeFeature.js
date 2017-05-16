@@ -1,4 +1,4 @@
-﻿new function() {
+new function() {
 
     bt.package(this, {
         name:    "emailType",

@@ -1,0 +1,17 @@
+div
+    .row.wrapper.border-bottom.white-bg.page-heading
+        .col-lg-10
+            h2 Email
+            ol.breadcrumb
+                li
+                    a(href="#!/emails/showEmails") Emails
+                li
+                    a(href="#!/createEmail/showCreateEmail") Create Email
+
+    .wrapper.wrapper-content
+        .row
+            .col-lg-12
+                .ibox-content
+                    button.btn.btn-primary.btn-xs.pull-right(ng-click="ctrl.goToEdit()") Edit Email
+                    h3 {{ ctrl.email.name }}
+                    p  {{ ctrl.email.description }}

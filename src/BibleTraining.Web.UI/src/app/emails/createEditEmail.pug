@@ -1,0 +1,34 @@
+div
+    .row.wrapper.border-bottom.white-bg.page-heading
+        .col-lg-10
+            h2 {{ctrl.title}}
+            ol.breadcrumb
+                li
+                    a(href="#!/emails/showEmails") Emails
+                li(ng-if="ctrl.isEdit")
+                    a(href="#!/createEmail/showCreateEmail") Create Email
+                li.active(ng-if="ctrl.isCreate")
+                    strong Create Email
+
+    .wrapper.wrapper-content
+        .row
+            .col-lg-12
+                .ibox-content
+                    form.form-horizontal
+                        .form-group
+                            label.col-lg-2.control-label Name
+                            .col-lg-10
+                                input.form-control(type="text" placeholder="Name" ng-model="ctrl.email.name")
+                                div.text-danger(ng-messages='ctrl.$validation.email.name.errors')
+                                    div.small(ng-message='presence') Email name is required
+                        .form-group
+                            label.col-lg-2.control-label Description
+                            .col-lg-10
+                                input.form-control(type="text" placeholder="Description" ng-model="ctrl.email.description")
+                                div.text-danger(ng-messages='ctrl.$validation.email.description.errors')
+                                    div.small(ng-message='presence') Email description is required
+                        .form-group
+                            .col-lg-offset-2.col-lg-10
+                                 button.btn.btn-sm.btn-white(type="submit" ng-click="ctrl.cancel()") Cancel
+                                 button.btn.btn-sm.btn-primary(type="submit" ng-click="ctrl.save()") {{ctrl.buttonText}}
+                                 a.btn.btn-link.pull-right(ng-if="ctrl.idEdit" ng-click="ctrl.remove()") Delete
