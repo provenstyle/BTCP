@@ -25,7 +25,6 @@ namespace BibleTraining.Test
     using Infrastructure;
     using MediatR;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Phone;
     using PhoneType;
     using Rhino.Mocks;
 
@@ -77,38 +76,20 @@ namespace BibleTraining.Test
 
         protected virtual void SetupChoices()
         {
-            InvalidateCache(new GetCourses());
-            InvalidateCache(new GetPeople());
-            InvalidateCache(new GetEmails());
-            InvalidateCache(new GetEmailTypes());
-            InvalidateCache(new GetAddresses());
-            InvalidateCache(new GetAddressTypes());
-            InvalidateCache(new GetPhones());
-            InvalidateCache(new GetPhoneTypes());
+            GenerateEntity<Entities.Course>();
+            GenerateEntity<Entities.Person>();
+            GenerateEntity<Entities.Email>();
+            GenerateEntity<Entities.EmailType>();
+            GenerateEntity<Entities.Address>();
+            GenerateEntity<Entities.AddressType>();
+            GenerateEntity<Entities.Phone>();
+            GenerateEntity<Entities.PhoneType>();
+        }
 
-            _context.Stub(p => p.AsQueryable<Entities.Course>())
-                .Return(TestChoice<Entities.Course>(3).TestAsync());
-
-            _context.Stub(p => p.AsQueryable<Entities.Person>())
-                .Return(TestChoice<Entities.Person>(3).TestAsync());
-
-            _context.Stub(p => p.AsQueryable<Entities.Email>())
-                .Return(TestChoice<Entities.Email>(3).TestAsync());
-
-            _context.Stub(p => p.AsQueryable<Entities.EmailType>())
-                .Return(TestChoice<Entities.EmailType>(3).TestAsync());
-
-            _context.Stub(p => p.AsQueryable<Entities.Address>())
-                .Return(TestChoice<Entities.Address>(3).TestAsync());
-
-            _context.Stub(p => p.AsQueryable<Entities.AddressType>())
-                .Return(TestChoice<Entities.AddressType>(3).TestAsync());
-
-            _context.Stub(p => p.AsQueryable<Entities.Phone>())
-                .Return(TestChoice<Entities.Phone>(3).TestAsync());
-
-            _context.Stub(p => p.AsQueryable<Entities.PhoneType>())
-                .Return(TestChoice<Entities.PhoneType>(3).TestAsync());
+        private void GenerateEntity<T>() where T : class
+        {
+            _context.Stub(p => p.AsQueryable<T>())
+                .Return(TestChoice<T>(3).TestAsync());
         }
 
         protected void InvalidateCache<TResponse>(Request.WithResponse<TResponse> request)
