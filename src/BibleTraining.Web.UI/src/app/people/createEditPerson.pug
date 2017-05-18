@@ -1,0 +1,54 @@
+div
+    .row.wrapper.border-bottom.white-bg.page-heading
+        .col-lg-10
+            h2 {{ctrl.title}}
+            ol.breadcrumb
+                li
+                    a(href="#!/people/showPeople") People
+                li(ng-if="ctrl.isEdit")
+                    a(href="#!/createPerson/showCreatePerson") Create Person
+                li.active(ng-if="ctrl.isCreate")
+                    strong Create Person
+
+    .wrapper.wrapper-content
+        .row
+            .col-lg-12
+                .ibox-content
+                    form.form-horizontal
+
+                        .form-group
+                            label.col-lg-2.control-label First Name
+                            .col-lg-10
+                                input.form-control(type="text" placeholder="First Name" ng-model="ctrl.person.firstName")
+                                div.text-danger(ng-messages='ctrl.$validation.person.firstName.errors')
+                                    div.small(ng-message='presence') First Name is required
+                        .form-group
+                            label.col-lg-2.control-label Last Name
+                            .col-lg-10
+                                input.form-control(type="text" placeholder="Last Name" ng-model="ctrl.person.lastName")
+                                div.text-danger(ng-messages='ctrl.$validation.person.lastName.errors')
+                                    div.small(ng-message='presence') Last Name is required
+                        .form-group
+                            label.col-lg-2.control-label Gender
+                            .col-lg-10
+                                input.form-control(type="text" placeholder="Gender" ng-model="ctrl.person.gender")
+                                div.text-danger(ng-messages='ctrl.$validation.person.gender.errors')
+                                    div.small(ng-message='presence') Gender is required
+                        .form-group
+                            label.col-lg-2.control-label Birthdate
+                            .col-lg-10
+                                input.form-control(type="text" placeholder="Birthdate" ng-model="ctrl.person.birthdate")
+                        .form-group
+                            label.col-lg-2.control-label Bio
+                            .col-lg-10
+                                input.form-control(type="text" placeholder="Bio" ng-model="ctrl.person.bio")
+                        .form-group
+                            label.col-lg-2.control-label Image
+                            .col-lg-10
+                                input.form-control(type="text" placeholder="Image" ng-model="ctrl.person.Image")
+
+                        .form-group
+                            .col-lg-offset-2.col-lg-10
+                                 button.btn.btn-sm.btn-white(type="submit" ng-click="ctrl.cancel()") Cancel
+                                 button.btn.btn-sm.btn-primary(type="submit" ng-click="ctrl.save()") {{ctrl.buttonText}}
+                                 a.btn.btn-link.pull-right(ng-if="ctrl.idEdit" ng-click="ctrl.remove()") Delete

@@ -1,0 +1,55 @@
+﻿.contact-list .contact-element {
+  border-bottom: 1px solid $border-color;
+}
+
+.contact-element:first-child {
+  margin-top: 0;
+}
+
+.contact-element {
+  padding-bottom: 15px;
+}
+
+.contact-element, .contact-element .media {
+  margin-top: 15px;
+}
+
+.contact-element, .media-body {
+  overflow: hidden;
+}
+
+.contact-element > .pull-left {
+  margin-right: 10px;
+}
+
+.contact-element img.img-circle, .dropdown-messages-box img.img-circle {
+  width: 38px;
+  height: 38px;
+}
+
+.contact-element .well {
+  border: 1px solid $border-color;
+  box-shadow: none;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  padding: 10px 20px;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.contact-element .actions {
+  margin-top: 10px;
+}
+
+.contact-element .photos {
+  margin: 10px 0;
+
+}
+
+.contact-photo {
+  max-height: 180px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}

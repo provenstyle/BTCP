@@ -16,7 +16,7 @@
 //@import "../../bower_components/bootswatch/cerulean/bootswatch";
 //@import "../../bower_components/bootstrap-chosen/bootstrap-chosen";
 @import "vendor/font-awesome/scss/font-awesome";
-@import "vendor/inspinia/style"; 
+@import "vendor/inspinia/style";
 
 // b. abstracts
 // - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -44,6 +44,7 @@
 
 // f. modules
 // - - - - - - - - - - - - - - - - - - - - - - - - -
+@import "module/_people";
 //@import "module/activeStatus";
 //@import "module/error";
 

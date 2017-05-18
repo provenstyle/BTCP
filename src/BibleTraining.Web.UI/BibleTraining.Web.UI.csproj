@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props')" />
@@ -299,6 +299,7 @@
     <Compile Include="Features\Search\DataTablesSearchController.cs" />
     <Compile Include="Features\Search\EmailsController.cs" />
     <Compile Include="Features\Search\EmailTypesController.cs" />
+    <Compile Include="Features\Search\PeopleController.cs" />
     <Compile Include="Features\Search\PhonesController.cs" />
     <Compile Include="Features\Search\PhoneTypesController.cs" />
     <Compile Include="Features\VersionHelper.cs" />
@@ -374,6 +375,7 @@
     <Content Include="src\app\domain\course.js" />
     <Content Include="src\app\domain\email.js" />
     <Content Include="src\app\domain\emailType.js" />
+    <Content Include="src\app\domain\person.js" />
     <Content Include="src\app\domain\phone.js" />
     <Content Include="src\app\domain\phoneType.js" />
     <Content Include="src\app\emails\createEditEmail.pug" />
@@ -408,6 +410,15 @@
     <Content Include="src\app\layout\topNavBar.html" />
     <Content Include="src\app\message\message.html" />
     <Content Include="src\app\message\messageController.js" />
+    <Content Include="src\app\people\createEditPerson.pug" />
+    <Content Include="src\app\people\createpersonController.js" />
+    <Content Include="src\app\people\editPersonController.js" />
+    <Content Include="src\app\people\people.pug" />
+    <Content Include="src\app\people\peopleController.js" />
+    <Content Include="src\app\people\person.pug" />
+    <Content Include="src\app\people\personController.js" />
+    <Content Include="src\app\people\personFeature.js" />
+    <Content Include="src\app\people\personHandler.js" />
     <Content Include="src\app\phones\createEditPhone.pug" />
     <Content Include="src\app\phones\createphoneController.js" />
     <Content Include="src\app\phones\editPhoneController.js" />
@@ -1424,6 +1435,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="src\app\emailTypes\createEditEmailType.pug" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\styles\module\_people.scss" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
