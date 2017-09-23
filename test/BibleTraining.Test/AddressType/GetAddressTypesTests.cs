@@ -6,6 +6,7 @@
     using Entities;
     using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Miruken.Mediate;
     using Rhino.Mocks;
 
     [TestClass]
@@ -16,7 +17,7 @@
         {
             SetupChoices();
 
-            var result = await _mediator.SendAsync(new GetAddressTypes());
+            var result = await _handler.Send(new GetAddressTypes());
             Assert.AreEqual(3, result.AddressTypes.Length);
 
             _context.VerifyAllExpectations();
@@ -28,7 +29,7 @@
             _context.Stub(p => p.AsQueryable<AddressType>())
                 .Return(TestChoice<AddressType>(3).TestAsync());
 
-            var result = await _mediator.SendAsync(new GetAddressTypes { KeyProperties = true });
+            var result = await _handler.Send(new GetAddressTypes { KeyProperties = true });
 
             Assert.IsTrue(result.AddressTypes.All(x => x.Name != null));
             Assert.IsTrue(result.AddressTypes.All(x => x.CreatedBy == null));

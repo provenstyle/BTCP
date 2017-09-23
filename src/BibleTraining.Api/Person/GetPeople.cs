@@ -1,8 +1,8 @@
 namespace BibleTraining.Api.Person
 {
-    using Improving.MediatR;
+    using Miruken.Mediate;
 
-    public class GetPeople : Request.WithResponse<PersonResult>
+    public class GetPeople : IRequest<PersonResult>
     {
         public bool IncludeEmails    { get; set; }
         public bool IncludeAddresses { get; set; }

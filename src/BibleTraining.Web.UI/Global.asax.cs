@@ -17,7 +17,6 @@
     using Entities;
     using Improving.AspNet;
     using Improving.Highway.Data.Scope.Repository;
-    using Improving.MediatR;
     using NLog;
 
     public class BibleTrainingApplication : HttpApplication

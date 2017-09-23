@@ -1,7 +1,5 @@
 namespace BibleTraining.Api.EmailType
 {
-    using Improving.MediatR;
-
     public class UpdateEmailType : UpdateResource<EmailTypeData, int?>
     {
         public UpdateEmailType()

@@ -1,7 +1,5 @@
 namespace BibleTraining.Api.Course
 {
-    using Improving.MediatR;
-
     public class UpdateCourse : UpdateResource<CourseData, int?>
     {
         public UpdateCourse()

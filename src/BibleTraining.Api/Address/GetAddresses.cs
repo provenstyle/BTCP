@@ -1,8 +1,8 @@
 namespace BibleTraining.Api.Address
 {
-    using Improving.MediatR;
+    using Miruken.Mediate;
 
-    public class GetAddresses : Request.WithResponse<AddressResult>
+    public class GetAddresses : IRequest<AddressResult>
     {
         public GetAddresses()
         {

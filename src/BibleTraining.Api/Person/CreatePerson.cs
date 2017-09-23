@@ -1,7 +1,5 @@
 namespace BibleTraining.Api.Person
 {
-    using Improving.MediatR;
-
     public class CreatePerson : ResourceAction<PersonData, int?>
     {
         public CreatePerson()

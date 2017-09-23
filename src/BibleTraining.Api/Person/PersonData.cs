@@ -3,7 +3,6 @@ namespace BibleTraining.Api.Person
     using System;
     using Address;
     using Email;
-    using Improving.MediatR;
     using Phone;
 
     public class PersonData : Resource<int?>

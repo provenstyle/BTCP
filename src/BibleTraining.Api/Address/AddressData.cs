@@ -1,7 +1,6 @@
 namespace BibleTraining.Api.Address
 {
     using AddressType;
-    using Improving.MediatR;
 
     public class AddressData : Resource<int?>
     {

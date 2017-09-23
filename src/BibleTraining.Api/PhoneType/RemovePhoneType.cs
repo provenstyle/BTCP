@@ -1,7 +1,5 @@
-namespace BibleTraining.Api.PhoneType 
+namespace BibleTraining.Api.PhoneType
 {
-    using Improving.MediatR;
-
     public class RemovePhoneType : UpdateResource<PhoneTypeData, int?>
     {
         public RemovePhoneType()

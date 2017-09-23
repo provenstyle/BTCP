@@ -4,7 +4,8 @@ namespace BibleTraining.Test.Address
     using Entities;
     using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using _CodeGeneration;
+    using Miruken;
+    using Miruken.Map;
 
     [TestClass]
     public class AddressMappingTests : TestScenario
@@ -15,7 +16,7 @@ namespace BibleTraining.Test.Address
             var resource = Builder<AddressData>.CreateNew()
                 .With(c => c.RowVersion = new byte[] { 0x01 })
                 .Build();
-            var entity = new Address().Map(resource);
+            var entity = _handler.Proxy<IMapping>().Map<Address>(resource);
 
             AssertResourcesMapToEntities(entity, resource);
 
@@ -29,7 +30,7 @@ namespace BibleTraining.Test.Address
         [TestMethod]
         public void ShouldMapDefaultResourcesToEntitiesWithNoErrors()
         {
-            new Address().Map(new AddressData());
+            _handler.Proxy<IMapping>().Map<Address>(new AddressData());
         }
 
         [TestMethod]
@@ -38,7 +39,7 @@ namespace BibleTraining.Test.Address
             var entity = Builder<Address>.CreateNew()
                 .With(c => c.RowVersion = new byte[] { 0x01 })
                 .Build();
-            var resource = new AddressData().Map(entity);
+            var resource = _handler.Proxy<IMapping>().Map<AddressData>(entity);
 
             AssertEntitiesMapToResources(resource, entity);
 
@@ -52,7 +53,7 @@ namespace BibleTraining.Test.Address
         [TestMethod]
         public void ShouldMapDefaultEntitiesToResourcesWithNoErrors()
         {
-            new AddressData().Map(new Address());
+            _handler.Proxy<IMapping>().Map<AddressData>(new Address());
         }
     }
 }

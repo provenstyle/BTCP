@@ -1,8 +1,8 @@
 namespace BibleTraining.Api.AddressType
 {
-    using Improving.MediatR;
+    using Miruken.Mediate;
 
-    public class GetAddressTypes : Request.WithResponse<AddressTypeResult>
+    public class GetAddressTypes : IRequest<AddressTypeResult>
     {
         public GetAddressTypes()
         {

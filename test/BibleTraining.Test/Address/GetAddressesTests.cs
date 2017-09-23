@@ -6,6 +6,7 @@ namespace BibleTraining.Test.Address
     using Entities;
     using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Miruken.Mediate;
     using Rhino.Mocks;
 
     [TestClass]
@@ -16,7 +17,7 @@ namespace BibleTraining.Test.Address
         {
             SetupChoices();
 
-            var result = await _mediator.SendAsync(new GetAddresses());
+            var result = await _handler.Send(new GetAddresses());
             Assert.AreEqual(3, result.Addresses.Length);
 
             _context.VerifyAllExpectations();
@@ -28,7 +29,7 @@ namespace BibleTraining.Test.Address
             _context.Stub(p => p.AsQueryable<Address>())
                 .Return(TestChoice<Address>(3).TestAsync());
 
-            var result = await _mediator.SendAsync(new GetAddresses { KeyProperties = true });
+            var result = await _handler.Send(new GetAddresses { KeyProperties = true });
 
             Assert.IsTrue(result.Addresses.All(x => x.Name != null));
             Assert.IsTrue(result.Addresses.All(x => x.CreatedBy == null));

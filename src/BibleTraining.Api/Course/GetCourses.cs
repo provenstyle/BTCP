@@ -1,8 +1,8 @@
 namespace BibleTraining.Api.Course
 {
-    using Improving.MediatR;
+    using Miruken.Mediate;
 
-    public class GetCourses : Request.WithResponse<CourseResult>
+    public class GetCourses : IRequest<CourseResult>
     {
         public GetCourses()
         {

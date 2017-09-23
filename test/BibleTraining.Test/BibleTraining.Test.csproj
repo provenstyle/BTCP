@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -36,16 +36,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+    <Reference Include="Castle.Core, Version=4.1.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.4.1.1\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Castle.Facilities.Logging, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.LoggingFacility.3.3.0\lib\net45\Castle.Facilities.Logging.dll</HintPath>
+    <Reference Include="Castle.Facilities.Logging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.LoggingFacility.4.0.0\lib\net45\Castle.Facilities.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+    <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Windsor.4.0.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
@@ -68,8 +68,8 @@
       <HintPath>..\..\packages\NBuilder.4.0.0\lib\net40\FizzWare.NBuilder.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FluentValidation, Version=6.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FluentValidation.6.4.1\lib\Net45\FluentValidation.dll</HintPath>
+    <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentValidation.7.1.1\lib\net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Highway.Data, Version=6.0.6.0, Culture=neutral, PublicKeyToken=fe803c9600455796, processorArchitecture=MSIL">
@@ -88,20 +88,40 @@
       <HintPath>..\..\packages\Improving.Highway.Data.Scope.0.2.1.11-prerelease\lib\net461\Improving.Highway.Data.Scope.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Improving.MediatR, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Improving.MediatR.3.0.3.7-prerelease\lib\net452\Improving.MediatR.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MediatR, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MediatR.2.1.0\lib\net45\MediatR.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Miruken, Version=1.8.1.22, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.1.8.1.22-prerelease\lib\net461\Miruken.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Miruken.Castle, Version=1.8.1.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.Castle.1.8.1.8-prerelease\lib\net461\Miruken.Castle.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Miruken.Map, Version=1.1.1.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.Map.1.1.1.5-prerelease\lib\net461\Miruken.Map.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Miruken.Mediate, Version=1.4.1.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.Mediate.1.4.1.10-prerelease\lib\net461\Miruken.Mediate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Miruken.Mediate.Castle, Version=1.4.1.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.Mediate.Castle.1.4.1.4-prerelease\lib\net461\Miruken.Mediate.Castle.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Miruken.Mvc, Version=1.5.1.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.Mvc.1.5.1.3-prerelease\lib\net461\Miruken.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Miruken.Validate, Version=1.5.1.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.Validate.1.5.1.7-prerelease\lib\net461\Miruken.Validate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RefactorThis.GraphDiff, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -159,54 +179,10 @@
     <Compile Include="AddressType\RemoveAddressTypeTests.cs" />
     <Compile Include="AddressType\UpdateAddressTypeIntegrityTests.cs" />
     <Compile Include="AddressType\UpdateAddressTypeTests.cs" />
-    <Compile Include="Course\CourseConcurrencyTests.cs" />
-    <Compile Include="Course\CreateCourseIntegrityTests.cs" />
-    <Compile Include="Course\CreateCourseTests.cs" />
-    <Compile Include="Course\GetCoursesTests.cs" />
-    <Compile Include="Course\RemoveCourseTests.cs" />
-    <Compile Include="Course\UpdateCourseIntegrityTests.cs" />
-    <Compile Include="Course\UpdateCourseTests.cs" />
-    <Compile Include="Email\CreateEmailIntegrityTests.cs" />
-    <Compile Include="Email\CreateEmailTests.cs" />
-    <Compile Include="Email\EmailConcurrencyTests.cs" />
-    <Compile Include="Email\GetEmailsTests.cs" />
-    <Compile Include="Email\RemoveEmailTests.cs" />
-    <Compile Include="Email\UpdateEmailIntegrityTests.cs" />
-    <Compile Include="Email\UpdateEmailTests.cs" />
-    <Compile Include="EmailType\CreateEmailTypeIntegrityTests.cs" />
-    <Compile Include="EmailType\CreateEmailTypeTests.cs" />
-    <Compile Include="EmailType\EmailTypeConcurrencyTests.cs" />
-    <Compile Include="EmailType\GetEmailTypeTests.cs" />
-    <Compile Include="EmailType\RemoveEmailTypeTests.cs" />
-    <Compile Include="EmailType\UpdateEmailTypeIntegrityTests.cs" />
-    <Compile Include="EmailType\UpdateEmailTypeTests.cs" />
     <Compile Include="Infrastructure\AsyncQueryTesting.cs" />
     <Compile Include="Infrastructure\TestDbAsyncEnumerable.cs" />
     <Compile Include="Infrastructure\TestDbAsyncEnumerator.cs" />
     <Compile Include="Infrastructure\TestDbAsyncQueryProvider.cs" />
-    <Compile Include="Person\CreatePersonIntegrityTests.cs" />
-    <Compile Include="Person\CreatePersonTests.cs" />
-    <Compile Include="Person\GetPeopleTests.cs" />
-    <Compile Include="Person\PersonConcurrencyTests.cs" />
-    <Compile Include="Person\RemovePersonTests.cs" />
-    <Compile Include="Person\UpdatePersonIntegrityTests.cs" />
-    <Compile Include="Person\UpdatePersonTests.cs" />
-    <Compile Include="Phone\CreatePhoneIntegrityTests.cs" />
-    <Compile Include="Phone\CreatePhoneTests.cs" />
-    <Compile Include="Phone\GetPhonesTests.cs" />
-    <Compile Include="Phone\PhoneConcurrencyTests.cs" />
-    <Compile Include="Phone\PhoneMappingTests.cs" />
-    <Compile Include="Phone\RemovePhoneTests.cs" />
-    <Compile Include="Phone\UpdatePhoneIntegrityTests.cs" />
-    <Compile Include="Phone\UpdatePhoneTests.cs" />
-    <Compile Include="PhoneType\CreatePhoneTypeIntegrityTests.cs" />
-    <Compile Include="PhoneType\CreatePhoneTypeTests.cs" />
-    <Compile Include="PhoneType\GetPhoneTypesTests.cs" />
-    <Compile Include="PhoneType\PhoneTypeConcurrencyTests.cs" />
-    <Compile Include="PhoneType\PhoneTypeMappingTests.cs" />
-    <Compile Include="PhoneType\RemovePhoneTypeTests.cs" />
-    <Compile Include="PhoneType\UpdatePhoneTypeIntegrityTests.cs" />
-    <Compile Include="PhoneType\UpdatePhoneTypeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestScenario.cs" />
   </ItemGroup>

@@ -2,7 +2,6 @@ namespace BibleTraining.Api
 {
     using System;
     using Entities;
-    using Improving.MediatR;
 
     public class EntityMapper
     {

@@ -5,36 +5,41 @@ namespace BibleTraining.Api.AddressType
     using System.Threading.Tasks;
     using Entities;
     using Improving.Highway.Data.Scope.Repository;
-    using Improving.MediatR;
-    using Improving.MediatR.Pipeline;
-    using MediatR;
+    using Miruken;
+    using Miruken.Callback;
+    using Miruken.Map;
+    using Miruken.Mediate;
     using Queries;
 
-    [RelativeOrder(Stage.Validation - 1)]
-    public class AddressTypeAggregateHandler :
-        IAsyncRequestHandler<CreateAddressType, AddressTypeData>,
-        IAsyncRequestHandler<GetAddressTypes, AddressTypeResult>,
-        IAsyncRequestHandler<UpdateAddressType, AddressTypeData>,
-        IRequestMiddleware<UpdateAddressType, AddressTypeData>,
-        IAsyncRequestHandler<RemoveAddressType, AddressTypeData>,
-        IRequestMiddleware<RemoveAddressType, AddressTypeData>
+    public class AddressTypeAggregateHandler : Handler
     {
         private readonly IRepository<IBibleTrainingDomain> _repository;
-
-        public AddressType AddressType { get; set; }
 
         public AddressTypeAggregateHandler(IRepository<IBibleTrainingDomain> repository)
         {
             _repository = repository;
         }
 
-        #region Create AddressType
+        public Task<AddressType> GetAddressType(AddressTypeData resource, IHandler composer)
+        {
+            return composer.Proxy<IStash>().GetOrPut(async () =>
+             {
+                using (_repository.Scopes.Create())
+                {
+                    return (await _repository.FindAsync(new GetAddressTypesById(resource.Id)))
+                            .FirstOrDefault();
+                }
+             });
+        }
 
-        public async Task<AddressTypeData> Handle(CreateAddressType message)
+        [Handles]
+        public async Task<AddressTypeData> Handle(CreateAddressType message, IHandler composer)
         {
             using(var scope = _repository.Scopes.Create())
             {
-                var addressType = new AddressType().Map(message.Resource);
+                var addressType = composer.Proxy<IMapping>()
+                    .Map<AddressType>(message.Resource);
+
                 addressType.Created = DateTime.Now;
 
                 _repository.Context.Add(addressType);
@@ -42,26 +47,23 @@ namespace BibleTraining.Api.AddressType
                 var data = new AddressTypeData();
 
                 await scope.SaveChangesAsync((dbScope, count) =>
-                                                 {
-                                                     data.Id = addressType.Id;
-                                                     data.RowVersion = addressType.RowVersion;
-                                                 });
+                 {
+                     data.Id = addressType.Id;
+                     data.RowVersion = addressType.RowVersion;
+                 });
 
                 return data;
             }
         }
 
-        #endregion
-
-        #region Get AddressType
-
-        public async Task<AddressTypeResult> Handle(GetAddressTypes message)
+        [Handles]
+        public async Task<AddressTypeResult> Handle(GetAddressTypes message, IHandler composer)
         {
             using(_repository.Scopes.CreateReadOnly())
             {
                 var addressTypes = (await _repository.FindAsync(new GetAddressTypesById(message.Ids){
                     KeyProperties = message.KeyProperties
-                })).Select(x => new AddressTypeData().Map(x)).ToArray();
+                })).Select(x => composer.Proxy<IMapping>().Map<AddressTypeData>(x)).ToArray();
 
                 return new AddressTypeResult
                 {
@@ -70,34 +72,11 @@ namespace BibleTraining.Api.AddressType
             }
         }
 
-        #endregion
-
-        #region Update AddressType
-
-        public async Task<AddressTypeData> Apply(UpdateAddressType request, Func<UpdateAddressType, Task<AddressTypeData>> next)
+        [Handles]
+        public Task<AddressTypeData> Handle(UpdateAddressType request, IHandler composer)
         {
-            using (var scope = _repository.Scopes.Create())
-            {
-                var resource = request.Resource;
-                if (AddressType == null && resource != null)
-                {
-                    AddressType = (await _repository
-                                       .FindAsync(new GetAddressTypesById(resource.Id)))
-                        .FirstOrDefault();
-                    Env.Use(AddressType);
-                }
-
-                var result = await next(request);
-                await scope.SaveChangesAsync();
-
-                result.RowVersion = AddressType?.RowVersion;
-                return result;
-            }
-        }
-
-        public Task<AddressTypeData> Handle(UpdateAddressType request)
-        {
-            AddressType.Map(request.Resource);
+            composer.Proxy<IMapping>()
+                .MapInto(request.Resource, GetAddressType(request.Resource, composer));
 
             return Task.FromResult(new AddressTypeData
             {
@@ -105,42 +84,17 @@ namespace BibleTraining.Api.AddressType
             });
         }
 
-        #endregion
-
-        #region Remove AddressType
-
-        public async Task<AddressTypeData> Apply(
-            RemoveAddressType request, Func<RemoveAddressType, Task<AddressTypeData>> next)
+        [Handles]
+        public async Task<AddressTypeData> Handle(RemoveAddressType request, IHandler composer)
         {
-            using (var scope = _repository.Scopes.Create())
+            var entity = await GetAddressType(request.Resource, composer);
+            _repository.Context.Remove(entity);
+
+            return new AddressTypeData
             {
-                var resource = request.Resource;
-                if (AddressType == null && resource != null)
-                {
-                    AddressType = (await _repository
-                                       .FindAsync(new GetAddressTypesById(resource.Id)))
-                        .FirstOrDefault();
-                    Env.Use(AddressType);
-                }
-
-                var result = await next(request);
-                await scope.SaveChangesAsync();
-                return result;
-            }
+                Id         = entity.Id,
+                RowVersion = entity.RowVersion
+            };
         }
-
-        public Task<AddressTypeData> Handle(RemoveAddressType request)
-        {
-            _repository.Context.Remove(AddressType);
-
-            return Task.FromResult(new AddressTypeData
-            {
-                Id         = AddressType.Id,
-                RowVersion = AddressType.RowVersion
-            });
-        }
-
-        #endregion
-
     }
 }

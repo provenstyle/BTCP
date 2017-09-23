@@ -1,7 +1,6 @@
 namespace BibleTraining.Api.Email
 {
     using EmailType;
-    using Improving.MediatR;
 
     public class EmailData : Resource<int?>
     {

@@ -1,7 +1,6 @@
-namespace BibleTraining.Test._CodeGeneration
+namespace BibleTraining.Api.Address
 {
-    using Api.Address;
-    using Improving.MediatR;
+    using Api;
 
     public class UpdateAddress : UpdateResource<AddressData, int?>
     {

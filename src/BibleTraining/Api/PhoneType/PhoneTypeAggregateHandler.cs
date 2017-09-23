@@ -4,10 +4,8 @@ namespace BibleTraining.Api.PhoneType
     using System.Linq;
     using System.Threading.Tasks;
     using Improving.Highway.Data.Scope.Repository;
-    using Improving.MediatR;
-    using Improving.MediatR.Pipeline;
-    using MediatR;
     using Entities;
+    using Miruken.Mediate;
     using Queries;
 
     [RelativeOrder(Stage.Validation - 1)]

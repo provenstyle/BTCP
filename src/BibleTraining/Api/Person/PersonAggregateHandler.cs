@@ -9,13 +9,9 @@ namespace BibleTraining.Api.Person
     using Email;
     using Entities;
     using Improving.Highway.Data.Scope.Repository;
-    using Improving.MediatR;
-    using Improving.MediatR.Concurrency;
-    using Improving.MediatR.Pipeline;
-    using MediatR;
+    using Miruken.Mediate;
     using Phone;
     using Queries;
-    using Test._CodeGeneration;
 
     [RelativeOrder(Stage.Validation - 1)]
     public class PersonAggregateHandler :

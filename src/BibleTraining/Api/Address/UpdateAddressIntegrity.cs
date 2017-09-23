@@ -1,7 +1,6 @@
 namespace BibleTraining.Api.Address
 {
     using FluentValidation;
-    using Test._CodeGeneration;
 
     public class UpdateAddressIntegrity : AbstractValidator<UpdateAddress>
     {

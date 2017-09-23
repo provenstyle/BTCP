@@ -5,6 +5,7 @@ namespace BibleTraining.Test.AddressType
     using Entities;
     using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Miruken.Mediate;
     using Rhino.Mocks;
 
     [TestClass]
@@ -19,18 +20,18 @@ namespace BibleTraining.Test.AddressType
 
             _context.Expect(pg => pg.Add(Arg<AddressType>.Is.Anything))
                 .WhenCalled(inv =>
-                                {
-                                    var entity = (AddressType)inv.Arguments[0];
-                                    entity.Id         = 1;
-                                    entity.RowVersion = new byte[] { 0x01 };
-                                    Assert.AreEqual(addressType.Name, entity.Name);
-                                    inv.ReturnValue = entity;
-                                }).Return(null);
+                    {
+                        var entity = (AddressType)inv.Arguments[0];
+                        entity.Id         = 1;
+                        entity.RowVersion = new byte[] { 0x01 };
+                        Assert.AreEqual(addressType.Name, entity.Name);
+                        inv.ReturnValue = entity;
+                    }).Return(null);
 
             _context.Expect(pg => pg.CommitAsync())
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new CreateAddressType(addressType));
+            var result = await _handler.Send(new CreateAddressType(addressType));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x01 }, result.RowVersion);
 

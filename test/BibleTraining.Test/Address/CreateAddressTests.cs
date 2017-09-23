@@ -5,6 +5,7 @@ namespace BibleTraining.Test.Address
     using Entities;
     using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Miruken.Mediate;
     using Rhino.Mocks;
 
     [TestClass]
@@ -30,7 +31,7 @@ namespace BibleTraining.Test.Address
             _context.Expect(pg => pg.CommitAsync())
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new CreateAddress(address));
+            var result = await _handler.Send(new CreateAddress(address));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x01 }, result.RowVersion);
 

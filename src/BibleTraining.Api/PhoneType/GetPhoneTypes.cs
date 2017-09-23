@@ -1,8 +1,8 @@
 namespace BibleTraining.Api.PhoneType
 {
-    using Improving.MediatR;
+    using Miruken.Mediate;
 
-    public class GetPhoneTypes : Request.WithResponse<PhoneTypeResult>
+    public class GetPhoneTypes : IRequest<PhoneTypeResult>
     {
         public GetPhoneTypes()
         {

@@ -7,8 +7,8 @@ namespace BibleTraining.Test.Address
     using FizzWare.NBuilder;
     using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Miruken.Mediate;
     using Rhino.Mocks;
-    using _CodeGeneration;
 
     [TestClass]
     public class UpdateAddressTests : TestScenario
@@ -34,7 +34,7 @@ namespace BibleTraining.Test.Address
                 .WhenCalled(inv => address.RowVersion = new byte[] { 0x02 })
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new UpdateAddress(addressData));
+            var result = await _handler.Send(new UpdateAddress(addressData));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x02 }, result.RowVersion);
 

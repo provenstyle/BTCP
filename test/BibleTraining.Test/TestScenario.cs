@@ -2,30 +2,22 @@ namespace BibleTraining.Test
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using Api.Address;
-    using Api.AddressType;
-    using Api.EmailType;
-    using Api.Course;
-    using Api.Email;
-    using Api.Person;
-    using Api.Phone;
+    using Api;
     using BibleTraining;
     using Castle.DynamicProxy;
     using Castle.MicroKernel.Lifestyle;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using Castle.Windsor.Installer;
     using Entities;
     using FizzWare.NBuilder;
     using FluentValidation;
     using Highway.Data;
     using Improving.Highway.Data.Scope.Repository;
-    using Improving.MediatR;
-    using Improving.MediatR.Cache;
     using Infrastructure;
-    using MediatR;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using PhoneType;
+    using Miruken.Castle;
+    using Miruken.Callback;
+    using Miruken.Mediate.Castle;
     using Rhino.Mocks;
 
     public class TestScenario
@@ -33,7 +25,7 @@ namespace BibleTraining.Test
         protected RandomGenerator _random;
         protected IWindsorContainer _container;
         protected IDomainContext<IDomain> _context;
-        protected IMediator _mediator;
+        protected IHandler _handler;
 
         [TestInitialize]
         public virtual void TestInitialize()
@@ -42,22 +34,25 @@ namespace BibleTraining.Test
             _context = MockRepository.GenerateMock<IDomainContext<IDomain>>();
 
             _container = new WindsorContainer();
+
             BeforeContainer(_container);
 
             _container.Register(
                     Component.For<IDomainContext<IBibleTrainingDomain>>().Instance(_context))
                 .Install(
-                    new MediatRInstaller(
-                        Classes.FromThisAssembly(),
-                        Classes.FromAssemblyContaining<IBibleTrainingDomain>()),
+                    new FeaturesInstaller(
+                        new HandleFeature(),
+                        new MediateFeature().WithStandardMiddleware())
+                        .Use(
+                            Classes.FromThisAssembly(),
+                            Classes.FromAssemblyContaining<IBibleTrainingDomain>()),
                     new RepositoryInstaller(
-                        Classes.FromAssemblyContaining<IBibleTrainingDomain>()),
-                    FromAssembly.Containing<IBibleTrainingDomain>()
+                        Classes.FromAssemblyContaining<IBibleTrainingDomain>())
                 );
 
-            AfterContainer(_container);
+            _handler = new WindsorHandler(_container).Resolve();
 
-            _mediator = _container.Resolve<IMediator>();
+            AfterContainer(_container);
         }
 
         protected virtual void BeforeContainer(IWindsorContainer container)
@@ -90,12 +85,6 @@ namespace BibleTraining.Test
         {
             _context.Stub(p => p.AsQueryable<T>())
                 .Return(TestChoice<T>(3).TestAsync());
-        }
-
-        protected void InvalidateCache<TResponse>(Request.WithResponse<TResponse> request)
-            where TResponse : class
-        {
-            _mediator.SendAsync(request.InvalidateCache());
         }
 
         protected static IQueryable<T> TestChoice<T>(int howMany)

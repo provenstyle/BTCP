@@ -2,7 +2,6 @@ namespace BibleTraining.Test.Address
 {
     using Api.Address;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using _CodeGeneration;
 
     [TestClass]
     public class UpdateAddressIntegrityTests

@@ -1,6 +1,5 @@
 namespace BibleTraining.Api.Phone
 {
-    using Improving.MediatR;
     using PhoneType;
 
     public class PhoneData : Resource<int?>

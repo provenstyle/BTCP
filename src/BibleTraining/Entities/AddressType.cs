@@ -1,6 +1,6 @@
 namespace BibleTraining.Entities
 {
-    using Improving.MediatR;
+    using Api;
 
     public class AddressType : Entity, IKeyProperties<int>
     {

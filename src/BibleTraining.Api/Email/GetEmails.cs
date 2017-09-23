@@ -1,8 +1,8 @@
 namespace BibleTraining.Api.Email
 {
-    using Improving.MediatR;
+    using Miruken.Mediate;
 
-    public class GetEmails : Request.WithResponse<EmailResult>
+    public class GetEmails : IRequest<EmailResult>
     {
         public GetEmails()
         {

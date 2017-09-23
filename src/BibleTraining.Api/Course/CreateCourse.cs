@@ -1,7 +1,5 @@
 namespace BibleTraining.Api.Course
 {
-    using Improving.MediatR;
-
     public class CreateCourse : ResourceAction<CourseData, int?>
     {
         public CreateCourse()

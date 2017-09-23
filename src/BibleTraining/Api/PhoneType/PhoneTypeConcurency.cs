@@ -1,6 +1,5 @@
 namespace BibleTraining.Api.PhoneType
 {
-    using Improving.MediatR;
     using Improving.Highway.Data.Scope.Concurrency;
     using Entities;
 
