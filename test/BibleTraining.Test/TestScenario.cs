@@ -1,3 +1,5 @@
+using Miruken.Map;
+
 namespace BibleTraining.Test
 {
     using System.Linq;
@@ -43,9 +45,9 @@ namespace BibleTraining.Test
                     new FeaturesInstaller(
                         new HandleFeature(),
                         new MediateFeature().WithStandardMiddleware())
-                        .Use(
-                            Classes.FromThisAssembly(),
-                            Classes.FromAssemblyContaining<IBibleTrainingDomain>()),
+                        .Use(Classes.FromThisAssembly(),
+                             Classes.FromAssemblyContaining<MappingHandler>(),
+                             Classes.FromAssemblyContaining<IBibleTrainingDomain>()),
                     new RepositoryInstaller(
                         Classes.FromAssemblyContaining<IBibleTrainingDomain>())
                 );
