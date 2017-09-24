@@ -7,12 +7,18 @@ namespace BibleTraining.Api.AddressType
     using Improving.Highway.Data.Scope.Repository;
     using Miruken;
     using Miruken.Callback;
+    using Miruken.Callback.Policy;
     using Miruken.Map;
     using Miruken.Mediate;
     using Queries;
 
-    public class AddressTypeAggregateHandler : Handler
+    [Pipeline]
+    public class AddressTypeAggregateHandler : Handler,
+        IMiddleware<UpdateAddressType, AddressTypeData>,
+        IMiddleware<RemoveAddressType, AddressTypeData>
     {
+        public int? Order { get; set; }
+
         private readonly IRepository<IBibleTrainingDomain> _repository;
 
         public AddressTypeAggregateHandler(IRepository<IBibleTrainingDomain> repository)
@@ -20,20 +26,38 @@ namespace BibleTraining.Api.AddressType
             _repository = repository;
         }
 
-        public Task<AddressType> GetAddressType(AddressTypeData resource, IHandler composer)
+        public async Task<AddressType> AddressType(int? id, IHandler composer)
         {
-            return composer.Proxy<IStash>().GetOrPut(async () =>
-             {
-                using (_repository.Scopes.Create())
-                {
-                    return (await _repository.FindAsync(new GetAddressTypesById(resource.Id)))
-                            .FirstOrDefault();
-                }
-             });
+            return await composer.Proxy<IStash>().GetOrPut(async () =>
+                (await _repository.FindAsync(new GetAddressTypesById(id)))
+                    .FirstOrDefault());
+        }
+
+        public async Task<AddressTypeData> Begin(int? id, IHandler composer, NextDelegate<Task<AddressTypeData>> next)
+        {
+            using (var scope = _repository.Scopes.Create())
+            {
+                var addressType = await AddressType(id, composer);
+                var result = await next();
+                await scope.SaveChangesAsync();
+
+                result.RowVersion = addressType?.RowVersion;
+                return result;
+            }
+        }
+
+        public async Task<AddressTypeData> Next(UpdateAddressType callback, MethodBinding method, IHandler composer, NextDelegate<Task<AddressTypeData>> next)
+        {
+            return await Begin(callback.Resource.Id, composer, next);
+        }
+
+        public async Task<AddressTypeData> Next(RemoveAddressType callback, MethodBinding method, IHandler composer, NextDelegate<Task<AddressTypeData>> next)
+        {
+            return await Begin(callback.Resource.Id, composer, next);
         }
 
         [Mediates]
-        public async Task<AddressTypeData> Handle(CreateAddressType message, IHandler composer)
+        public async Task<AddressTypeData> Create(CreateAddressType message, IHandler composer)
         {
             using(var scope = _repository.Scopes.Create())
             {
@@ -57,7 +81,7 @@ namespace BibleTraining.Api.AddressType
         }
 
         [Mediates]
-        public async Task<AddressTypeResult> Handle(GetAddressTypes message, IHandler composer)
+        public async Task<AddressTypeResult> Get(GetAddressTypes message, IHandler composer)
         {
             using(_repository.Scopes.CreateReadOnly())
             {
@@ -73,9 +97,9 @@ namespace BibleTraining.Api.AddressType
         }
 
         [Mediates]
-        public async Task<AddressTypeData> Handle(UpdateAddressType request, IHandler composer)
+        public async Task<AddressTypeData> Update(UpdateAddressType request, IHandler composer)
         {
-            var addressType = await GetAddressType(request.Resource, composer);
+            var addressType = await AddressType(request.Resource.Id, composer);
             composer.Proxy<IMapping>()
                 .MapInto(request.Resource, addressType);
 
@@ -86,9 +110,9 @@ namespace BibleTraining.Api.AddressType
         }
 
         [Mediates]
-        public async Task<AddressTypeData> Handle(RemoveAddressType request, IHandler composer)
+        public async Task<AddressTypeData> Remove(RemoveAddressType request, IHandler composer)
         {
-            var entity = await GetAddressType(request.Resource, composer);
+            var entity = await AddressType(request.Resource.Id, composer);
             _repository.Context.Remove(entity);
 
             return new AddressTypeData

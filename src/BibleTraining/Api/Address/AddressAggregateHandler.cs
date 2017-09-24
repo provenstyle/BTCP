@@ -20,17 +20,35 @@ namespace BibleTraining.Api.Address
 
         private readonly IRepository<IBibleTrainingDomain> _repository;
 
-        public Address Address { get; set; }
-
         public AddressAggregateHandler(IRepository<IBibleTrainingDomain> repository)
         {
             _repository = repository;
         }
 
+        public async Task<Address> Address(int? id, IHandler composer)
+        {
+            return await composer.Proxy<IStash>().GetOrPut(async () =>
+                (await _repository.FindAsync(new GetAddressesById(id)))
+                    .FirstOrDefault());
+        }
+
+        public async Task<AddressData> Begin(int? id, IHandler composer, NextDelegate<Task<AddressData>> next)
+        {
+            using (var scope = _repository.Scopes.Create())
+            {
+                var address = await Address(id, composer);
+                var result = await next();
+                await scope.SaveChangesAsync();
+
+                result.RowVersion = address?.RowVersion;
+                return result;
+            }
+        }
+
         #region Create Address
 
         [Mediates]
-        public async Task<AddressData> Handle(CreateAddress message, IHandler composer)
+        public async Task<AddressData> Create(CreateAddress message, IHandler composer)
         {
             using(var scope = _repository.Scopes.Create())
             {
@@ -57,7 +75,7 @@ namespace BibleTraining.Api.Address
         #region Get Address
 
         [Mediates]
-        public async Task<AddressResult> Handle(GetAddresses message, IHandler composer)
+        public async Task<AddressResult> Get(GetAddresses message, IHandler composer)
         {
             using(_repository.Scopes.CreateReadOnly())
             {
@@ -78,35 +96,20 @@ namespace BibleTraining.Api.Address
 
         public async Task<AddressData> Next(UpdateAddress request, MethodBinding method, IHandler composer, NextDelegate<Task<AddressData>> next)
         {
-            using (var scope = _repository.Scopes.Create())
-            {
-                var resource = request.Resource;
-                if (Address == null && resource != null)
-                {
-                    Address = (await _repository
-                                   .FindAsync(new GetAddressesById(resource.Id)))
-                        .FirstOrDefault();
-                    composer.Proxy<IStash>().Put(Address);
-                }
-
-                var result = await next();
-                await scope.SaveChangesAsync();
-
-                result.RowVersion = Address?.RowVersion;
-                return result;
-            }
+            return await Begin(request.Resource.Id, composer, next);
         }
 
         [Mediates]
-        public Task<AddressData> Handle(UpdateAddress request, IHandler composer)
+        public async Task<AddressData> Update(UpdateAddress request, IHandler composer)
         {
+            var address = await Address(request.Resource.Id, composer);
             composer.Proxy<IMapping>()
-                .MapInto(request.Resource, Address);
+                .MapInto(request.Resource, address);
 
-            return Task.FromResult(new AddressData
+            return new AddressData
             {
                 Id = request.Resource.Id
-            });
+            };
         }
 
         #endregion
@@ -115,36 +118,22 @@ namespace BibleTraining.Api.Address
 
         public async Task<AddressData> Next(RemoveAddress request, MethodBinding method, IHandler composer, NextDelegate<Task<AddressData>> next)
         {
-            using (var scope = _repository.Scopes.Create())
-            {
-                var resource = request.Resource;
-                if (Address == null && resource != null)
-                {
-                    Address = (await _repository
-                        .FindAsync(new GetAddressesById(resource.Id)))
-                        .FirstOrDefault();
-                    composer.Proxy<IStash>().Put(Address);
-                }
-
-                var result = await next();
-                await scope.SaveChangesAsync();
-                return result;
-            }
+            return await Begin(request.Resource.Id, composer, next);
         }
 
         [Mediates]
-        public Task<AddressData> Handle(RemoveAddress request)
+        public async Task<AddressData> Remove(RemoveAddress request, IHandler composer)
         {
-            _repository.Context.Remove(Address);
+            var address = await Address(request.Resource.Id, composer);
+            _repository.Context.Remove(address);
 
-            return Task.FromResult(new AddressData
+            return new AddressData
             {
-                Id         = Address.Id,
-                RowVersion = Address.RowVersion
-            });
+                Id         = address.Id,
+                RowVersion = address.RowVersion
+            };
         }
 
         #endregion
-
     }
 }
