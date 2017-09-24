@@ -12,7 +12,7 @@ namespace BibleTraining.Api.Address
     using Miruken.Mediate;
     using Queries;
 
-    public class AddressAggregateHandler :
+    public class AddressAggregateHandler : Handler,
         IMiddleware<UpdateAddress, AddressData>,
         IMiddleware<RemoveAddress, AddressData>
     {
