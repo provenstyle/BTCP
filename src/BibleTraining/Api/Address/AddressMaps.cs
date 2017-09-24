@@ -11,8 +11,6 @@
         [Maps]
         public Address MapAddressData(AddressData data, Mapping mapping, IHandler composer)
         {
-            if (data == null) return null;
-
             var target = mapping.Target as Address ?? new Address();
 
             EntityMapper.Map(target, data);
@@ -35,11 +33,9 @@
         [Maps]
         public AddressData Map(Address address, Mapping mapping, IHandler composer)
         {
-            if (address == null) return null;
-
             var target = mapping.Target as AddressData ?? new AddressData();
 
-            composer.Proxy<IMapping>().MapInto(address, target);
+            ResourceMapper.Map(target, address);
 
             target.Name = address.Name;
             target.Description = address.Description;
@@ -47,8 +43,10 @@
             target.PersonId = address.PersonId;
 
             target.AddressTypeId = address.AddressTypeId;
-            target.AddressType = composer.Proxy<IMapping>()
-                .Map<AddressTypeData>(address.AddressType);
+
+            if(address.AddressType != null)
+                target.AddressType = composer.Proxy<IMapping>()
+                    .Map<AddressTypeData>(address.AddressType);
 
             return target;
         }
