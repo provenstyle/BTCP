@@ -19,7 +19,9 @@ namespace BibleTraining.Test
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Miruken.Castle;
     using Miruken.Callback;
+    using Miruken.Mediate;
     using Miruken.Mediate.Castle;
+    using Miruken.Validate.Castle;
     using Rhino.Mocks;
 
     public class TestScenario
@@ -44,6 +46,7 @@ namespace BibleTraining.Test
                 .Install(
                     new FeaturesInstaller(
                         new HandleFeature(),
+                        new ValidateFeature(),
                         new MediateFeature().WithStandardMiddleware())
                         .Use(Classes.FromThisAssembly(),
                              Classes.FromAssemblyContaining<MappingHandler>(),
@@ -121,10 +124,9 @@ namespace BibleTraining.Test
 
         protected IValidator GetValidator<T, R>() where T : IValidator<R>
         {
-            var mediatR = _container.GetChildContainer("Improving.MediatR");
-            using (mediatR.BeginScope())
+            using (_container.BeginScope())
             {
-                return mediatR.ResolveAll<IValidator<R>>()
+                return _container.ResolveAll<IValidator<R>>()
                     .First(v => ProxyUtil.GetUnproxiedType(v).IsAssignableFrom(typeof(T)));
             }
         }
@@ -147,9 +149,5 @@ namespace BibleTraining.Test
             Assert.AreEqual(entity.Modified,   resource.Modified);
             Assert.AreEqual(entity.ModifiedBy, resource.ModifiedBy);
         }
-    }
-
-    class TestScenarioImpl : TestScenario
-    {
     }
 }

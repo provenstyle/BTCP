@@ -32,7 +32,7 @@ namespace BibleTraining.Api.AddressType
              });
         }
 
-        [Handles]
+        [Mediates]
         public async Task<AddressTypeData> Handle(CreateAddressType message, IHandler composer)
         {
             using(var scope = _repository.Scopes.Create())
@@ -56,7 +56,7 @@ namespace BibleTraining.Api.AddressType
             }
         }
 
-        [Handles]
+        [Mediates]
         public async Task<AddressTypeResult> Handle(GetAddressTypes message, IHandler composer)
         {
             using(_repository.Scopes.CreateReadOnly())
@@ -72,19 +72,20 @@ namespace BibleTraining.Api.AddressType
             }
         }
 
-        [Handles]
-        public Task<AddressTypeData> Handle(UpdateAddressType request, IHandler composer)
+        [Mediates]
+        public async Task<AddressTypeData> Handle(UpdateAddressType request, IHandler composer)
         {
+            var addressType = await GetAddressType(request.Resource, composer);
             composer.Proxy<IMapping>()
-                .MapInto(request.Resource, GetAddressType(request.Resource, composer));
+                .MapInto(request.Resource, addressType);
 
-            return Task.FromResult(new AddressTypeData
+            return new AddressTypeData
             {
                 Id = request.Resource.Id
-            });
+            };
         }
 
-        [Handles]
+        [Mediates]
         public async Task<AddressTypeData> Handle(RemoveAddressType request, IHandler composer)
         {
             var entity = await GetAddressType(request.Resource, composer);

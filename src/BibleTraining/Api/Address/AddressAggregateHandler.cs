@@ -12,7 +12,7 @@ namespace BibleTraining.Api.Address
     using Miruken.Mediate;
     using Queries;
 
-    public class AddressAggregateHandler : Handler,
+    public class AddressAggregateHandler : PipelineHandler,
         IMiddleware<UpdateAddress, AddressData>,
         IMiddleware<RemoveAddress, AddressData>
     {
@@ -29,7 +29,7 @@ namespace BibleTraining.Api.Address
 
         #region Create Address
 
-        [Handles]
+        [Mediates]
         public async Task<AddressData> Handle(CreateAddress message, IHandler composer)
         {
             using(var scope = _repository.Scopes.Create())
@@ -56,7 +56,7 @@ namespace BibleTraining.Api.Address
 
         #region Get Address
 
-        [Handles]
+        [Mediates]
         public async Task<AddressResult> Handle(GetAddresses message, IHandler composer)
         {
             using(_repository.Scopes.CreateReadOnly())
@@ -97,7 +97,7 @@ namespace BibleTraining.Api.Address
             }
         }
 
-        [Handles]
+        [Mediates]
         public Task<AddressData> Handle(UpdateAddress request, IHandler composer)
         {
             composer.Proxy<IMapping>()
@@ -132,7 +132,7 @@ namespace BibleTraining.Api.Address
             }
         }
 
-        [Handles]
+        [Mediates]
         public Task<AddressData> Handle(RemoveAddress request)
         {
             _repository.Context.Remove(Address);
