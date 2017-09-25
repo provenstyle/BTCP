@@ -48,20 +48,16 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Miruken, Version=1.8.1.22, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Miruken.1.8.1.22-prerelease\lib\net461\Miruken.dll</HintPath>
+    <Reference Include="Miruken, Version=1.8.1.25, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.1.8.1.25-prerelease\lib\net461\Miruken.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Miruken.Map, Version=1.1.1.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Miruken.Map.1.1.1.5-prerelease\lib\net461\Miruken.Map.dll</HintPath>
+    <Reference Include="Miruken.Mediate, Version=1.4.1.12, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.Mediate.1.4.1.12-prerelease\lib\net461\Miruken.Mediate.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Miruken.Mediate, Version=1.4.1.10, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Miruken.Mediate.1.4.1.10-prerelease\lib\net461\Miruken.Mediate.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Miruken.Validate, Version=1.5.1.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Miruken.Validate.1.5.1.7-prerelease\lib\net461\Miruken.Validate.dll</HintPath>
+    <Reference Include="Miruken.Validate, Version=1.5.1.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.Validate.1.5.1.9-prerelease\lib\net461\Miruken.Validate.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
