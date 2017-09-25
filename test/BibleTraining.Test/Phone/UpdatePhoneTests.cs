@@ -1,14 +1,15 @@
 namespace BibleTraining.Test.Phone
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System.Linq;
     using System.Threading.Tasks;
+    using FizzWare.NBuilder;
+    using Rhino.Mocks;
     using Api.Phone;
     using Entities;
-    using FizzWare.NBuilder;
     using Infrastructure;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Rhino.Mocks;
-
+    using Miruken.Mediate;
+    
     [TestClass]
     public class UpdatePhoneTests : TestScenario
     {
@@ -33,7 +34,7 @@ namespace BibleTraining.Test.Phone
                 .WhenCalled(inv => phone.RowVersion = new byte[] { 0x02 })
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new UpdatePhone(phoneData));
+            var result = await _handler.Send(new UpdatePhone(phoneData));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x02 }, result.RowVersion);
 

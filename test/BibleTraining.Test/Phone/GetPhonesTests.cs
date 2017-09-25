@@ -1,13 +1,14 @@
 namespace BibleTraining.Test.Phone
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System.Linq;
     using System.Threading.Tasks;
-    using Api.Phone;
+    using Rhino.Mocks;
     using Entities;
     using Infrastructure;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Rhino.Mocks;
-
+    using Api.Phone;
+    using Miruken.Mediate;
+    
     [TestClass]
     public class GetPhonesTests : TestScenario
     {
@@ -16,7 +17,7 @@ namespace BibleTraining.Test.Phone
         {
             SetupChoices();
 
-            var result = await _mediator.SendAsync(new GetPhones());
+            var result = await _handler.Send(new GetPhones());
             Assert.AreEqual(3, result.Phones.Length);
 
             _context.VerifyAllExpectations();
@@ -28,7 +29,7 @@ namespace BibleTraining.Test.Phone
             _context.Stub(p => p.AsQueryable<Phone>())
                 .Return(TestChoice<Phone>(3).TestAsync());
 
-            var result = await _mediator.SendAsync(new GetPhones { KeyProperties = true });
+            var result = await _handler.Send(new GetPhones { KeyProperties = true });
 
             Assert.IsTrue(result.Phones.All(x => x.Name != null));
             Assert.IsTrue(result.Phones.All(x => x.CreatedBy == null));

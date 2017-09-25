@@ -1,10 +1,10 @@
 namespace BibleTraining.EntityTypeConfigurations
 {
-    using Entities;
+	using Entities;
 
     public class PhoneEntityTypeConfiguration : BaseEntityTypeConfiguration<Phone>
     {
-        public PhoneEntityTypeConfiguration ()
+        public PhoneEntityTypeConfiguration()
         {
             ToTable(nameof(Phone));
         }

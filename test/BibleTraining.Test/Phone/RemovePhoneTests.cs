@@ -1,13 +1,14 @@
 namespace BibleTraining.Test.Phone
 {
     using System.Linq;
-    using System.Threading.Tasks;
-    using Api.Phone;
-    using Entities;
-    using FizzWare.NBuilder;
-    using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System.Threading.Tasks;
+    using FizzWare.NBuilder;
     using Rhino.Mocks;
+    using Entities;
+    using Infrastructure;
+    using Api.Phone;
+    using Miruken.Mediate;
 
     [TestClass]
     public class RemovePhoneTests : TestScenario
@@ -35,7 +36,7 @@ namespace BibleTraining.Test.Phone
             _context.Expect(c => c.CommitAsync())
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new RemovePhone(phoneData));
+            var result = await _handler.Send(new RemovePhone(phoneData));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x01 }, result.RowVersion);
 

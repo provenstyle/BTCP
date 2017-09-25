@@ -1,7 +1,7 @@
 namespace BibleTraining.Api.Phone
 {
-    using Miruken.Mediate;
-
+    using Miruken.Mediate; 
+    
     public class GetPhones : IRequest<PhoneResult>
     {
         public GetPhones()
@@ -14,7 +14,7 @@ namespace BibleTraining.Api.Phone
             Ids = ids;
         }
 
-        public int[] Ids { get; set;}
+        public int[] Ids { get; set; }
 
         public bool KeyProperties { get; set; }
     }

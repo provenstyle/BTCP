@@ -1,8 +1,8 @@
 namespace BibleTraining.Test.Phone
 {
-    using Api.Phone;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+    using Api.Phone;
+    
     [TestClass]
     public class UpdatePhoneIntegrityTests
     {
@@ -14,12 +14,11 @@ namespace BibleTraining.Test.Phone
         {
             updatePhone =  new UpdatePhone
             {
-                Resource = new PhoneData
-                {
-                    Id            = 1,
-                    PhoneTypeId   = 1,
-                    Name          = "a"
-                }
+                 Resource = new PhoneData
+                 {
+                    Id   = 1,
+                    Name = "a"
+                 }
             };
 
             validator = new UpdatePhoneIntegrity();
@@ -30,14 +29,6 @@ namespace BibleTraining.Test.Phone
         {
             var result = validator.Validate(updatePhone);
             Assert.IsTrue(result.IsValid);
-        }
-
-        [TestMethod]
-        public void MustHavePhoneTypeId()
-        {
-            updatePhone.Resource.PhoneTypeId = null;
-            var result = validator.Validate(updatePhone);
-            Assert.IsFalse(result.IsValid);
         }
 
         [TestMethod]

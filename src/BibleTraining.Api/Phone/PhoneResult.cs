@@ -1,4 +1,4 @@
-namespace BibleTraining.Api.Phone
+namespace BibleTraining.Api.Phone 
 {
     public class PhoneResult
     {

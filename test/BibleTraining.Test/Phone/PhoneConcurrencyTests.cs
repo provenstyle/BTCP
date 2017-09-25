@@ -1,16 +1,16 @@
-﻿namespace BibleTraining.Test.Phone
+namespace BibleTraining.Test.Phone
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System.Data.Entity.Core;
     using System.Linq;
-    using Api.Phone;
+    using Api;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using Entities;
     using FizzWare.NBuilder;
-    using Improving.MediatR;
-    using Infrastructure;
     using Rhino.Mocks;
+    using Entities;
+    using Infrastructure;
+    using Api.Phone;
 
     [TestClass]
     public class PhoneConcurrencyTests : TestScenario
@@ -20,9 +20,9 @@
         protected override void BeforeContainer(IWindsorContainer container)
         {
             _phone = Builder<Phone>.CreateNew()
-                .With(b => b.Id = 1)
-                .And(b => b.RowVersion = new byte[] { 0x02 })
-                .Build();
+                 .With(b => b.Id = 1)
+                 .And(b => b.RowVersion = new byte[] { 0x02 })
+                 .Build();
             container.Register(Component.For<Phone>().Instance(_phone));
         }
 
@@ -30,8 +30,8 @@
         public void DetectsConcurrencyViolationOnUpdate()
         {
             var phone = Builder<PhoneData>.CreateNew()
-                .With(c => c.Id = 1).And(c => c.RowVersion = new byte[] { 0x01 })
-                .Build();
+               .With(c => c.Id = 1).And(c => c.RowVersion = new byte[] { 0x01 })
+               .Build();
 
             _context.Expect(c => c.AsQueryable<Phone>())
                 .Return(new[] { _phone }.AsQueryable().TestAsync());
@@ -46,7 +46,7 @@
             catch (OptimisticConcurrencyException ex)
             {
                 Assert.AreEqual(ex.Message,
-                                $"Concurrency exception detected for {typeof(Phone).FullName} with id 1.");
+                    $"Concurrency exception detected for {typeof(Phone).FullName} with id 1.");
             }
         }
 
@@ -54,8 +54,8 @@
         public void DetectsConcurrencyViolationOnRemove()
         {
             var phone = Builder<PhoneData>.CreateNew()
-                .With(c => c.Id = 1).And(c => c.RowVersion = new byte[] { 0x01 })
-                .Build();
+               .With(c => c.Id = 1).And(c => c.RowVersion = new byte[] { 0x01 })
+               .Build();
 
             _context.Expect(c => c.AsQueryable<Phone>())
                 .Return(new[] { _phone }.AsQueryable().TestAsync());
@@ -70,7 +70,7 @@
             catch (OptimisticConcurrencyException ex)
             {
                 Assert.AreEqual(ex.Message,
-                                $"Concurrency exception detected for {typeof(Phone).FullName} with id 1.");
+                    $"Concurrency exception detected for {typeof(Phone).FullName} with id 1.");
             }
         }
     }

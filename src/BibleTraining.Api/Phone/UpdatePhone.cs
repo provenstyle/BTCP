@@ -8,7 +8,7 @@ namespace BibleTraining.Api.Phone
 
         public UpdatePhone(PhoneData phone)
             : base(phone)
-        {
+        {          
         }
     }
 }

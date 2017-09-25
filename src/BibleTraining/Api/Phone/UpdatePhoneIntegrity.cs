@@ -17,8 +17,6 @@ namespace BibleTraining.Api.Phone
             {
                 RuleFor(x => x.Id)
                     .NotNull();
-                RuleFor(x => x.PhoneTypeId)
-                    .NotNull();
                 RuleFor(x => x.Name)
                     .NotEmpty();
             }

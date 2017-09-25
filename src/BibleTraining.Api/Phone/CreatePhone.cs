@@ -7,7 +7,7 @@ namespace BibleTraining.Api.Phone
         }
 
         public CreatePhone(PhoneData phone)
-            : base (phone)
+            : base(phone)
         {
         }
     }

@@ -198,6 +198,14 @@
     <Compile Include="Infrastructure\TestDbAsyncEnumerable.cs" />
     <Compile Include="Infrastructure\TestDbAsyncEnumerator.cs" />
     <Compile Include="Infrastructure\TestDbAsyncQueryProvider.cs" />
+    <Compile Include="Phone\CreatePhoneIntegrityTests.cs" />
+    <Compile Include="Phone\CreatePhoneTests.cs" />
+    <Compile Include="Phone\GetPhonesTests.cs" />
+    <Compile Include="Phone\PhoneConcurrencyTests.cs" />
+    <Compile Include="Phone\PhoneMappingTests.cs" />
+    <Compile Include="Phone\RemovePhoneTests.cs" />
+    <Compile Include="Phone\UpdatePhoneIntegrityTests.cs" />
+    <Compile Include="Phone\UpdatePhoneTests.cs" />
     <Compile Include="PhoneType\CreatePhoneTypeIntegrityTests.cs" />
     <Compile Include="PhoneType\CreatePhoneTypeTests.cs" />
     <Compile Include="PhoneType\GetPhoneTypesTests.cs" />

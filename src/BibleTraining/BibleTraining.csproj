@@ -160,6 +160,11 @@
     <Compile Include="Api\EmailType\EmailTypeMaps.cs" />
     <Compile Include="Api\EmailType\UpdateEmailTypeIntegrity.cs" />
     <Compile Include="Api\EntityMapper.cs" />
+    <Compile Include="Api\Phone\CreatePhoneIntegrity.cs" />
+    <Compile Include="Api\Phone\PhoneAggregateHandler.cs" />
+    <Compile Include="Api\Phone\PhoneConcurency.cs" />
+    <Compile Include="Api\Phone\PhoneMaps.cs" />
+    <Compile Include="Api\Phone\UpdatePhoneIntegrity.cs" />
     <Compile Include="Api\PhoneType\CreatePhoneTypeIntegrity.cs" />
     <Compile Include="Api\PhoneType\PhoneTypeAggregateHandler.cs" />
     <Compile Include="Api\PhoneType\PhoneTypeConcurency.cs" />
@@ -175,6 +180,7 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Entities\Phone.cs" />
+    <Compile Include="Entities\Phone_Partial.cs" />
     <Compile Include="Entities\PhoneType.cs" />
     <Compile Include="EntityTypeConfigurations\AddressEntityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\AddressTypeEntityTypeConfiguration.cs" />
