@@ -1,10 +1,9 @@
 namespace $ApplicationName$.Entities
 {
-    using Improving.MediatR;
+	using Api;
 
     public class $Entity$ : Entity, IKeyProperties<int>
     {
-        public string Name        { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; }
     }
 }

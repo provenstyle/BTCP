@@ -1,7 +1,5 @@
 namespace $ApplicationName$.Api.$Entity$
 {
-    using Improving.MediatR;
-
     public class Create$Entity$ : ResourceAction<$Entity$Data, int?>
     {
         public Create$Entity$()
@@ -9,7 +7,7 @@ namespace $ApplicationName$.Api.$Entity$
         }
 
         public Create$Entity$($Entity$Data $entityLowercase$)
-            : base ($entityLowercase$)
+            : base($entityLowercase$)
         {
         }
     }

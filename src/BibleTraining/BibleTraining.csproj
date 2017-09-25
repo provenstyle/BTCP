@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -138,7 +138,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\AddressType\AddressTypeMaps.cs" />
     <Compile Include="Api\Address\AddressAggregateHandler.cs" />
     <Compile Include="Api\Address\AddressConcurency.cs" />
     <Compile Include="Api\Address\AddressMaps.cs" />
@@ -146,6 +145,7 @@
     <Compile Include="Api\Address\UpdateAddressIntegrity.cs" />
     <Compile Include="Api\AddressType\AddressTypeAggregateHandler.cs" />
     <Compile Include="Api\AddressType\AddressTypeConcurency.cs" />
+    <Compile Include="Api\AddressType\AddressTypeMaps.cs" />
     <Compile Include="Api\AddressType\CreateAddressTypeIntegrity.cs" />
     <Compile Include="Api\AddressType\UpdateAddressTypeIntegrity.cs" />
     <Compile Include="Api\CheckConcurrency.cs" />
@@ -154,6 +154,11 @@
     <Compile Include="Api\Email\EmailConcurency.cs" />
     <Compile Include="Api\Email\EmailMaps.cs" />
     <Compile Include="Api\Email\UpdateEmailIntegrity.cs" />
+    <Compile Include="Api\EmailType\CreateEmailTypeIntegrity.cs" />
+    <Compile Include="Api\EmailType\EmailTypeAggregateHandler.cs" />
+    <Compile Include="Api\EmailType\EmailTypeConcurency.cs" />
+    <Compile Include="Api\EmailType\EmailTypeMaps.cs" />
+    <Compile Include="Api\EmailType\UpdateEmailTypeIntegrity.cs" />
     <Compile Include="Api\EntityMapper.cs" />
     <Compile Include="Api\ResourceMapper.cs" />
     <Compile Include="BibleTrainingDomain.cs" />

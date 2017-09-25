@@ -8,6 +8,7 @@ namespace $ApplicationName$.Test.$Entity$
     using Api.$Entity$;
     using Entities;
     using Infrastructure;
+    using Miruken.Mediate;
     
     [TestClass]
     public class Update$Entity$Tests : TestScenario
@@ -33,7 +34,7 @@ namespace $ApplicationName$.Test.$Entity$
                 .WhenCalled(inv => $entityLowercase$.RowVersion = new byte[] { 0x02 })
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new Update$Entity$($entityLowercase$Data));
+            var result = await _handler.Send(new Update$Entity$($entityLowercase$Data));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x02 }, result.RowVersion);
 

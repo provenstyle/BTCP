@@ -1,22 +1,22 @@
-namespace $ApplicationName$.Test.$Entity$
+namespace BibleTraining.Test.EmailType
 {
     using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Entities;
-    using Api.$Entity$;
+    using Api.EmailType;
     using Miruken;
     using Miruken.Map;
 
     [TestClass]
-    public class $Entity$MappingTests : TestScenario
+    public class EmailTypeMappingTests : TestScenario
     {
         [TestMethod]
         public void ShouldMapResourcesToEntities()
         {
-            var resource = Builder<$Entity$Data>.CreateNew()
+            var resource = Builder<EmailTypeData>.CreateNew()
                 .With(c => c.RowVersion = new byte[] { 0x01 })
                 .Build();
-            var entity = _handler.Proxy<IMapping>().Map<$Entity$>(resource);
+            var entity = _handler.Proxy<IMapping>().Map<EmailType>(resource);
 
             AssertResourcesMapToEntities(entity, resource);
 
@@ -26,16 +26,16 @@ namespace $ApplicationName$.Test.$Entity$
         [TestMethod]
         public void ShouldMapDefaultResourcesToEntitiesWithNoErrors()
         {
-            _handler.Proxy<IMapping>().Map<$Entity$>(new $Entity$Data());
+            _handler.Proxy<IMapping>().Map<EmailType>(new EmailTypeData());
         }
 
         [TestMethod]
         public void ShouldMapEntitiesToResources()
         {
-            var entity = Builder<$Entity$>.CreateNew()
+            var entity = Builder<EmailType>.CreateNew()
                 .With(c => c.RowVersion = new byte[] { 0x01 })
                 .Build();
-            var resource = _handler.Proxy<IMapping>().Map<$Entity$Data>(entity);
+            var resource = _handler.Proxy<IMapping>().Map<EmailTypeData>(entity);
 
             AssertEntitiesMapToResources(resource, entity);
 
@@ -45,7 +45,7 @@ namespace $ApplicationName$.Test.$Entity$
         [TestMethod]
         public void ShouldMapDefaultEntitiesToResourcesWithNoErrors()
         {
-            _handler.Proxy<IMapping>().Map<$Entity$Data>(new $Entity$());
+            _handler.Proxy<IMapping>().Map<EmailTypeData>(new EmailType());
         }
     }
 }

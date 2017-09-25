@@ -8,6 +8,7 @@ namespace $ApplicationName$.Test.$Entity$
     using Entities;
     using Infrastructure;
     using Api.$Entity$;
+    using Miruken.Mediate;
 
     [TestClass]
     public class Remove$Entity$Tests : TestScenario
@@ -35,7 +36,7 @@ namespace $ApplicationName$.Test.$Entity$
             _context.Expect(c => c.CommitAsync())
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new Remove$Entity$($entityLowercase$Data));
+            var result = await _handler.Send(new Remove$Entity$($entityLowercase$Data));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x01 }, result.RowVersion);
 

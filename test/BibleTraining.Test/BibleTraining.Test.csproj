@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -186,6 +186,14 @@
     <Compile Include="Email\RemoveEmailTests.cs" />
     <Compile Include="Email\UpdateEmailIntegrityTests.cs" />
     <Compile Include="Email\UpdateEmailTests.cs" />
+    <Compile Include="EmailType\CreateEmailTypeIntegrityTests.cs" />
+    <Compile Include="EmailType\CreateEmailTypeTests.cs" />
+    <Compile Include="EmailType\EmailTypeConcurrencyTests.cs" />
+    <Compile Include="EmailType\EmailTypeMappingTests.cs" />
+    <Compile Include="EmailType\GetEmailTypesTests.cs" />
+    <Compile Include="EmailType\RemoveEmailTypeTests.cs" />
+    <Compile Include="EmailType\UpdateEmailTypeIntegrityTests.cs" />
+    <Compile Include="EmailType\UpdateEmailTypeTests.cs" />
     <Compile Include="Infrastructure\AsyncQueryTesting.cs" />
     <Compile Include="Infrastructure\TestDbAsyncEnumerable.cs" />
     <Compile Include="Infrastructure\TestDbAsyncEnumerator.cs" />

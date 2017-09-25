@@ -15,6 +15,8 @@ namespace BibleTraining.Api.EmailType
         {
             public EmailTypeDataIntegrity()
             {
+                RuleFor(x => x.Id)
+                    .NotNull();
                 RuleFor(x => x.Name)
                     .NotEmpty();
             }

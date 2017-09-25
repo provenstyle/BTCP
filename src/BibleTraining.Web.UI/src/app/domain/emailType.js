@@ -1,4 +1,4 @@
-﻿new function () {
+new function () {
 
     base2.package(this, {
         name:    "bt",
@@ -12,6 +12,7 @@
         $properties: {
             id:          undefined,
             name:        { validate: $required },
+            description: undefined,
             createdBy:   undefined,
             modifiedBy:  undefined
         }

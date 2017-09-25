@@ -8,7 +8,7 @@ namespace BibleTraining.Api.EmailType
 
         public UpdateEmailType(EmailTypeData emailType)
             : base(emailType)
-        {
+        {          
         }
     }
 }

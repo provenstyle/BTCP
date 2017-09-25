@@ -3,15 +3,14 @@ namespace $ApplicationName$.Test.$Entity$
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System.Data.Entity.Core;
     using System.Linq;
+    using Api;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using FizzWare.NBuilder;
-    using Improving.MediatR;
     using Rhino.Mocks;
     using Entities;
     using Infrastructure;
     using Api.$Entity$;
-
 
     [TestClass]
     public class $Entity$ConcurrencyTests : TestScenario

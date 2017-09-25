@@ -7,6 +7,7 @@ namespace $ApplicationName$.Test.$Entity$
     using Entities;
     using Infrastructure;
     using Api.$Entity$;
+    using Miruken.Mediate;
     
     [TestClass]
     public class Get$EntityPlural$Tests : TestScenario
@@ -16,7 +17,7 @@ namespace $ApplicationName$.Test.$Entity$
         {
             SetupChoices();
 
-            var result = await _mediator.SendAsync(new Get$EntityPlural$());
+            var result = await _handler.Send(new Get$EntityPlural$());
             Assert.AreEqual(3, result.$EntityPlural$.Length);
 
             _context.VerifyAllExpectations();
@@ -28,7 +29,7 @@ namespace $ApplicationName$.Test.$Entity$
             _context.Stub(p => p.AsQueryable<$Entity$>())
                 .Return(TestChoice<$Entity$>(3).TestAsync());
 
-            var result = await _mediator.SendAsync(new Get$EntityPlural$ { KeyProperties = true });
+            var result = await _handler.Send(new Get$EntityPlural$ { KeyProperties = true });
 
             Assert.IsTrue(result.$EntityPlural$.All(x => x.Name != null));
             Assert.IsTrue(result.$EntityPlural$.All(x => x.CreatedBy == null));

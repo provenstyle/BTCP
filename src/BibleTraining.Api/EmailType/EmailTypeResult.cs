@@ -1,4 +1,4 @@
-namespace BibleTraining.Api.EmailType
+namespace BibleTraining.Api.EmailType 
 {
     public class EmailTypeResult
     {

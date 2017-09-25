@@ -6,6 +6,7 @@ namespace $ApplicationName$.Test.$Entity$
     using Rhino.Mocks;
     using Entities;
     using Api.$Entity$;
+    using Miruken.Mediate;
     
     [TestClass]
     public class Create$Entity$Tests : TestScenario
@@ -30,7 +31,7 @@ namespace $ApplicationName$.Test.$Entity$
             _context.Expect(pg => pg.CommitAsync())
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new Create$Entity$($entityLowercase$));
+            var result = await _handler.Send(new Create$Entity$($entityLowercase$));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x01 }, result.RowVersion);
 

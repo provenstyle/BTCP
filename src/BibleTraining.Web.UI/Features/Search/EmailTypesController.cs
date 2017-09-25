@@ -24,6 +24,7 @@ namespace BibleTraining.Web.UI.Features.Search
                 return column.Sort.Direction == SortDirection.Descending
                     ? queryable.OrderByDescending(x => x.Name)
                     : queryable.OrderBy(x => x.Name);
+
             return queryable;
         }
 

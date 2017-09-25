@@ -1,7 +1,5 @@
-namespace $ApplicationName$.Api.$Entity$ 
+namespace $ApplicationName$.Api.$Entity$
 {
-    using Improving.MediatR;
-
     public class Remove$Entity$ : UpdateResource<$Entity$Data, int?>
     {
         public Remove$Entity$()

@@ -13,7 +13,6 @@
             table
                 .url("api/$entityPluralLowercase$")
                 .text("name", "Name")
-                .text("description", "Description")
                 .rowSelected(data => {
                     bt.$entityLowercase$.$Entity$Controller(this.context).next(ctrl => ctrl.show$Entity$(data));
                 });

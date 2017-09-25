@@ -1,6 +1,6 @@
 namespace BibleTraining.Entities
 {
-    using Api;
+	using Api;
 
     public class EmailType : Entity, IKeyProperties<int>
     {

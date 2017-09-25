@@ -1,40 +1,56 @@
-namespace $ApplicationName$.Api.$Entity$ 
+namespace $ApplicationName$.Api.$Entity$
 {
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using Improving.Highway.Data.Scope.Repository;
-    using Improving.MediatR;
-    using Improving.MediatR.Pipeline;
-    using MediatR;
     using Entities;
+    using Improving.Highway.Data.Scope.Repository;
+    using Miruken;
+    using Miruken.Callback;
+    using Miruken.Callback.Policy;
+    using Miruken.Map;
+    using Miruken.Mediate;
     using Queries;
 
-    [RelativeOrder(Stage.Validation - 1)]
-    public class $Entity$AggregateHandler :
-        IAsyncRequestHandler<Create$Entity$, $Entity$Data>,
-        IAsyncRequestHandler<Get$EntityPlural$, $Entity$Result>,
-        IAsyncRequestHandler<Update$Entity$, $Entity$Data>,
-        IRequestMiddleware<Update$Entity$, $Entity$Data>,
-        IAsyncRequestHandler<Remove$Entity$, $Entity$Data>,
-        IRequestMiddleware<Remove$Entity$, $Entity$Data>
+    public class $Entity$AggregateHandler : PipelineHandler,
+        IMiddleware<Update$Entity$, $Entity$Data>,
+        IMiddleware<Remove$Entity$, $Entity$Data>
     {
-        private readonly IRepository<$DataDomain$> _repository;
+        public int? Order { get; set; } = Stage.Validation - 1;
 
-        public $Entity$ $Entity$ { get; set; }
+        private readonly IRepository<$DataDomain$> _repository;
 
         public $Entity$AggregateHandler(IRepository<$DataDomain$> repository)
         {
             _repository = repository;
         }
 
-        #region Create $Entity$
+        public async Task<$Entity$> $Entity$(int? id, IHandler composer)
+        {
+            return await composer.Proxy<IStash>().GetOrPut(async () =>
+                (await _repository.FindAsync(new Get$EntityPlural$ById(id)))
+                    .FirstOrDefault());
+        }
 
-        public async Task<$Entity$Data> Handle(Create$Entity$ message)
+        public async Task<$Entity$Data> Begin(int? id, IHandler composer, NextDelegate<Task<$Entity$Data>> next)
+        {
+            using (var scope = _repository.Scopes.Create())
+            {
+                var $entityLowercase$ = await $Entity$(id, composer);
+                var result = await next();
+                await scope.SaveChangesAsync();
+
+                result.RowVersion = $entityLowercase$?.RowVersion;
+                return result;
+            }
+        }
+
+        [Mediates]
+        public async Task<$Entity$Data> Create(Create$Entity$ message, IHandler composer)
         {
             using(var scope = _repository.Scopes.Create())
             {
-                var $entityLowercase$ = new $Entity$().Map(message.Resource);
+                var $entityLowercase$ = composer.Proxy<IMapping>().Map<$Entity$>(message.Resource);
                 $entityLowercase$.Created = DateTime.Now;
 
                 _repository.Context.Add($entityLowercase$);
@@ -51,17 +67,14 @@ namespace $ApplicationName$.Api.$Entity$
             }
         }
 
-        #endregion
-
-        #region Get $Entity$
-
-        public async Task<$Entity$Result> Handle(Get$EntityPlural$ message)
+        [Mediates]
+        public async Task<$Entity$Result> Get(Get$EntityPlural$ message, IHandler composer)
         {
             using(_repository.Scopes.CreateReadOnly())
             {
                 var $entityPluralLowercase$ = (await _repository.FindAsync(new Get$EntityPlural$ById(message.Ids){
                     KeyProperties = message.KeyProperties
-                })).Select(x => new $Entity$Data().Map(x)).ToArray();
+                })).Select(x => composer.Proxy<IMapping>().Map<$Entity$Data>(x)).ToArray();
 
                 return new $Entity$Result
                 {
@@ -70,77 +83,40 @@ namespace $ApplicationName$.Api.$Entity$
             }
         }
 
-        #endregion
-
-        #region Update $Entity$
-
-        public async Task<$Entity$Data> Apply(Update$Entity$ request, Func<Update$Entity$, Task<$Entity$Data>> next)
+        public async Task<$Entity$Data> Next(Update$Entity$ request, MethodBinding method, IHandler composer, NextDelegate<Task<$Entity$Data>> next)
         {
-            using (var scope = _repository.Scopes.Create())
-            {
-                var resource = request.Resource;
-                if ($Entity$ == null && resource != null)
-                {
-                    $Entity$ = (await _repository
-                        .FindAsync(new Get$EntityPlural$ById(resource.Id)))
-                        .FirstOrDefault();
-                    Env.Use($Entity$);
-                }
-
-                var result = await next(request);
-                await scope.SaveChangesAsync();
-
-                result.RowVersion = $Entity$?.RowVersion;
-                return result;
-            }
+            return await Begin(request.Resource.Id, composer, next);
         }
 
-        public Task<$Entity$Data> Handle(Update$Entity$ request)
+        [Mediates]
+        public async Task<$Entity$Data> Update(Update$Entity$ request, IHandler composer)
         {
-            $Entity$.Map(request.Resource);
+            var $entityLowercase$ = await $Entity$(request.Resource.Id, composer);
+            composer.Proxy<IMapping>()
+                .MapInto(request.Resource, $entityLowercase$);
 
-            return Task.FromResult(new $Entity$Data
+            return new $Entity$Data
             {
                 Id = request.Resource.Id
-            });
+            };
         }
 
-        #endregion
-
-        #region Remove $Entity$
-
-        public async Task<$Entity$Data> Apply(
-            Remove$Entity$ request, Func<Remove$Entity$, Task<$Entity$Data>> next)
+        public async Task<$Entity$Data> Next(Remove$Entity$ request, MethodBinding method, IHandler composer, NextDelegate<Task<$Entity$Data>> next)
         {
-            using (var scope = _repository.Scopes.Create())
-            {
-                var resource = request.Resource;
-                if ($Entity$ == null && resource != null)
-                {
-                    $Entity$ = (await _repository
-                        .FindAsync(new Get$EntityPlural$ById(resource.Id)))
-                        .FirstOrDefault();
-                    Env.Use($Entity$);
-                }
-
-                var result = await next(request);
-                await scope.SaveChangesAsync();
-                return result;
-            }
+            return await Begin(request.Resource.Id, composer, next);
         }
 
-        public Task<$Entity$Data> Handle(Remove$Entity$ request)
+        [Mediates]
+        public async Task<$Entity$Data> Remove(Remove$Entity$ request, IHandler composer)
         {
-            _repository.Context.Remove($Entity$);
+            var $entityLowercase$ = await $Entity$(request.Resource.Id, composer);
+            _repository.Context.Remove($entityLowercase$);
 
-            return Task.FromResult(new $Entity$Data
+            return new $Entity$Data
             {
-                Id         = $Entity$.Id,
-                RowVersion = $Entity$.RowVersion
-            });
+                Id         = $entityLowercase$.Id,
+                RowVersion = $entityLowercase$.RowVersion
+            };
         }
-
-        #endregion
-
     }
 }

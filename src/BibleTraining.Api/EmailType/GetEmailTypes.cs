@@ -1,7 +1,7 @@
 namespace BibleTraining.Api.EmailType
 {
-    using Miruken.Mediate;
-
+    using Miruken.Mediate; 
+    
     public class GetEmailTypes : IRequest<EmailTypeResult>
     {
         public GetEmailTypes()

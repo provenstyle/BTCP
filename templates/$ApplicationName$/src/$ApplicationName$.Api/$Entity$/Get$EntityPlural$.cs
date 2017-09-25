@@ -1,8 +1,8 @@
 namespace $ApplicationName$.Api.$Entity$
 {
-    using Improving.MediatR;
-
-    public class Get$EntityPlural$ : Request.WithResponse<$Entity$Result>
+    using Miruken.Mediate; 
+    
+    public class Get$EntityPlural$ : IRequest<$Entity$Result>
     {
         public Get$EntityPlural$()
         {
@@ -14,7 +14,7 @@ namespace $ApplicationName$.Api.$Entity$
             Ids = ids;
         }
 
-        public int[] Ids { get; set;}
+        public int[] Ids { get; set; }
 
         public bool KeyProperties { get; set; }
     }
