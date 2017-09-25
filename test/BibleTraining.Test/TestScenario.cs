@@ -19,7 +19,6 @@ namespace BibleTraining.Test
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Miruken.Castle;
     using Miruken.Callback;
-    using Miruken.Mediate;
     using Miruken.Mediate.Castle;
     using Miruken.Validate.Castle;
     using Rhino.Mocks;
@@ -49,7 +48,6 @@ namespace BibleTraining.Test
                         new ValidateFeature(),
                         new MediateFeature().WithStandardMiddleware())
                         .Use(Classes.FromThisAssembly(),
-                             Classes.FromAssemblyContaining<MappingHandler>(),
                              Classes.FromAssemblyContaining<IBibleTrainingDomain>()),
                     new RepositoryInstaller(
                         Classes.FromAssemblyContaining<IBibleTrainingDomain>())
