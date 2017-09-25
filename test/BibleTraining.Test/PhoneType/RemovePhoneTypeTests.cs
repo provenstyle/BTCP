@@ -8,6 +8,7 @@ namespace BibleTraining.Test.PhoneType
     using Entities;
     using Infrastructure;
     using Api.PhoneType;
+    using Miruken.Mediate;
 
     [TestClass]
     public class RemovePhoneTypeTests : TestScenario
@@ -35,7 +36,7 @@ namespace BibleTraining.Test.PhoneType
             _context.Expect(c => c.CommitAsync())
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new RemovePhoneType(phoneTypeData));
+            var result = await _handler.Send(new RemovePhoneType(phoneTypeData));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x01 }, result.RowVersion);
 

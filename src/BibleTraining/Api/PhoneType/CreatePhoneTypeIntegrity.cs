@@ -1,7 +1,7 @@
 namespace BibleTraining.Api.PhoneType
 {
     using FluentValidation;
-    
+
     public class CreatePhoneTypeIntegrity : AbstractValidator<CreatePhoneType>
     {
         public CreatePhoneTypeIntegrity()

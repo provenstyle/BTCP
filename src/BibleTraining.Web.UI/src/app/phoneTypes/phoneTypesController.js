@@ -13,7 +13,6 @@ new function() {
             table
                 .url("api/phoneTypes")
                 .text("name", "Name")
-                .text("description", "Description")
                 .rowSelected(data => {
                     bt.phoneType.PhoneTypeController(this.context).next(ctrl => ctrl.showPhoneType(data));
                 });

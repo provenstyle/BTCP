@@ -7,6 +7,7 @@ namespace BibleTraining.Test.PhoneType
     using Entities;
     using Infrastructure;
     using Api.PhoneType;
+    using Miruken.Mediate;
     
     [TestClass]
     public class GetPhoneTypesTests : TestScenario
@@ -16,7 +17,7 @@ namespace BibleTraining.Test.PhoneType
         {
             SetupChoices();
 
-            var result = await _mediator.SendAsync(new GetPhoneTypes());
+            var result = await _handler.Send(new GetPhoneTypes());
             Assert.AreEqual(3, result.PhoneTypes.Length);
 
             _context.VerifyAllExpectations();
@@ -28,7 +29,7 @@ namespace BibleTraining.Test.PhoneType
             _context.Stub(p => p.AsQueryable<PhoneType>())
                 .Return(TestChoice<PhoneType>(3).TestAsync());
 
-            var result = await _mediator.SendAsync(new GetPhoneTypes { KeyProperties = true });
+            var result = await _handler.Send(new GetPhoneTypes { KeyProperties = true });
 
             Assert.IsTrue(result.PhoneTypes.All(x => x.Name != null));
             Assert.IsTrue(result.PhoneTypes.All(x => x.CreatedBy == null));

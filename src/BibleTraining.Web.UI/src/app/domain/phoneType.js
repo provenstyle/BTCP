@@ -12,7 +12,6 @@ new function () {
         $properties: {
             id:          undefined,
             name:        { validate: $required },
-            description: undefined,
             createdBy:   undefined,
             modifiedBy:  undefined
         }

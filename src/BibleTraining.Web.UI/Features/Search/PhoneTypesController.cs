@@ -25,27 +25,19 @@ namespace BibleTraining.Web.UI.Features.Search
                     ? queryable.OrderByDescending(x => x.Name)
                     : queryable.OrderBy(x => x.Name);
 
-            if(column.Is(nameof(PhoneType.Description)))
-                return column.Sort.Direction == SortDirection.Descending
-                    ? queryable.OrderByDescending(x => x.Description)
-                    : queryable.OrderBy(x => x.Description);
-
             return queryable;
         }
 
         protected override IQueryable<PhoneType> SearchAllColumns(IQueryable<PhoneType> queryable, ISearch search)
         {
              return queryable.Where(x =>
-                x.Name.Contains(search.Value) ||
-                x.Description.Contains(search.Value));
+                x.Name.Contains(search.Value));
         }
 
         protected override IQueryable<PhoneType> FilterColumn(IQueryable<PhoneType> queryable, IColumn column)
         {
             if(column.Is(nameof(PhoneType.Name)))
                 return queryable.Where(x => x.Name.Contains(column.Search.Value));
-            if(column.Is(nameof(PhoneType.Description)))
-                return queryable.Where(x => x.Description.Contains(column.Search.Value));
             return queryable;
         }
     }

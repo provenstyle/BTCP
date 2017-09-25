@@ -1,38 +1,56 @@
-namespace BibleTraining.Api.PhoneType 
+namespace BibleTraining.Api.PhoneType
 {
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using Improving.Highway.Data.Scope.Repository;
     using Entities;
+    using Improving.Highway.Data.Scope.Repository;
+    using Miruken;
+    using Miruken.Callback;
+    using Miruken.Callback.Policy;
+    using Miruken.Map;
     using Miruken.Mediate;
     using Queries;
 
-    [RelativeOrder(Stage.Validation - 1)]
-    public class PhoneTypeAggregateHandler :
-        IAsyncRequestHandler<CreatePhoneType, PhoneTypeData>,
-        IAsyncRequestHandler<GetPhoneTypes, PhoneTypeResult>,
-        IAsyncRequestHandler<UpdatePhoneType, PhoneTypeData>,
-        IRequestMiddleware<UpdatePhoneType, PhoneTypeData>,
-        IAsyncRequestHandler<RemovePhoneType, PhoneTypeData>,
-        IRequestMiddleware<RemovePhoneType, PhoneTypeData>
+    public class PhoneTypeAggregateHandler : PipelineHandler,
+        IMiddleware<UpdatePhoneType, PhoneTypeData>,
+        IMiddleware<RemovePhoneType, PhoneTypeData>
     {
-        private readonly IRepository<IBibleTrainingDomain> _repository;
+        public int? Order { get; set; } = Stage.Validation - 1;
 
-        public PhoneType PhoneType { get; set; }
+        private readonly IRepository<IBibleTrainingDomain> _repository;
 
         public PhoneTypeAggregateHandler(IRepository<IBibleTrainingDomain> repository)
         {
             _repository = repository;
         }
 
-        #region Create PhoneType
+        public async Task<PhoneType> PhoneType(int? id, IHandler composer)
+        {
+            return await composer.Proxy<IStash>().GetOrPut(async () =>
+                (await _repository.FindAsync(new GetPhoneTypesById(id)))
+                    .FirstOrDefault());
+        }
 
-        public async Task<PhoneTypeData> Handle(CreatePhoneType message)
+        public async Task<PhoneTypeData> Begin(int? id, IHandler composer, NextDelegate<Task<PhoneTypeData>> next)
+        {
+            using (var scope = _repository.Scopes.Create())
+            {
+                var phoneType = await PhoneType(id, composer);
+                var result = await next();
+                await scope.SaveChangesAsync();
+
+                result.RowVersion = phoneType?.RowVersion;
+                return result;
+            }
+        }
+
+        [Mediates]
+        public async Task<PhoneTypeData> Create(CreatePhoneType message, IHandler composer)
         {
             using(var scope = _repository.Scopes.Create())
             {
-                var phoneType = new PhoneType().Map(message.Resource);
+                var phoneType = composer.Proxy<IMapping>().Map<PhoneType>(message.Resource);
                 phoneType.Created = DateTime.Now;
 
                 _repository.Context.Add(phoneType);
@@ -49,17 +67,14 @@ namespace BibleTraining.Api.PhoneType
             }
         }
 
-        #endregion
-
-        #region Get PhoneType
-
-        public async Task<PhoneTypeResult> Handle(GetPhoneTypes message)
+        [Mediates]
+        public async Task<PhoneTypeResult> Get(GetPhoneTypes message, IHandler composer)
         {
             using(_repository.Scopes.CreateReadOnly())
             {
                 var phoneTypes = (await _repository.FindAsync(new GetPhoneTypesById(message.Ids){
                     KeyProperties = message.KeyProperties
-                })).Select(x => new PhoneTypeData().Map(x)).ToArray();
+                })).Select(x => composer.Proxy<IMapping>().Map<PhoneTypeData>(x)).ToArray();
 
                 return new PhoneTypeResult
                 {
@@ -68,77 +83,40 @@ namespace BibleTraining.Api.PhoneType
             }
         }
 
-        #endregion
-
-        #region Update PhoneType
-
-        public async Task<PhoneTypeData> Apply(UpdatePhoneType request, Func<UpdatePhoneType, Task<PhoneTypeData>> next)
+        public async Task<PhoneTypeData> Next(UpdatePhoneType request, MethodBinding method, IHandler composer, NextDelegate<Task<PhoneTypeData>> next)
         {
-            using (var scope = _repository.Scopes.Create())
-            {
-                var resource = request.Resource;
-                if (PhoneType == null && resource != null)
-                {
-                    PhoneType = (await _repository
-                        .FindAsync(new GetPhoneTypesById(resource.Id)))
-                        .FirstOrDefault();
-                    Env.Use(PhoneType);
-                }
-
-                var result = await next(request);
-                await scope.SaveChangesAsync();
-
-                result.RowVersion = PhoneType?.RowVersion;
-                return result;
-            }
+            return await Begin(request.Resource.Id, composer, next);
         }
 
-        public Task<PhoneTypeData> Handle(UpdatePhoneType request)
+        [Mediates]
+        public async Task<PhoneTypeData> Update(UpdatePhoneType request, IHandler composer)
         {
-            PhoneType.Map(request.Resource);
+            var phoneType = await PhoneType(request.Resource.Id, composer);
+            composer.Proxy<IMapping>()
+                .MapInto(request.Resource, phoneType);
 
-            return Task.FromResult(new PhoneTypeData
+            return new PhoneTypeData
             {
                 Id = request.Resource.Id
-            });
+            };
         }
 
-        #endregion
-
-        #region Remove PhoneType
-
-        public async Task<PhoneTypeData> Apply(
-            RemovePhoneType request, Func<RemovePhoneType, Task<PhoneTypeData>> next)
+        public async Task<PhoneTypeData> Next(RemovePhoneType request, MethodBinding method, IHandler composer, NextDelegate<Task<PhoneTypeData>> next)
         {
-            using (var scope = _repository.Scopes.Create())
-            {
-                var resource = request.Resource;
-                if (PhoneType == null && resource != null)
-                {
-                    PhoneType = (await _repository
-                        .FindAsync(new GetPhoneTypesById(resource.Id)))
-                        .FirstOrDefault();
-                    Env.Use(PhoneType);
-                }
-
-                var result = await next(request);
-                await scope.SaveChangesAsync();
-                return result;
-            }
+            return await Begin(request.Resource.Id, composer, next);
         }
 
-        public Task<PhoneTypeData> Handle(RemovePhoneType request)
+        [Mediates]
+        public async Task<PhoneTypeData> Remove(RemovePhoneType request, IHandler composer)
         {
-            _repository.Context.Remove(PhoneType);
+            var phoneType = await PhoneType(request.Resource.Id, composer);
+            _repository.Context.Remove(phoneType);
 
-            return Task.FromResult(new PhoneTypeData
+            return new PhoneTypeData
             {
-                Id         = PhoneType.Id,
-                RowVersion = PhoneType.RowVersion
-            });
+                Id         = phoneType.Id,
+                RowVersion = phoneType.RowVersion
+            };
         }
-
-        #endregion
-
     }
 }

@@ -1,7 +1,7 @@
 namespace BibleTraining.Api.PhoneType
 {
-    using Miruken.Mediate;
-
+    using Miruken.Mediate; 
+    
     public class GetPhoneTypes : IRequest<PhoneTypeResult>
     {
         public GetPhoneTypes()
@@ -14,7 +14,7 @@ namespace BibleTraining.Api.PhoneType
             Ids = ids;
         }
 
-        public int[] Ids { get; set;}
+        public int[] Ids { get; set; }
 
         public bool KeyProperties { get; set; }
     }

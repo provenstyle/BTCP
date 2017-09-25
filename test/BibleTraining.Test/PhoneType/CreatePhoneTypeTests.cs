@@ -6,6 +6,7 @@ namespace BibleTraining.Test.PhoneType
     using Rhino.Mocks;
     using Entities;
     using Api.PhoneType;
+    using Miruken.Mediate;
     
     [TestClass]
     public class CreatePhoneTypeTests : TestScenario
@@ -30,7 +31,7 @@ namespace BibleTraining.Test.PhoneType
             _context.Expect(pg => pg.CommitAsync())
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new CreatePhoneType(phoneType));
+            var result = await _handler.Send(new CreatePhoneType(phoneType));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x01 }, result.RowVersion);
 

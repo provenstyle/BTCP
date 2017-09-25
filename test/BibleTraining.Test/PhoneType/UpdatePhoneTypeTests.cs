@@ -8,6 +8,7 @@ namespace BibleTraining.Test.PhoneType
     using Api.PhoneType;
     using Entities;
     using Infrastructure;
+    using Miruken.Mediate;
     
     [TestClass]
     public class UpdatePhoneTypeTests : TestScenario
@@ -33,7 +34,7 @@ namespace BibleTraining.Test.PhoneType
                 .WhenCalled(inv => phoneType.RowVersion = new byte[] { 0x02 })
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new UpdatePhoneType(phoneTypeData));
+            var result = await _handler.Send(new UpdatePhoneType(phoneTypeData));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x02 }, result.RowVersion);
 

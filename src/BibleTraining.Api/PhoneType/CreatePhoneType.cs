@@ -7,7 +7,7 @@ namespace BibleTraining.Api.PhoneType
         }
 
         public CreatePhoneType(PhoneTypeData phoneType)
-            : base (phoneType)
+            : base(phoneType)
         {
         }
     }

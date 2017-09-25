@@ -6,7 +6,6 @@ BEGIN
 	CREATE TABLE PhoneType (
 		Id          INT           NOT NULL IDENTITY(1,1),
 		Name        NVARCHAR(500) NOT NULL,
-		Description NVARCHAR(500) NULL,
 
 		Created     DATETIME2     NOT NULL,
 		CreatedBy   NVARCHAR(500) NOT NULL,

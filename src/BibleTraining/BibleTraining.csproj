@@ -160,6 +160,11 @@
     <Compile Include="Api\EmailType\EmailTypeMaps.cs" />
     <Compile Include="Api\EmailType\UpdateEmailTypeIntegrity.cs" />
     <Compile Include="Api\EntityMapper.cs" />
+    <Compile Include="Api\PhoneType\CreatePhoneTypeIntegrity.cs" />
+    <Compile Include="Api\PhoneType\PhoneTypeAggregateHandler.cs" />
+    <Compile Include="Api\PhoneType\PhoneTypeConcurency.cs" />
+    <Compile Include="Api\PhoneType\PhoneTypeMaps.cs" />
+    <Compile Include="Api\PhoneType\UpdatePhoneTypeIntegrity.cs" />
     <Compile Include="Api\ResourceMapper.cs" />
     <Compile Include="BibleTrainingDomain.cs" />
     <Compile Include="Entities\Address.cs" />
