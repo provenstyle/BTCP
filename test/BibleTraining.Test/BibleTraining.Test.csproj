@@ -183,6 +183,13 @@
     <Compile Include="AddressType\RemoveAddressTypeTests.cs" />
     <Compile Include="AddressType\UpdateAddressTypeIntegrityTests.cs" />
     <Compile Include="AddressType\UpdateAddressTypeTests.cs" />
+    <Compile Include="Email\CreateEmailIntegrityTests.cs" />
+    <Compile Include="Email\CreateEmailTests.cs" />
+    <Compile Include="Email\EmailConcurrencyTests.cs" />
+    <Compile Include="Email\GetEmailsTests.cs" />
+    <Compile Include="Email\RemoveEmailTests.cs" />
+    <Compile Include="Email\UpdateEmailIntegrityTests.cs" />
+    <Compile Include="Email\UpdateEmailTests.cs" />
     <Compile Include="Infrastructure\AsyncQueryTesting.cs" />
     <Compile Include="Infrastructure\TestDbAsyncEnumerable.cs" />
     <Compile Include="Infrastructure\TestDbAsyncEnumerator.cs" />

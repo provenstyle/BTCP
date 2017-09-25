@@ -4,6 +4,7 @@ namespace BibleTraining.Test.Email
     using Api.Email;
     using Entities;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Miruken.Mediate;
     using Rhino.Mocks;
     using Test;
 
@@ -33,7 +34,7 @@ namespace BibleTraining.Test.Email
             _context.Expect(pg => pg.CommitAsync())
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new CreateEmail(email));
+            var result = await _handler.Send(new CreateEmail(email));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x01 }, result.RowVersion);
 

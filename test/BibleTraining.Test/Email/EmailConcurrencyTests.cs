@@ -2,12 +2,12 @@
 {
     using System.Data.Entity.Core;
     using System.Linq;
+    using Api;
     using Api.Email;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using Entities;
     using FizzWare.NBuilder;
-    using Improving.MediatR;
     using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Rhino.Mocks;

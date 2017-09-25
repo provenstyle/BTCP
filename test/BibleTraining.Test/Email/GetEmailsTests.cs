@@ -3,6 +3,7 @@ namespace BibleTraining.Test.Email
     using System.Threading.Tasks;
     using Api.Email;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Miruken.Mediate;
     using Rhino.Mocks;
     using Test;
 
@@ -14,7 +15,7 @@ namespace BibleTraining.Test.Email
         {
             SetupChoices();
 
-            var result = await _mediator.SendAsync(new GetEmails());
+            var result = await _handler.Send(new GetEmails());
             Assert.AreEqual(3, result.Emails.Length);
 
             _context.VerifyAllExpectations();

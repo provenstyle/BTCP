@@ -153,6 +153,11 @@
     <Compile Include="Api\AddressType\CreateAddressTypeIntegrity.cs" />
     <Compile Include="Api\AddressType\UpdateAddressTypeIntegrity.cs" />
     <Compile Include="Api\CheckConcurrency.cs" />
+    <Compile Include="Api\Email\CreateEmailIntegrity.cs" />
+    <Compile Include="Api\Email\EmailAggregateHandler.cs" />
+    <Compile Include="Api\Email\EmailConcurency.cs" />
+    <Compile Include="Api\Email\EmailMaps.cs" />
+    <Compile Include="Api\Email\UpdateEmailIntegrity.cs" />
     <Compile Include="Api\EntityMapper.cs" />
     <Compile Include="Api\ResourceMapper.cs" />
     <Compile Include="BibleTrainingDomain.cs" />

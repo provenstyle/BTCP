@@ -6,22 +6,21 @@ namespace BibleTraining.Api.Email
     using BibleTraining;
     using Entities;
     using Improving.Highway.Data.Scope.Repository;
+    using Miruken;
+    using Miruken.Callback;
+    using Miruken.Callback.Policy;
+    using Miruken.Map;
     using Miruken.Mediate;
     using Queries;
 
-    [RelativeOrder(Stage.Validation - 1)]
-    public class EmailAggregateHandler :
-        IAsyncRequestHandler<CreateEmail, EmailData>,
-        IAsyncRequestHandler<GetEmails, EmailResult>,
-        IAsyncRequestHandler<UpdateEmail, EmailData>,
-        IRequestMiddleware<UpdateEmail, EmailData>,
-        IAsyncRequestHandler<RemoveEmail, EmailData>,
-        IRequestMiddleware<RemoveEmail, EmailData>
+    public class EmailAggregateHandler : PipelineHandler,
+        IMiddleware<UpdateEmail, EmailData>,
+        IMiddleware<RemoveEmail, EmailData>
     {
+
+        public int? Order { get; set; } = Stage.Validation - 1;
         private readonly IRepository<IBibleTrainingDomain> _repository;
         private readonly DateTime _now;
-
-        public Email Email { get; set; }
 
         public EmailAggregateHandler(IRepository<IBibleTrainingDomain> repository)
         {
@@ -29,13 +28,44 @@ namespace BibleTraining.Api.Email
             _now        = DateTime.Now;
         }
 
-        #region Create Email
+        public async Task<Email> Email(int? id, IHandler composer)
+        {
+            return await composer.Proxy<IStash>().GetOrPut(async () =>
+                (await _repository.FindAsync(new GetEmailsById(id)))
+                    .FirstOrDefault());
+        }
 
-        public async Task<EmailData> Handle(CreateEmail message)
+        public async Task<EmailData> Begin(int? id, IHandler composer, NextDelegate<Task<EmailData>> next)
+        {
+            using (var scope = _repository.Scopes.Create())
+            {
+                var email = await Email(id, composer);
+                var result = await next();
+                await scope.SaveChangesAsync();
+
+                result.RowVersion = email?.RowVersion;
+                return result;
+            }
+        }
+
+        public async Task<EmailData> Next(UpdateEmail callback, MethodBinding method, IHandler composer, NextDelegate<Task<EmailData>> next)
+        {
+            return await Begin(callback.Resource.Id, composer, next);
+        }
+
+        public async Task<EmailData> Next(RemoveEmail callback, MethodBinding method, IHandler composer, NextDelegate<Task<EmailData>> next)
+        {
+            return await Begin(callback.Resource.Id, composer, next);
+        }
+
+        [Mediates]
+        public async Task<EmailData> Create(CreateEmail message, IHandler composer)
         {
             using(var scope = _repository.Scopes.Create())
             {
-                var email = new Email().Map(message.Resource);
+                var email = composer.Proxy<IMapping>()
+                    .Map<Email>(message.Resource);
+
                 email.Created = _now;
 
                 _repository.Context.Add(email);
@@ -52,16 +82,13 @@ namespace BibleTraining.Api.Email
             }
         }
 
-        #endregion
-
-        #region Get Email
-
-        public async Task<EmailResult> Handle(GetEmails message)
+        [Mediates]
+        public async Task<EmailResult> Get(GetEmails message, IHandler composer)
         {
             using(_repository.Scopes.CreateReadOnly())
             {
                 var emails = (await _repository.FindAsync(new GetEmailsById(message.Ids)))
-                    .Select(x => new EmailData().Map(x)).ToArray();
+                    .Select(x => composer.Proxy<IMapping>().Map<EmailData>(x)).ToArray();
 
                 return new EmailResult
                 {
@@ -70,72 +97,30 @@ namespace BibleTraining.Api.Email
             }
         }
 
-        #endregion
-
-        #region Update Email
-
-        public async Task<EmailData> Apply(UpdateEmail request, Func<UpdateEmail, Task<EmailData>> next)
+        [Mediates]
+        public async Task<EmailData> Update(UpdateEmail request, IHandler composer)
         {
-            using (var scope = _repository.Scopes.Create())
-            {
-                var resource = request.Resource;
-                if (Email == null && resource != null)
-                {
-                    Email = await _repository.FetchByIdAsync<Email>(resource.Id);
-                    Env.Use(Email);
-                }
+            var email = await Email(request.Resource.Id, composer);
+            composer.Proxy<IMapping>()
+                    .MapInto(request.Resource, email);
 
-                var result = await next(request);
-                await scope.SaveChangesAsync();
-
-                result.RowVersion = Email?.RowVersion;
-                return result;
-            }
-        }
-
-        public Task<EmailData> Handle(UpdateEmail request)
-        {
-            Email.Map(request.Resource);
-
-            return Task.FromResult(new EmailData
+            return new EmailData
             {
                 Id = request.Resource.Id
-            });
+            };
         }
 
-        #endregion
-
-        #region Remove Email
-
-        public async Task<EmailData> Apply(
-            RemoveEmail request, Func<RemoveEmail, Task<EmailData>> next)
+        [Mediates]
+        public async Task<EmailData> Remove(RemoveEmail request, IHandler composer)
         {
-            using (var scope = _repository.Scopes.Create())
+            var email = await Email(request.Resource.Id, composer);
+            _repository.Context.Remove(email);
+
+            return new EmailData
             {
-                var resource = request.Resource;
-                if (Email == null && resource != null)
-                {
-                    Email = await _repository.FetchByIdAsync<Email>(resource.Id);
-                    Env.Use(Email);
-                }
-
-                var result = await next(request);
-                await scope.SaveChangesAsync();
-                return result;
-            }
+                Id         = email.Id,
+                RowVersion = email.RowVersion
+            };
         }
-
-        public Task<EmailData> Handle(RemoveEmail request)
-        {
-            _repository.Context.Remove(Email);
-
-            return Task.FromResult(new EmailData
-            {
-                Id         = Email.Id,
-                RowVersion = Email.RowVersion
-            });
-        }
-
-        #endregion
     }
 }

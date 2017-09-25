@@ -7,6 +7,7 @@ namespace BibleTraining.Test.Email
     using FizzWare.NBuilder;
     using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Miruken.Mediate;
     using Rhino.Mocks;
     using Test;
 
@@ -36,7 +37,7 @@ namespace BibleTraining.Test.Email
             _context.Expect(c => c.CommitAsync())
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new RemoveEmail(emailData));
+            var result = await _handler.Send(new RemoveEmail(emailData));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x01 }, result.RowVersion);
 
