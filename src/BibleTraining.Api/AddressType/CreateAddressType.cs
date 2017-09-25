@@ -7,7 +7,7 @@ namespace BibleTraining.Api.AddressType
         }
 
         public CreateAddressType(AddressTypeData addressType)
-            : base (addressType)
+            : base(addressType)
         {
         }
     }

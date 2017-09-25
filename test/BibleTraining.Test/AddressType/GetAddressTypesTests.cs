@@ -1,14 +1,14 @@
-﻿namespace BibleTraining.Test.AddressType
+namespace BibleTraining.Test.AddressType
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System.Linq;
     using System.Threading.Tasks;
-    using Api.AddressType;
+    using Rhino.Mocks;
     using Entities;
     using Infrastructure;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Api.AddressType;
     using Miruken.Mediate;
-    using Rhino.Mocks;
-
+    
     [TestClass]
     public class GetAddressTypesTests : TestScenario
     {

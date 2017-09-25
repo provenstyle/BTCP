@@ -8,7 +8,7 @@ namespace BibleTraining.Api.AddressType
 
         public UpdateAddressType(AddressTypeData addressType)
             : base(addressType)
-        {
+        {          
         }
     }
 }

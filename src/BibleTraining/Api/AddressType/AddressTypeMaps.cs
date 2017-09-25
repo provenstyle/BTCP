@@ -1,4 +1,4 @@
-﻿namespace BibleTraining.Api.AddressType
+namespace BibleTraining.Api.AddressType
 {
     using Entities;
     using Miruken.Callback;
@@ -9,12 +9,11 @@
         [Maps]
         public AddressTypeData MapAddressType(AddressType addressType, Mapping mapping)
         {
-            var target = mapping.Source as AddressTypeData ?? new AddressTypeData();
+            var target = mapping.Target as AddressTypeData ?? new AddressTypeData();
 
             ResourceMapper.Map(target, addressType);
 
             target.Name        = addressType.Name;
-            target.Description = addressType.Description;
 
             return target;
         }
@@ -29,10 +28,8 @@
             if (data.Name != null)
                 target.Name = data.Name;
 
-            if (data.Description != null)
-                target.Description = data.Description;
-
             return target;
         }
     }
+
 }

@@ -1,15 +1,15 @@
 namespace BibleTraining.Test.AddressType
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System.Linq;
     using System.Threading.Tasks;
+    using FizzWare.NBuilder;
+    using Rhino.Mocks;
     using Api.AddressType;
     using Entities;
-    using FizzWare.NBuilder;
     using Infrastructure;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Miruken.Mediate;
-    using Rhino.Mocks;
-
+    
     [TestClass]
     public class UpdateAddressTypeTests : TestScenario
     {

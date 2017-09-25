@@ -1,10 +1,10 @@
 namespace BibleTraining.EntityTypeConfigurations
 {
-    using Entities;
+	using Entities;
 
     public class AddressTypeEntityTypeConfiguration : BaseEntityTypeConfiguration<AddressType>
     {
-        public AddressTypeEntityTypeConfiguration ()
+        public AddressTypeEntityTypeConfiguration()
         {
             ToTable(nameof(AddressType));
         }

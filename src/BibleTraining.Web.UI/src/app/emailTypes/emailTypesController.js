@@ -13,7 +13,6 @@ new function() {
             table
                 .url("api/emailTypes")
                 .text("name", "Name")
-                .text("description", "Description")
                 .rowSelected(data => {
                     bt.emailType.EmailTypeController(this.context).next(ctrl => ctrl.showEmailType(data));
                 });

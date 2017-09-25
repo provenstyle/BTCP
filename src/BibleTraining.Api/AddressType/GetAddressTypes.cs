@@ -1,7 +1,7 @@
 namespace BibleTraining.Api.AddressType
 {
-    using Miruken.Mediate;
-
+    using Miruken.Mediate; 
+    
     public class GetAddressTypes : IRequest<AddressTypeResult>
     {
         public GetAddressTypes()
@@ -14,7 +14,7 @@ namespace BibleTraining.Api.AddressType
             Ids = ids;
         }
 
-        public int[] Ids { get; set;}
+        public int[] Ids { get; set; }
 
         public bool KeyProperties { get; set; }
     }

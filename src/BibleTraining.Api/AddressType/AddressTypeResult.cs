@@ -1,4 +1,4 @@
-namespace BibleTraining.Api.AddressType
+namespace BibleTraining.Api.AddressType 
 {
     public class AddressTypeResult
     {

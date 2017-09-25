@@ -13,7 +13,6 @@ new function() {
             table
                 .url("api/addressTypes")
                 .text("name", "Name")
-                .text("description", "Description")
                 .rowSelected(data => {
                     bt.addressType.AddressTypeController(this.context).next(ctrl => ctrl.showAddressType(data));
                 });

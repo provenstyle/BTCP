@@ -12,12 +12,11 @@ namespace BibleTraining.Api.AddressType
     using Miruken.Mediate;
     using Queries;
 
-    [Pipeline]
-    public class AddressTypeAggregateHandler : Handler,
+    public class AddressTypeAggregateHandler : PipelineHandler,
         IMiddleware<UpdateAddressType, AddressTypeData>,
         IMiddleware<RemoveAddressType, AddressTypeData>
     {
-        public int? Order { get; set; }
+        public int? Order { get; set; } = Stage.Validation - 1;
 
         private readonly IRepository<IBibleTrainingDomain> _repository;
 
@@ -46,24 +45,12 @@ namespace BibleTraining.Api.AddressType
             }
         }
 
-        public async Task<AddressTypeData> Next(UpdateAddressType callback, MethodBinding method, IHandler composer, NextDelegate<Task<AddressTypeData>> next)
-        {
-            return await Begin(callback.Resource.Id, composer, next);
-        }
-
-        public async Task<AddressTypeData> Next(RemoveAddressType callback, MethodBinding method, IHandler composer, NextDelegate<Task<AddressTypeData>> next)
-        {
-            return await Begin(callback.Resource.Id, composer, next);
-        }
-
         [Mediates]
         public async Task<AddressTypeData> Create(CreateAddressType message, IHandler composer)
         {
             using(var scope = _repository.Scopes.Create())
             {
-                var addressType = composer.Proxy<IMapping>()
-                    .Map<AddressType>(message.Resource);
-
+                var addressType = composer.Proxy<IMapping>().Map<AddressType>(message.Resource);
                 addressType.Created = DateTime.Now;
 
                 _repository.Context.Add(addressType);
@@ -71,10 +58,10 @@ namespace BibleTraining.Api.AddressType
                 var data = new AddressTypeData();
 
                 await scope.SaveChangesAsync((dbScope, count) =>
-                 {
-                     data.Id = addressType.Id;
-                     data.RowVersion = addressType.RowVersion;
-                 });
+                {
+                    data.Id = addressType.Id;
+                    data.RowVersion = addressType.RowVersion;
+                });
 
                 return data;
             }
@@ -96,6 +83,11 @@ namespace BibleTraining.Api.AddressType
             }
         }
 
+        public async Task<AddressTypeData> Next(UpdateAddressType request, MethodBinding method, IHandler composer, NextDelegate<Task<AddressTypeData>> next)
+        {
+            return await Begin(request.Resource.Id, composer, next);
+        }
+
         [Mediates]
         public async Task<AddressTypeData> Update(UpdateAddressType request, IHandler composer)
         {
@@ -109,16 +101,21 @@ namespace BibleTraining.Api.AddressType
             };
         }
 
+        public async Task<AddressTypeData> Next(RemoveAddressType request, MethodBinding method, IHandler composer, NextDelegate<Task<AddressTypeData>> next)
+        {
+            return await Begin(request.Resource.Id, composer, next);
+        }
+
         [Mediates]
         public async Task<AddressTypeData> Remove(RemoveAddressType request, IHandler composer)
         {
-            var entity = await AddressType(request.Resource.Id, composer);
-            _repository.Context.Remove(entity);
+            var addressType = await AddressType(request.Resource.Id, composer);
+            _repository.Context.Remove(addressType);
 
             return new AddressTypeData
             {
-                Id         = entity.Id,
-                RowVersion = entity.RowVersion
+                Id         = addressType.Id,
+                RowVersion = addressType.RowVersion
             };
         }
     }

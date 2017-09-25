@@ -1,8 +1,8 @@
 namespace BibleTraining.Test.AddressType
 {
-    using Api.AddressType;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+    using Api.AddressType;
+    
     [TestClass]
     public class UpdateAddressTypeIntegrityTests
     {
@@ -14,11 +14,11 @@ namespace BibleTraining.Test.AddressType
         {
             updateAddressType =  new UpdateAddressType
             {
-                Resource = new AddressTypeData
-                {
+                 Resource = new AddressTypeData
+                 {
                     Id   = 1,
                     Name = "a"
-                }
+                 }
             };
 
             validator = new UpdateAddressTypeIntegrity();

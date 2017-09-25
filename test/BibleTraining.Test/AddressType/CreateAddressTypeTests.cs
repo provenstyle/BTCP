@@ -1,13 +1,13 @@
 namespace BibleTraining.Test.AddressType
 {
     using System.Threading.Tasks;
-    using Api.AddressType;
-    using Entities;
     using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Miruken.Mediate;
     using Rhino.Mocks;
-
+    using Entities;
+    using Api.AddressType;
+    using Miruken.Mediate;
+    
     [TestClass]
     public class CreateAddressTypeTests : TestScenario
     {
@@ -15,18 +15,18 @@ namespace BibleTraining.Test.AddressType
         public async Task ShouldCreateAddressType()
         {
             var addressType = Builder<AddressTypeData>.CreateNew()
-                .With(pg => pg.Id = 0).And(pg => pg.RowVersion = null)
-                .Build();
+                  .With(pg => pg.Id = 0).And(pg => pg.RowVersion = null)
+                  .Build();
 
             _context.Expect(pg => pg.Add(Arg<AddressType>.Is.Anything))
-                .WhenCalled(inv =>
-                    {
-                        var entity = (AddressType)inv.Arguments[0];
-                        entity.Id         = 1;
-                        entity.RowVersion = new byte[] { 0x01 };
-                        Assert.AreEqual(addressType.Name, entity.Name);
-                        inv.ReturnValue = entity;
-                    }).Return(null);
+                  .WhenCalled(inv =>
+                  {
+                      var entity = (AddressType)inv.Arguments[0];
+                      entity.Id         = 1;
+                      entity.RowVersion = new byte[] { 0x01 };
+                      Assert.AreEqual(addressType.Name, entity.Name);
+                      inv.ReturnValue = entity;
+                  }).Return(null);
 
             _context.Expect(pg => pg.CommitAsync())
                 .Return(Task.FromResult(1));

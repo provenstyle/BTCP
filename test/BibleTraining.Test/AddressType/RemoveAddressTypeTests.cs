@@ -1,14 +1,14 @@
 namespace BibleTraining.Test.AddressType
 {
     using System.Linq;
-    using System.Threading.Tasks;
-    using Api.AddressType;
-    using Entities;
-    using FizzWare.NBuilder;
-    using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Miruken.Mediate;
+    using System.Threading.Tasks;
+    using FizzWare.NBuilder;
     using Rhino.Mocks;
+    using Entities;
+    using Infrastructure;
+    using Api.AddressType;
+    using Miruken.Mediate;
 
     [TestClass]
     public class RemoveAddressTypeTests : TestScenario
