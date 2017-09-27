@@ -17,7 +17,12 @@
     using Entities;
     using Improving.AspNet;
     using Improving.Highway.Data.Scope.Repository;
+    using Miruken.AspNet.Castle;
+    using Miruken.Castle;
     using NLog;
+    using Miruken.Context;
+    using Miruken.Mediate.Castle;
+    using Miruken.Validate.Castle;
 
     public class BibleTrainingApplication : HttpApplication
     {
@@ -46,15 +51,22 @@
 
         private void ConfigureContainer()
         {
+            var appContext = new Context();
+
             _container = new WindsorContainer();
             _container.Kernel.Resolver.AddSubResolver(
                 new CollectionResolver(_container.Kernel, true));
             _container.AddFacility<LoggingFacility>(f => f.UseNLog());
             _container.Install(
-                new MediatRInstaller(
-                    Classes.FromThisAssembly(),
-                    Classes.FromAssemblyContaining<IBibleTrainingDomain>()
-                ),
+                new FeaturesInstaller(
+                    new HandleFeature(),
+                    new ValidateFeature(),
+                    new MediateFeature().WithStandardMiddleware(),
+                    new AspNetFeature()
+                    ).Use(
+                        Classes.FromThisAssembly(),
+                        Classes.FromAssemblyContaining<IBibleTrainingDomain>()
+                    ),
                 new RepositoryInstaller(
                     Classes.FromAssemblyContaining<IBibleTrainingDomain>()
                 ),
@@ -77,6 +89,9 @@
                 new TypedConfigurationInstaller(Types.FromThisAssembly()),
                 FromAssembly.Containing<IBibleTrainingDomain>()
             );
+
+            _container.Kernel.AddHandlersFilter(new ContravariantFilter());
+            appContext.AddHandlers(new WindsorHandler(_container));
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new TranspiledFeatureViewLocationRazorViewEngine());
