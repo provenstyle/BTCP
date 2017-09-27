@@ -9,8 +9,9 @@
     using FluentValidation;
     using Highway.Data;
     using Improving.Highway.Data.Scope.Repository;
+    using Miruken.AspNet;
 
-    public abstract class DataTablesSearchController<TEntity, TDomain> : ApiController
+    public abstract class DataTablesSearchController<TEntity, TDomain> : ContextualApiController
         where TEntity : class
         where TDomain : class, IDomain
     {
