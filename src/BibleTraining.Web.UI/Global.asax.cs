@@ -6,8 +6,8 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Http;
-    using System.Web.Http.Cors;
     using System.Web.Mvc;
+    using System.Web.Routing;
     using Castle.Facilities.Logging;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.Resolvers.SpecializedResolvers;
@@ -17,6 +17,7 @@
     using Entities;
     using Improving.AspNet;
     using Improving.Highway.Data.Scope.Repository;
+    using Miruken.AspNet;
     using Miruken.AspNet.Castle;
     using Miruken.Castle;
     using NLog;
@@ -33,11 +34,12 @@
         {
             GlobalDiagnosticsContext.Set("ApplicationName", Assembly.GetExecutingAssembly().GetName().Name);
 
+
             ConfigureContainer();
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
             GlobalConfiguration.Configure(x => x.RegisterDataTables());
 
             _logger = _container.Resolve<Castle.Core.Logging.ILogger>();
@@ -52,7 +54,6 @@
         private void ConfigureContainer()
         {
             var appContext = new Context();
-
             _container = new WindsorContainer();
             _container.Kernel.Resolver.AddSubResolver(
                 new CollectionResolver(_container.Kernel, true));
@@ -61,31 +62,35 @@
                 new FeaturesInstaller(
                     new HandleFeature(),
                     new ValidateFeature(),
-                    new MediateFeature().WithStandardMiddleware(),
-                    new AspNetFeature()
+                    new MediateFeature()
+                        .WithStandardMiddleware(),
+                    new AspNetFeature(appContext)
+                        .WithMvc(this)
+                        .WithWebApi(GlobalConfiguration.Configuration)
                     ).Use(
                         Classes.FromThisAssembly(),
-                        Classes.FromAssemblyContaining<IBibleTrainingDomain>()
+                        Classes.FromAssemblyContaining<IBibleTrainingDomain>(),
+                        Classes.FromAssemblyContaining<HttpRouteController>()
                     ),
                 new RepositoryInstaller(
                     Classes.FromAssemblyContaining<IBibleTrainingDomain>()
                 ),
-                new WebApiInstaller(Classes.FromThisAssembly())
-                    .EnableCors(new EnableCorsAttribute("*", "*", "*"))
-                    .UseCamelCaseJsonPropertyNames()
-                    .UseDefaultRoutesAndAttributeRoutes()
-                    .UseJsonAsTheDefault()
-                    .TypeNameHandling()
-                    .IgnoreNulls()
-                    .UseGlobalExceptionLogging()
-                    .UseFilters(filters => filters.Add(new ServiceBusExceptionFilter())
-                    ),
-                new MvcInstaller(Classes.FromThisAssembly())
-                    .UseFeaturePaths()
-                    .UseDefaultRoutes()
-                    .UseFluentValidation()
-                    .UseFilters(filters => filters.Add(new HandleErrorAttribute())
-                    ),
+                //new WebApiInstaller(Classes.FromThisAssembly())
+                //    .EnableCors(new EnableCorsAttribute("*", "*", "*"))
+                //    .UseCamelCaseJsonPropertyNames()
+                //    .UseDefaultRoutesAndAttributeRoutes()
+                //    .UseJsonAsTheDefault()
+                //    .TypeNameHandling()
+                //    .IgnoreNulls()
+                //    .UseGlobalExceptionLogging()
+                //    .UseFilters(filters => filters.Add(new ServiceBusExceptionFilter())
+                //    ),
+                //new MvcInstaller(Classes.FromThisAssembly())
+                //    .UseFeaturePaths()
+                //    .UseDefaultRoutes()
+                //    .UseFluentValidation()
+                //    .UseFilters(filters => filters.Add(new HandleErrorAttribute())
+                //    ),
                 new TypedConfigurationInstaller(Types.FromThisAssembly()),
                 FromAssembly.Containing<IBibleTrainingDomain>()
             );

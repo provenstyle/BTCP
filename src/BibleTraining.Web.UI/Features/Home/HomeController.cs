@@ -2,8 +2,9 @@
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Miruken.AspNet;
 
-    public class HomeController : Controller
+    public class HomeController : ContextualController
     {
         private readonly IBibleTrainingConfig _config;
 
