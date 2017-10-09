@@ -17,7 +17,6 @@
     using Entities;
     using Improving.AspNet;
     using Improving.Highway.Data.Scope.Repository;
-    using Miruken.AspNet;
     using Miruken.AspNet.Castle;
     using Miruken.Castle;
     using NLog;
@@ -34,13 +33,13 @@
         {
             GlobalDiagnosticsContext.Set("ApplicationName", Assembly.GetExecutingAssembly().GetName().Name);
 
-
-            ConfigureContainer();
-
             AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             GlobalConfiguration.Configure(x => x.RegisterDataTables());
+
+            ConfigureContainer();
 
             _logger = _container.Resolve<Castle.Core.Logging.ILogger>();
             _logger.InfoFormat("Started {0}", nameof(BibleTrainingApplication));
@@ -55,8 +54,6 @@
         {
             var appContext = new Context();
             _container = new WindsorContainer();
-            _container.Kernel.Resolver.AddSubResolver(
-                new CollectionResolver(_container.Kernel, true));
             _container.AddFacility<LoggingFacility>(f => f.UseNLog());
             _container.Install(
                 new FeaturesInstaller(
@@ -69,8 +66,7 @@
                         .WithWebApi(GlobalConfiguration.Configuration)
                     ).Use(
                         Classes.FromThisAssembly(),
-                        Classes.FromAssemblyContaining<IBibleTrainingDomain>(),
-                        Classes.FromAssemblyContaining<HttpRouteController>()
+                        Classes.FromAssemblyContaining<IBibleTrainingDomain>()
                     ),
                 new RepositoryInstaller(
                     Classes.FromAssemblyContaining<IBibleTrainingDomain>()
@@ -95,6 +91,8 @@
                 FromAssembly.Containing<IBibleTrainingDomain>()
             );
 
+            _container.Kernel.Resolver.AddSubResolver(
+                new CollectionResolver(_container.Kernel, true));
             _container.Kernel.AddHandlersFilter(new ContravariantFilter());
             appContext.AddHandlers(new WindsorHandler(_container));
 
