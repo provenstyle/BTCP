@@ -15,7 +15,6 @@
     using Castle.Windsor.Installer;
     using DataTables.AspNet.WebApi2;
     using Entities;
-    using Improving.AspNet;
     using Improving.Highway.Data.Scope.Repository;
     using Miruken.AspNet.Castle;
     using Miruken.Castle;
@@ -57,6 +56,7 @@
             _container.AddFacility<LoggingFacility>(f => f.UseNLog());
             _container.Install(
                 new FeaturesInstaller(
+                    new ConfigurationFeature(),
                     new HandleFeature(),
                     new ValidateFeature(),
                     new MediateFeature()
@@ -71,23 +71,6 @@
                 new RepositoryInstaller(
                     Classes.FromAssemblyContaining<IBibleTrainingDomain>()
                 ),
-                //new WebApiInstaller(Classes.FromThisAssembly())
-                //    .EnableCors(new EnableCorsAttribute("*", "*", "*"))
-                //    .UseCamelCaseJsonPropertyNames()
-                //    .UseDefaultRoutesAndAttributeRoutes()
-                //    .UseJsonAsTheDefault()
-                //    .TypeNameHandling()
-                //    .IgnoreNulls()
-                //    .UseGlobalExceptionLogging()
-                //    .UseFilters(filters => filters.Add(new ServiceBusExceptionFilter())
-                //    ),
-                //new MvcInstaller(Classes.FromThisAssembly())
-                //    .UseFeaturePaths()
-                //    .UseDefaultRoutes()
-                //    .UseFluentValidation()
-                //    .UseFilters(filters => filters.Add(new HandleErrorAttribute())
-                //    ),
-                new TypedConfigurationInstaller(Types.FromThisAssembly()),
                 FromAssembly.Containing<IBibleTrainingDomain>()
             );
 

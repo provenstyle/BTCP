@@ -75,8 +75,8 @@
       <HintPath>..\..\packages\Highway.Pavement.0.3.0.0\lib\net40\Highway.Pavement.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Improving.Highway.Data.Scope, Version=0.2.1.11, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Improving.Highway.Data.Scope.0.2.1.11-prerelease\lib\net461\Improving.Highway.Data.Scope.dll</HintPath>
+    <Reference Include="Improving.Highway.Data.Scope, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Improving.Highway.Data.Scope.1.0.1.1-prerelease\lib\net461\Improving.Highway.Data.Scope.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -148,7 +148,7 @@
     <Compile Include="Api\AddressType\AddressTypeMaps.cs" />
     <Compile Include="Api\AddressType\CreateAddressTypeIntegrity.cs" />
     <Compile Include="Api\AddressType\UpdateAddressTypeIntegrity.cs" />
-    <Compile Include="Api\CheckConcurrency.cs" />
+    <Compile Include="Concurrency\CheckConcurrency.cs" />
     <Compile Include="Api\Email\CreateEmailIntegrity.cs" />
     <Compile Include="Api\Email\EmailAggregateHandler.cs" />
     <Compile Include="Api\Email\EmailConcurency.cs" />
@@ -172,6 +172,7 @@
     <Compile Include="Api\PhoneType\UpdatePhoneTypeIntegrity.cs" />
     <Compile Include="Api\ResourceMapper.cs" />
     <Compile Include="BibleTrainingDomain.cs" />
+    <Compile Include="Concurrency\IRowVersioned.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\AddressType.cs" />
     <Compile Include="Entities\Course.cs" />

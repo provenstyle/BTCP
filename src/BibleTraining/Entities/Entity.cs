@@ -1,8 +1,8 @@
 namespace BibleTraining.Entities
 {
     using System;
+    using Concurrency;
     using Improving.Highway.Data.Scope;
-    using Improving.Highway.Data.Scope.Concurrency;
 
     public class Entity : IEntity, IRowVersioned
     {

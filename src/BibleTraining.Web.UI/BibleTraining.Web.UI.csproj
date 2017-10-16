@@ -105,12 +105,8 @@
       <HintPath>..\..\packages\Highway.Pavement.0.3.0.0\lib\net40\Highway.Pavement.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Improving.AspNet, Version=0.0.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Improving.AspNet.0.0.2.1\lib\net461\Improving.AspNet.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Improving.Highway.Data.Scope, Version=0.2.1.11, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Improving.Highway.Data.Scope.0.2.1.11-prerelease\lib\net461\Improving.Highway.Data.Scope.dll</HintPath>
+    <Reference Include="Improving.Highway.Data.Scope, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Improving.Highway.Data.Scope.1.0.1.1-prerelease\lib\net461\Improving.Highway.Data.Scope.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

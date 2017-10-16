@@ -1,10 +1,10 @@
-﻿namespace BibleTraining.Api
+﻿namespace BibleTraining.Concurrency
 {
     using System.Data.Entity.Core;
     using System.Linq;
+    using Api;
     using FluentValidation;
     using Improving.Highway.Data.Scope;
-    using Improving.Highway.Data.Scope.Concurrency;
 
     public abstract class CheckConcurrency<TEntity, TRes>
         : CheckConcurrency<TEntity, TRes, UpdateResource<TRes, int?>>
