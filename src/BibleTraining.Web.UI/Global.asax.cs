@@ -65,7 +65,7 @@
                         .WithMvc(this)
                         .WithWebApi(GlobalConfiguration.Configuration)
                     ).Use(
-                        Classes.FromThisAssembly(),
+                        Types.FromThisAssembly(),
                         Classes.FromAssemblyContaining<IBibleTrainingDomain>()
                     ),
                 new RepositoryInstaller(
