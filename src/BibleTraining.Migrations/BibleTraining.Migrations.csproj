@@ -121,10 +121,6 @@
     <None Include="Scripts\Migration\readme.txt" />
     <None Include="Scripts\readme.txt" />
     <None Include="Scripts\Seed\readme.txt" />
-    <EmbeddedResource Include="Scripts\Test\0001_tSQLt.class.sql" />
-    <EmbeddedResource Include="Scripts\Test\0002_tSQLt.SetClrEnabled.sql" />
-    <EmbeddedResource Include="Scripts\Test\0003_testSchemas.sql" />
-    <None Include="Scripts\Test\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\OctoPack.3.6.2\build\OctoPack.targets" Condition="Exists('..\..\packages\OctoPack.3.6.2\build\OctoPack.targets')" />
