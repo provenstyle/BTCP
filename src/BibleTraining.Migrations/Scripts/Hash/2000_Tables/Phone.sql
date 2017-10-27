@@ -5,6 +5,8 @@ IF OBJECT_ID(N'dbo.Phone') IS NULL
 BEGIN
 	CREATE TABLE Phone (
 		Id          INT           NOT NULL IDENTITY(1,1),
+		PersonId    INT           NOT NULL,
+		PhoneTypeId INT           NOT NULL,
 		Name        NVARCHAR(500) NOT NULL,
 
 		Created     DATETIME2     NOT NULL,

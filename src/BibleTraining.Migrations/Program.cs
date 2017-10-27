@@ -1,5 +1,6 @@
 ﻿namespace BibleTraining.Migrations
 {
+    using System;
     using System.Configuration;
     using System.Linq;
     using System.Reflection;
@@ -21,7 +22,15 @@
 
             var dbName = ConfigurationManager.AppSettings["DbName"];
             var dbUpdater = new DbUpdater(Assembly.GetExecutingAssembly(), "Scripts", dbName, connectionStringName, scriptVariables, shouldSeedData, env);
-            return dbUpdater.Run() ? 0 : -1;
+            var result = dbUpdater.Run();
+
+            #if DEBUG
+                Console.WriteLine("Press any key to continue:");
+                Console.ReadKey();
+            #endif
+
+
+            return result ? 0 : -1;
         }
     }
 }
