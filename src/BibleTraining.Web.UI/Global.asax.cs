@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Http;
+    using System.Web.Http.ExceptionHandling;
     using System.Web.Mvc;
     using System.Web.Routing;
     using Castle.Facilities.Logging;
@@ -42,6 +43,8 @@
 
             _logger = _container.Resolve<Castle.Core.Logging.ILogger>();
             _logger.InfoFormat("Started {0}", nameof(BibleTrainingApplication));
+            GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new UnhandledExceptionLogger(_logger));
+
         }
 
         protected void Application_End()
