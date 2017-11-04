@@ -18,10 +18,11 @@
             _logger = logger;
         }
 
-        public async Task LogAsync(ExceptionLoggerContext context, CancellationToken cancellationToken)
+        public Task LogAsync(ExceptionLoggerContext context, CancellationToken cancellationToken)
         {
             if (!Equals(context.Exception?.Data[Stage.Logging], true))
                 _logger.Error("Exception unhandled by Mediate", context.Exception);
+            return Task.FromResult(true);
         }
     }
 }
