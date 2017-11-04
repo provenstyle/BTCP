@@ -13,8 +13,8 @@ namespace BibleTraining.Api.EmailType
     using Queries;
 
     public class EmailTypeAggregateHandler : PipelineHandler,
-        IMiddleware<UpdateEmailType, EmailTypeData>,
-        IMiddleware<RemoveEmailType, EmailTypeData>
+        IGlobalMiddleware<UpdateEmailType, EmailTypeData>,
+        IGlobalMiddleware<RemoveEmailType, EmailTypeData>
     {
         public int? Order { get; set; } = Stage.Validation - 1;
 

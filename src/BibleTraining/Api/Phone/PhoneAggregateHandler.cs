@@ -13,8 +13,8 @@ namespace BibleTraining.Api.Phone
     using Queries;
 
     public class PhoneAggregateHandler : PipelineHandler,
-        IMiddleware<UpdatePhone, PhoneData>,
-        IMiddleware<RemovePhone, PhoneData>
+        IGlobalMiddleware<UpdatePhone, PhoneData>,
+        IGlobalMiddleware<RemovePhone, PhoneData>
     {
         public int? Order { get; set; } = Stage.Validation - 1;
 
