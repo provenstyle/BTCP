@@ -3,10 +3,15 @@ Database for BibleTraining students and classes
 
 ### Set up your environment
 
+#### Python
+Node uses python to build some packages so it needs to be on the path
+Download and install [python](https://www.python.org) from their wesite.
+version 2.7.14 is know to work
+
 #### Node
 Node is used during development to build and serve the css, html, and javascript
-
 Download and install [node](https://nodejs.org) from their website.
+version 6.11.0 LTS is known to work
 
 Install the [gulp-cli](http://gulpjs.com) globally.
 ```

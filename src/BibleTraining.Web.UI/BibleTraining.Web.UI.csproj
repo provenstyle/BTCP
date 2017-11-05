@@ -451,11 +451,11 @@
     <Content Include="src\app\infrastructure\serviceBus.js" />
     <Content Include="src\app\infrastructure\sideEffects.js" />
     <Content Include="src\app\infrastructure\tables.js" />
-    <Content Include="src\app\layout\footer.html" />
-    <Content Include="src\app\layout\layout.html" />
-    <Content Include="src\app\layout\navigation.html" />
-    <Content Include="src\app\layout\right_sidebar.html" />
-    <Content Include="src\app\layout\topNavBar.html" />
+    <None Include="src\app\layout\footer.pug" />
+    <None Include="src\app\layout\layout.pug" />
+    <None Include="src\app\layout\navigation.pug" />
+    <None Include="src\app\layout\right_sidebar.pug" />
+    <None Include="src\app\layout\topNavBar.pug" />
     <Content Include="src\app\message\message.html" />
     <Content Include="src\app\message\messageController.js" />
     <Content Include="src\app\people\createEditPerson.pug" />
