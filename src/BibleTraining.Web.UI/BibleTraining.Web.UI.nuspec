@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>BibleTraining.Web.UI</id>
+		<version>$version$</version>
+		<title>BibleTraining.Web.UI</title>
+		<authors>Michael Dudley</authors>
+		<owners>Michael Dudley</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Deployment nuget for the BibleTraining</description>
+		<releaseNotes>Automated deployment</releaseNotes>
+		<copyright>Copyright 2017</copyright>
+
+	</metadata>
+	<files>
+		<file src="dist/**"  target=""/>
+		<file src="src/**"   target=""/>
+		<file src="build/**" target=""/>
+	</files>
+</package>

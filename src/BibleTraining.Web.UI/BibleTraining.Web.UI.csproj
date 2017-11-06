@@ -451,6 +451,7 @@
     <Content Include="src\app\infrastructure\serviceBus.js" />
     <Content Include="src\app\infrastructure\sideEffects.js" />
     <Content Include="src\app\infrastructure\tables.js" />
+    <Content Include="BibleTraining.Web.UI.nuspec" />
     <None Include="src\app\layout\footer.pug" />
     <None Include="src\app\layout\layout.pug" />
     <None Include="src\app\layout\navigation.pug" />
