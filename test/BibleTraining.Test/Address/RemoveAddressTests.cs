@@ -16,7 +16,7 @@ namespace BibleTraining.Test.Address
         [TestMethod]
         public async Task ShouldRemoveAddress()
         {
-            var middleWare = _container.ResolveAll<IGlobalMiddleware<RemoveAddress, AddressData>>();
+            var middleWare = _container.ResolveAll<IMiddleware<RemoveAddress, AddressData>>();
 
             var entity = new Address
             {

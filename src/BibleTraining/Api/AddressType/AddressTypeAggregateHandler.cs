@@ -13,8 +13,8 @@ namespace BibleTraining.Api.AddressType
     using Queries;
 
     public class AddressTypeAggregateHandler : PipelineHandler,
-        IGlobalMiddleware<UpdateAddressType, AddressTypeData>,
-        IGlobalMiddleware<RemoveAddressType, AddressTypeData>
+        IMiddleware<UpdateAddressType, AddressTypeData>,
+        IMiddleware<RemoveAddressType, AddressTypeData>
     {
         public int? Order { get; set; } = Stage.Validation - 1;
 

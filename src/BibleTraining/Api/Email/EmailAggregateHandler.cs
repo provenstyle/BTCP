@@ -14,8 +14,8 @@ namespace BibleTraining.Api.Email
     using Queries;
 
     public class EmailAggregateHandler : PipelineHandler,
-        IGlobalMiddleware<UpdateEmail, EmailData>,
-        IGlobalMiddleware<RemoveEmail, EmailData>
+        IMiddleware<UpdateEmail, EmailData>,
+        IMiddleware<RemoveEmail, EmailData>
     {
 
         public int? Order { get; set; } = Stage.Validation - 1;
