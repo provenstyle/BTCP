@@ -15,7 +15,7 @@
 
         private static int Main()
         {
-            const string connectionStringName = "BibleTraining";
+            const string connectionStringName = "BibleTrainingDomain";
             var scriptVariables = ConfigurationVariables.ToDictionary(s => s, s => ConfigurationManager.AppSettings[s]);
             var env = EnvParser.Parse(scriptVariables["Env"]);
             var shouldSeedData = env == Env.LOCAL;
