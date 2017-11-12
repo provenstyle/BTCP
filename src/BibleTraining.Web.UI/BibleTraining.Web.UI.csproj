@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.2.0.1\build\Microsoft.Net.Compilers.props')" />
@@ -362,6 +362,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".eslintrc" />
+    <Content Include="BibleTraining.Web.UI.nuspec" />
     <Content Include="bower.json" />
     <Content Include="build\babel-options.js" />
     <Content Include="build\paths.js" />
@@ -418,6 +419,7 @@
     <Content Include="src\app\courses\createCourseController.js" />
     <Content Include="src\app\courses\createEditCourse.pug" />
     <Content Include="src\app\courses\editCourseController.js" />
+    <Content Include="src\app\domain\address.js" />
     <Content Include="src\app\domain\addresse.js" />
     <Content Include="src\app\domain\addressType.js" />
     <Content Include="src\app\domain\course.js" />
@@ -451,7 +453,6 @@
     <Content Include="src\app\infrastructure\serviceBus.js" />
     <Content Include="src\app\infrastructure\sideEffects.js" />
     <Content Include="src\app\infrastructure\tables.js" />
-    <Content Include="BibleTraining.Web.UI.nuspec" />
     <None Include="src\app\layout\footer.pug" />
     <None Include="src\app\layout\layout.pug" />
     <None Include="src\app\layout\navigation.pug" />

@@ -1,22 +1,22 @@
-﻿namespace IntegrationTests.Mapping
+namespace IntegrationTests.EntityTypeConfigurationTests
 {
     using BibleTraining.Entities;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Scenarios;
 
     [TestClass]
-    public class PhoneMapTest : BibleTrainingScenario
+    public class EmailTypeEntityTypeConfigurationTest : BibleTrainingScenario
     {
         [TestMethod]
         public void CanCreate()
         {
-            AssertCanCreateEntity<Phone>();
+            AssertCanCreateEntity<EmailType>();
         }
 
         [TestMethod]
         public void CanSelect()
         {
-            AssertCanSelectTopOne<Phone>();
+            AssertCanSelectTopOne<EmailType>();
         }
     }
 }

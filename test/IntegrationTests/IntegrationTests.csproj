@@ -135,14 +135,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Mapping\PhoneTypeMapTest .cs" />
-    <Compile Include="Mapping\PhoneMapTest.cs" />
-    <Compile Include="Mapping\PersonMapTest.cs" />
-    <Compile Include="Mapping\EmailMapTest.cs" />
-    <Compile Include="Mapping\CourseMapTest.cs" />
-    <Compile Include="Mapping\AddressTypeMapTest.cs" />
-    <Compile Include="Mapping\AddressMapTest.cs" />
-    <Compile Include="Mapping\EmailTypeMapTest.cs" />
+    <Compile Include="EntityTypeConfigurationTests\AddressConfigurationTest.cs" />
+    <Compile Include="EntityTypeConfigurationTests\AddressTypeConfigurationTest.cs" />
+    <Compile Include="EntityTypeConfigurationTests\EmailConfigurationTest.cs" />
+    <Compile Include="EntityTypeConfigurationTests\EmailTypeConfigurationTest.cs" />
+    <Compile Include="EntityTypeConfigurationTests\PhoneConfigurationTest.cs" />
+    <Compile Include="EntityTypeConfigurationTests\PhoneTypeConfigurationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenarios\BibleTrainingScenario.cs" />
     <Compile Include="Scenarios\TransactionalScenario.cs" />

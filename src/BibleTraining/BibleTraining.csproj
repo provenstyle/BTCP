@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -151,7 +151,6 @@
     <Compile Include="Api\AddressType\AddressTypeMaps.cs" />
     <Compile Include="Api\AddressType\CreateAddressTypeIntegrity.cs" />
     <Compile Include="Api\AddressType\UpdateAddressTypeIntegrity.cs" />
-    <Compile Include="Concurrency\CheckConcurrency.cs" />
     <Compile Include="Api\Email\CreateEmailIntegrity.cs" />
     <Compile Include="Api\Email\EmailAggregateHandler.cs" />
     <Compile Include="Api\Email\EmailConcurency.cs" />
@@ -175,6 +174,7 @@
     <Compile Include="Api\PhoneType\UpdatePhoneTypeIntegrity.cs" />
     <Compile Include="Api\ResourceMapper.cs" />
     <Compile Include="BibleTrainingDomain.cs" />
+    <Compile Include="Concurrency\CheckConcurrency.cs" />
     <Compile Include="Concurrency\IRowVersioned.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\AddressType.cs" />
