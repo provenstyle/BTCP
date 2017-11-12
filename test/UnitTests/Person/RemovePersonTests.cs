@@ -1,14 +1,15 @@
-namespace BibleTraining.Test.Person
+namespace UnitTests.Person
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using Api.Person;
-    using Entities;
+    using BibleTraining.Api.Person;
+    using BibleTraining.Entities;
     using FizzWare.NBuilder;
     using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Miruken.Mediate;
     using Rhino.Mocks;
-    using Test;
+    using UnitTests;
 
     [TestClass]
     public class RemovePersonTests : TestScenario
@@ -37,7 +38,7 @@ namespace BibleTraining.Test.Person
             _context.Expect(c => c.CommitAsync())
                 .Return(Task.FromResult(1));
 
-            var result = await _mediator.SendAsync(new RemovePerson(personData));
+            var result = await _handler.Send(new RemovePerson(personData));
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x01 }, result.RowVersion);
 

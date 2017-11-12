@@ -1,17 +1,17 @@
-namespace BibleTraining.Test.Person
+namespace UnitTests.Person
 {
     using System.Data.Entity.Core;
     using System.Linq;
-    using Api.Person;
+    using BibleTraining.Api;
+    using BibleTraining.Api.Person;
+    using BibleTraining.Entities;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using Entities;
     using FizzWare.NBuilder;
-    using Improving.MediatR;
     using Infrastructure;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Rhino.Mocks;
-    using Test;
+    using UnitTests;
 
     [TestClass]
     public class PersonConcurrencyTests : TestScenario

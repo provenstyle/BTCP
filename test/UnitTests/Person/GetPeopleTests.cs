@@ -1,10 +1,11 @@
-namespace BibleTraining.Test.Person
+namespace UnitTests.Person
 {
     using System.Threading.Tasks;
-    using Api.Person;
+    using BibleTraining.Api.Person;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Miruken.Mediate;
     using Rhino.Mocks;
-    using Test;
+    using UnitTests;
 
     [TestClass]
     public class GetPeopleTests : TestScenario
@@ -14,7 +15,7 @@ namespace BibleTraining.Test.Person
         {
             SetupChoices();
 
-            var result = await _mediator.SendAsync(new GetPeople());
+            var result = await _handler.Send(new GetPeople());
             Assert.AreEqual(3, result.People.Length);
 
             _context.VerifyAllExpectations();

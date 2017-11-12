@@ -15,14 +15,14 @@ namespace BibleTraining.Api.Person
         {
             public PersonDataIntegrity()
             {
+                RuleFor(x => x.Id)
+                    .NotNull();
                 RuleFor(x => x.FirstName)
                     .NotEmpty();
-
                 RuleFor(x => x.LastName)
                     .NotEmpty();
-
                 RuleFor(x => x.Gender)
-                    .NotNull();
+                    .NotEmpty();
             }
         }
     }

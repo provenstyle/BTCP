@@ -1,6 +1,6 @@
-namespace BibleTraining.Test.Person
+namespace UnitTests.Person
 {
-    using Api.Person;
+    using BibleTraining.Api.Person;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

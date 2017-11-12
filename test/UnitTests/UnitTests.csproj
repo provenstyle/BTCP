@@ -202,6 +202,14 @@
     <Compile Include="Infrastructure\TestDbAsyncEnumerable.cs" />
     <Compile Include="Infrastructure\TestDbAsyncEnumerator.cs" />
     <Compile Include="Infrastructure\TestDbAsyncQueryProvider.cs" />
+    <Compile Include="Person\CreatePersonIntegrityTests.cs" />
+    <Compile Include="Person\CreatePersonTests.cs" />
+    <Compile Include="Person\GetPeopleTests.cs" />
+    <Compile Include="Person\PersonConcurrencyTests.cs" />
+    <Compile Include="Person\PersonMappingTests.cs" />
+    <Compile Include="Person\RemovePersonTests.cs" />
+    <Compile Include="Person\UpdatePersonIntegrityTests.cs" />
+    <Compile Include="Person\UpdatePersonTests.cs" />
     <Compile Include="Phone\CreatePhoneIntegrityTests.cs" />
     <Compile Include="Phone\CreatePhoneTests.cs" />
     <Compile Include="Phone\GetPhonesTests.cs" />

@@ -1,78 +1,87 @@
 namespace BibleTraining.Api.Person
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Address;
-    using BibleTraining;
-    using Email;
     using Entities;
     using Improving.Highway.Data.Scope.Repository;
+    using Miruken;
+    using Miruken.Callback;
+    using Miruken.Callback.Policy;
+    using Miruken.Map;
     using Miruken.Mediate;
-    using Phone;
+    using Miruken.Mediate.Schedule;
     using Queries;
 
-    [RelativeOrder(Stage.Validation - 1)]
-    public class PersonAggregateHandler :
-        IAsyncRequestHandler<CreatePerson, PersonData>,
-        IAsyncRequestHandler<GetPeople, PersonResult>,
-        IAsyncRequestHandler<UpdatePerson, PersonData>,
-        IRequestMiddleware<UpdatePerson, PersonData>,
-        IAsyncRequestHandler<RemovePerson, PersonData>,
-        IRequestMiddleware<RemovePerson, PersonData>
+    public abstract class PersonAggregateHandlerBase : PipelineHandler,
+        IMiddleware<UpdatePerson, PersonData>,
+        IMiddleware<RemovePerson, PersonData>
     {
-        private readonly IRepository<BibleTrainingDomain> _repository;
-        private readonly IMediator _mediator;
-        private readonly DateTime _now;
+        public int? Order { get; set; } = Stage.Validation - 1;
 
-        public Person Person { get; set; }
+        private readonly IRepository<IBibleTrainingDomain> _repository;
 
-        public PersonAggregateHandler(IRepository<IBibleTrainingDomain> repository, IMediator mediator)
+        public PersonAggregateHandlerBase(IRepository<IBibleTrainingDomain> repository)
         {
             _repository = repository;
-            _mediator   = mediator;
-            _now        = DateTime.Now;
         }
 
-        #region Create Person
+        public async Task<Person> Person(int? id, IHandler composer)
+        {
+            return await composer.Proxy<IStash>().GetOrPut(async () =>
+                (await _repository.FindAsync(new GetPeopleById(id)))
+                    .FirstOrDefault());
+        }
 
-        public async Task<PersonData> Handle(CreatePerson message)
+        public async Task<PersonData> Begin(int? id, IHandler composer, NextDelegate<Task<PersonData>> next)
+        {
+            using (var scope = _repository.Scopes.Create())
+            {
+                var person = await Person(id, composer);
+                var result = await next();
+                await scope.SaveChangesAsync();
+
+                result.RowVersion = person?.RowVersion;
+                return result;
+            }
+        }
+
+        public virtual Task<object[]> GetUpdateRelationships(UpdatePerson request,
+            Person person, IHandler composer)
+        {
+            return Task.FromResult(new object[] { });
+        }
+
+        [Mediates]
+        public async Task<PersonData> Create(CreatePerson message, IHandler composer)
         {
             using(var scope = _repository.Scopes.Create())
             {
-                var person = new Person().Map(message.Resource);
-                person.Created = _now;
+                var person = composer.Proxy<IMapping>().Map<Person>(message.Resource);
+                person.Created = DateTime.Now;
 
                 _repository.Context.Add(person);
 
                 var data = new PersonData();
 
                 await scope.SaveChangesAsync((dbScope, count) =>
-                 {
-                     data.Id = person.Id;
-                     data.RowVersion = person.RowVersion;
-                 });
+                {
+                    data.Id = person.Id;
+                    data.RowVersion = person.RowVersion;
+                });
 
                 return data;
             }
         }
 
-        #endregion
-
-        #region Get Person
-
-        public async Task<PersonResult> Handle(GetPeople message)
+        [Mediates]
+        public async Task<PersonResult> Get(GetPeople message, IHandler composer)
         {
             using(_repository.Scopes.CreateReadOnly())
             {
-                var people = (await _repository.FindAsync(new GetPeopleById(message.Ids)
-                    {
-                        IncludeEmails    = message.IncludeEmails,
-                        IncludeAddresses = message.IncludeAddresses,
-                        IncludePhones    = message.IncludePhones
-                    }))
-                    .Select(x => new PersonData().Map(x)).ToArray();
+                var people = (await _repository
+                    .FindAsync(new GetPeopleById(message.Ids)))
+                    .Select(x => composer.Proxy<IMapping>().Map<PersonData>(x)).ToArray();
 
                 return new PersonResult
                 {
@@ -81,99 +90,24 @@ namespace BibleTraining.Api.Person
             }
         }
 
-        #endregion
-
-        #region Update Person
-
-        public async Task<PersonData> Apply(UpdatePerson request, Func<UpdatePerson, Task<PersonData>> next)
+        public async Task<PersonData> Next(UpdatePerson request, MethodBinding method, IHandler composer, NextDelegate<Task<PersonData>> next)
         {
-            using (var scope = _repository.Scopes.Create())
-            {
-                var resource = request.Resource;
-                if (Person == null && resource != null)
-                {
-                    Person = (await _repository
-                        .FindAsync(new GetPeopleById(resource.Id)
-                          {
-                              IncludeEmails     = true,
-                              IncludeAddresses  = true,
-                              IncludePhones     = true
-                          }))
-                        .FirstOrDefault();
-                    Env.Use(Person);
-                }
-
-                var result = await next(request);
-                await scope.SaveChangesAsync();
-
-                result.RowVersion = Person?.RowVersion;
-                return result;
-            }
+            return await Begin(request.Resource.Id, composer, next);
         }
 
-        public async Task<PersonData> Handle(UpdatePerson request)
+
+        [Mediates]
+        public async Task<PersonData> Update(UpdatePerson request, IHandler composer)
         {
-            Person.Map(request.Resource);
+            var person = await Person(request.Resource.Id, composer);
+            composer.Proxy<IMapping>()
+                .MapInto(request.Resource, person);
 
-            var relationships = new List<object>();
-
-            var emails = request.Resource.Emails;
-            if (emails != null)
-            {
-                var adds      = emails.Where(x => !x.Id.HasValue).ToArray();
-                var updates   = emails.Where(x => x.Id.HasValue).ToArray();
-                var updateIds = updates.Select(x => x.Id).ToArray();
-                var removes   = Person.Emails?.Where(x => !updateIds.Contains(x.Id)).ToArray();
-
-                foreach (var add in adds)
-                    relationships.Add(new CreateEmail(add));
-
-                foreach (var update in updates)
-                    relationships.Add(new UpdateEmail(update));
-
-                foreach (var remove in removes)
-                    relationships.Add(new RemoveEmail(new EmailData().Map(remove)));
-            }
-
-            var addresses = request.Resource.Addresses;
-            if (addresses != null)
-            {
-                var adds      = addresses.Where(x => !x.Id.HasValue).ToArray();
-                var updates   = addresses.Where(x => x.Id.HasValue).ToArray();
-                var updateIds = updates.Select(x => x.Id).ToArray();
-                var removes   = Person.Addresses?.Where(x => !updateIds.Contains(x.Id)).ToArray();
-
-                foreach (var add in adds)
-                    relationships.Add(new CreateAddress(add));
-
-                foreach (var update in updates)
-                    relationships.Add(new UpdateAddress(update));
-
-                foreach (var remove in removes)
-                    relationships.Add(new RemoveAddress(new AddressData().Map(remove)));
-            }
-
-            var phones = request.Resource.Phones;
-            if (phones != null)
-            {
-                var adds      = phones.Where(x => !x.Id.HasValue).ToArray();
-                var updates   = phones.Where(x => x.Id.HasValue).ToArray();
-                var updateIds = updates.Select(x => x.Id).ToArray();
-                var removes   = Person.Phones?.Where(x => !updateIds.Contains(x.Id)).ToArray();
-
-                foreach (var add in adds)
-                    relationships.Add(new CreatePhone(add));
-
-                foreach (var update in updates)
-                    relationships.Add(new UpdatePhone(update));
-
-                foreach (var remove in removes)
-                    relationships.Add(new RemovePhone(new PhoneData().Map(remove)));
-            }
+            var relationships = await GetUpdateRelationships(request, person, composer);
 
             if (relationships.Any())
             {
-                await _mediator.SendAsync(new Sequential
+                await composer.Send(new Sequential
                 {
                     Requests = relationships.ToArray()
                 });
@@ -185,39 +119,22 @@ namespace BibleTraining.Api.Person
             };
         }
 
-        #endregion
-
-        #region Remove Person
-
-        public async Task<PersonData> Apply(
-            RemovePerson request, Func<RemovePerson, Task<PersonData>> next)
+        public async Task<PersonData> Next(RemovePerson request, MethodBinding method, IHandler composer, NextDelegate<Task<PersonData>> next)
         {
-            using (var scope = _repository.Scopes.Create())
-            {
-                var resource = request.Resource;
-                if (Person == null && resource != null)
-                {
-                    Person = await _repository.FetchByIdAsync<Person>(resource.Id);
-                    Env.Use(Person);
-                }
-
-                var result = await next(request);
-                await scope.SaveChangesAsync();
-                return result;
-            }
+            return await Begin(request.Resource.Id, composer, next);
         }
 
-        public Task<PersonData> Handle(RemovePerson request)
+        [Mediates]
+        public async Task<PersonData> Remove(RemovePerson request, IHandler composer)
         {
-            _repository.Context.Remove(Person);
+            var person = await Person(request.Resource.Id, composer);
+            _repository.Context.Remove(person);
 
-            return Task.FromResult(new PersonData
+            return new PersonData
             {
-                Id         = Person.Id,
-                RowVersion = Person.RowVersion
-            });
+                Id         = person.Id,
+                RowVersion = person.RowVersion
+            };
         }
-
-        #endregion
     }
 }

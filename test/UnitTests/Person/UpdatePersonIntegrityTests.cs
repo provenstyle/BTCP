@@ -1,6 +1,6 @@
-namespace BibleTraining.Test.Person
+namespace UnitTests.Person
 {
-    using Api.Person;
+    using BibleTraining.Api.Person;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
@@ -16,8 +16,9 @@ namespace BibleTraining.Test.Person
             {
                 Resource = new PersonData
                 {
-                    FirstName = "A",
-                    LastName  = "B",
+                    Id = 1,
+                    FirstName = "a",
+                    LastName  = "a",
                     Gender    = Gender.Female
                 }
             };
