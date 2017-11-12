@@ -184,7 +184,6 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Entities\Phone.cs" />
-    <Compile Include="Entities\Phone_Partial.cs" />
     <Compile Include="Entities\PhoneType.cs" />
     <Compile Include="EntityTypeConfigurations\AddressEntityTypeConfiguration.cs" />
     <Compile Include="EntityTypeConfigurations\AddressTypeEntityTypeConfiguration.cs" />
