@@ -1,4 +1,4 @@
-namespace $ApplicationName$.Test.$Entity$
+namespace UnitTests.$Entity$
 {
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

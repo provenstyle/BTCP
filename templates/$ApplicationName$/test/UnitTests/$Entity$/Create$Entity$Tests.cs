@@ -1,4 +1,4 @@
-namespace $ApplicationName$.Test.$Entity$
+namespace UnitTests.$Entity$
 {
     using System.Threading.Tasks;
     using FizzWare.NBuilder;

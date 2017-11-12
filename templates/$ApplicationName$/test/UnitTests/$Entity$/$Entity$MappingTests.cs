@@ -1,4 +1,4 @@
-namespace $ApplicationName$.Test.$Entity$
+namespace UnitTests.$Entity$
 {
     using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
