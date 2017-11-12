@@ -5,8 +5,8 @@ namespace UnitTests.$Entity$
     using System.Threading.Tasks;
     using FizzWare.NBuilder;
     using Rhino.Mocks;
-    using Api.$Entity$;
-    using Entities;
+    using $ApplicationName$.Api.$Entity$;
+    using $ApplicationName$.Entities;
     using Infrastructure;
     using Miruken.Mediate;
     

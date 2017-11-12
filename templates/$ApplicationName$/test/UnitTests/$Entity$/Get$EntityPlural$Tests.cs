@@ -4,9 +4,9 @@ namespace UnitTests.$Entity$
     using System.Linq;
     using System.Threading.Tasks;
     using Rhino.Mocks;
-    using Entities;
+    using $ApplicationName$.Entities;
     using Infrastructure;
-    using Api.$Entity$;
+    using $ApplicationName$.Api.$Entity$;
     using Miruken.Mediate;
     
     [TestClass]

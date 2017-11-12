@@ -4,8 +4,8 @@ namespace UnitTests.$Entity$
     using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Rhino.Mocks;
-    using Entities;
-    using Api.$Entity$;
+    using $ApplicationName$.Entities;
+    using $ApplicationName$.Api.$Entity$;
     using Miruken.Mediate;
     
     [TestClass]

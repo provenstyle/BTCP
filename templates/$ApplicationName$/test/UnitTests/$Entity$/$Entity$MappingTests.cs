@@ -2,8 +2,8 @@ namespace UnitTests.$Entity$
 {
     using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Entities;
-    using Api.$Entity$;
+    using $ApplicationName$.Entities;
+    using $ApplicationName$.Api.$Entity$;
     using Miruken;
     using Miruken.Map;
 
