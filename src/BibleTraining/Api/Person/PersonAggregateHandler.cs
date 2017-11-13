@@ -1,140 +1,107 @@
-namespace BibleTraining.Api.Person
+﻿namespace BibleTraining.Api.Person
 {
-    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Address;
+    using Email;
     using Entities;
     using Improving.Highway.Data.Scope.Repository;
     using Miruken;
     using Miruken.Callback;
-    using Miruken.Callback.Policy;
     using Miruken.Map;
     using Miruken.Mediate;
-    using Miruken.Mediate.Schedule;
+    using Phone;
     using Queries;
 
-    public abstract class PersonAggregateHandlerBase : PipelineHandler,
-        IMiddleware<UpdatePerson, PersonData>,
-        IMiddleware<RemovePerson, PersonData>
+    public class PersonAggregateHandler : PersonAggregateHandlerBase
     {
-        public int? Order { get; set; } = Stage.Validation - 1;
-
-        private readonly IRepository<IBibleTrainingDomain> _repository;
-
-        public PersonAggregateHandlerBase(IRepository<IBibleTrainingDomain> repository)
+        public PersonAggregateHandler(IRepository<IBibleTrainingDomain> repository) : base(repository)
         {
-            _repository = repository;
         }
 
-        public async Task<Person> Person(int? id, IHandler composer)
+        protected override async Task<Person> Person(int? id, IHandler composer)
         {
             return await composer.Proxy<IStash>().GetOrPut(async () =>
-                (await _repository.FindAsync(new GetPeopleById(id)))
-                    .FirstOrDefault());
-        }
-
-        public async Task<PersonData> Begin(int? id, IHandler composer, NextDelegate<Task<PersonData>> next)
-        {
-            using (var scope = _repository.Scopes.Create())
-            {
-                var person = await Person(id, composer);
-                var result = await next();
-                await scope.SaveChangesAsync();
-
-                result.RowVersion = person?.RowVersion;
-                return result;
-            }
-        }
-
-        public virtual Task<object[]> GetUpdateRelationships(UpdatePerson request,
-            Person person, IHandler composer)
-        {
-            return Task.FromResult(new object[] { });
-        }
-
-        [Mediates]
-        public async Task<PersonData> Create(CreatePerson message, IHandler composer)
-        {
-            using(var scope = _repository.Scopes.Create())
-            {
-                var person = composer.Proxy<IMapping>().Map<Person>(message.Resource);
-                person.Created = DateTime.Now;
-
-                _repository.Context.Add(person);
-
-                var data = new PersonData();
-
-                await scope.SaveChangesAsync((dbScope, count) =>
+                (await _repository.FindAsync(new GetPeopleById(id)
                 {
-                    data.Id = person.Id;
-                    data.RowVersion = person.RowVersion;
-                });
-
-                return data;
-            }
+                    IncludeEmails = true,
+                    IncludeAddresses = true,
+                    IncludePhones = true
+                })).FirstOrDefault());
         }
 
-        [Mediates]
-        public async Task<PersonResult> Get(GetPeople message, IHandler composer)
+        public override async Task<object[]> GetUpdateRelationships(
+            UpdatePerson request,
+            Person person,
+            IHandler composer)
         {
-            using(_repository.Scopes.CreateReadOnly())
+            var relationships = new List<object>();
+
+            var emails = request.Resource.Emails;
+            if (emails != null)
             {
-                var people = (await _repository
-                    .FindAsync(new GetPeopleById(message.Ids)))
-                    .Select(x => composer.Proxy<IMapping>().Map<PersonData>(x)).ToArray();
+                var adds = emails.Where(x => !x.Id.HasValue).ToArray();
+                var updates = emails.Where(x => x.Id.HasValue).ToArray();
+                var updateIds = updates.Select(x => x.Id).ToArray();
+                var removes = person.Emails?
+                    .Where(x => !updateIds.Contains(x.Id))
+                    .Select(x => composer.Proxy<IMapping>().Map<EmailData>(x))
+                    .ToArray();
 
-                return new PersonResult
-                {
-                    People = people
-                };
-            }
-        }
+                foreach (var add in adds)
+                    relationships.Add(new CreateEmail(add));
 
-        public async Task<PersonData> Next(UpdatePerson request, MethodBinding method, IHandler composer, NextDelegate<Task<PersonData>> next)
-        {
-            return await Begin(request.Resource.Id, composer, next);
-        }
+                foreach (var update in updates)
+                    relationships.Add(new UpdateEmail(update));
 
-
-        [Mediates]
-        public async Task<PersonData> Update(UpdatePerson request, IHandler composer)
-        {
-            var person = await Person(request.Resource.Id, composer);
-            composer.Proxy<IMapping>()
-                .MapInto(request.Resource, person);
-
-            var relationships = await GetUpdateRelationships(request, person, composer);
-
-            if (relationships.Any())
-            {
-                await composer.Send(new Sequential
-                {
-                    Requests = relationships.ToArray()
-                });
+                foreach (var remove in removes)
+                    relationships.Add(new RemoveEmail(remove));
             }
 
-            return new PersonData
+            var addresses = request.Resource.Addresses;
+            if (addresses != null)
             {
-                Id = request.Resource.Id
-            };
-        }
+                var adds = addresses.Where(x => !x.Id.HasValue).ToArray();
+                var updates = addresses.Where(x => x.Id.HasValue).ToArray();
+                var updateIds = updates.Select(x => x.Id).ToArray();
+                var removes = person.Addresses?
+                    .Where(x => !updateIds.Contains(x.Id))
+                    .Select(x => composer.Proxy<IMapping>().Map<AddressData>(x))
+                    .ToArray();
 
-        public async Task<PersonData> Next(RemovePerson request, MethodBinding method, IHandler composer, NextDelegate<Task<PersonData>> next)
-        {
-            return await Begin(request.Resource.Id, composer, next);
-        }
+                foreach (var add in adds)
+                    relationships.Add(new CreateAddress(add));
 
-        [Mediates]
-        public async Task<PersonData> Remove(RemovePerson request, IHandler composer)
-        {
-            var person = await Person(request.Resource.Id, composer);
-            _repository.Context.Remove(person);
+                foreach (var update in updates)
+                    relationships.Add(new UpdateAddress(update));
 
-            return new PersonData
+                foreach (var remove in removes)
+                    relationships.Add(new RemoveAddress(remove));
+            }
+
+            var phones = request.Resource.Phones;
+            if (phones != null)
             {
-                Id         = person.Id,
-                RowVersion = person.RowVersion
-            };
+                var adds = phones.Where(x => !x.Id.HasValue).ToArray();
+                var updates = phones.Where(x => x.Id.HasValue).ToArray();
+                var updateIds = updates.Select(x => x.Id).ToArray();
+                var removes = person.Phones?
+                    .Where(x => !updateIds.Contains(x.Id))
+                    .Select(x => composer.Proxy<IMapping>().Map<PhoneData>(x))
+                    .ToArray();
+
+                foreach (var add in adds)
+                    relationships.Add(new CreatePhone(add));
+
+                foreach (var update in updates)
+                    relationships.Add(new UpdatePhone(update));
+
+                foreach (var remove in removes)
+                    relationships.Add(new RemovePhone(remove));
+            }
+
+            return relationships.ToArray();
         }
     }
 }

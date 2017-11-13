@@ -5,6 +5,7 @@
     using System.Data.Entity.Validation;
     using System.Transactions;
     using BibleTraining;
+    using BibleTraining.Api;
     using BibleTraining.Entities;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
@@ -12,19 +13,35 @@
     using Highway.Data;
     using Improving.Highway.Data.Scope.Repository;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Miruken.Callback;
+    using Miruken.Castle;
+    using Miruken.Mediate.Castle;
+    using Miruken.Validate.Castle;
     using Ploeh.AutoFixture;
+    using TestInfrastructure;
 
-    public abstract class BibleTrainingScenario
+    public abstract class BibleTrainingScenario : TransactionalScenario
     {
         protected IRepository<IBibleTrainingDomain> Repository;
         protected Fixture Fixture;
         protected DataContext Context => (DataContext) Repository.Context;
+        protected IHandler Handler;
 
         [TestInitialize]
         public void TestInitialize()
         {
             var container = new WindsorContainer();
             container.Install(
+                new FeaturesInstaller(
+                    new ConfigurationFeature(),
+                    new HandleFeature(),
+                    new ValidateFeature(),
+                    new MediateFeature()
+                        .WithStandardMiddleware()
+                    ).Use(
+                        Types.FromThisAssembly(),
+                        Classes.FromAssemblyContaining<IBibleTrainingDomain>()
+                    ),
                 new RepositoryInstaller(
                     Classes.FromAssemblyContaining<IBibleTrainingDomain>()
                 ),
@@ -32,15 +49,9 @@
             );
 
             Repository = container.Resolve<IRepository<IBibleTrainingDomain>>();
+            Handler    = new WindsorHandler(container).Resolve();
+            Fixture    = new BibleTrainingFixture().Fixture;
 
-            Fixture = new Fixture();
-
-            Fixture.Customize<Entity>(c => c.Without(x => x.RowVersion));
-
-            Fixture.Customize<Person>(c =>
-                c.Without(x => x.Addresses)
-                 .Without(x => x.Emails)
-                 .Without(x => x.Phones));
         }
 
 

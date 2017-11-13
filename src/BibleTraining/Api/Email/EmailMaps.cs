@@ -9,7 +9,7 @@
     public class EmailMaps : Handler
     {
         [Maps]
-        public Email Map(EmailData data, Mapping mapping)
+        public Email Map(EmailData data, Mapping mapping, IHandler composer)
         {
             var target = mapping.Target as Email ?? new Email();
 
@@ -23,6 +23,9 @@
 
             if (data.Address != null)
                 target.Address = data.Address;
+
+            //if (data.EmailType != null)
+            //    target.EmailType = composer.Proxy<IMapping>().Map<EmailType>(data.EmailType);
 
             return target;
         }

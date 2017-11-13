@@ -15,7 +15,7 @@ namespace BibleTraining.EntityTypeConfigurations
             Property(x => x.ModifiedBy).HasMaxLength(200);
             Property(x => x.Created).HasColumnType(DateTime2);
             Property(x => x.Modified).HasColumnType(DateTime2);
-            Property(x => x.RowVersion).HasColumnType("ROWVERSION");
+            Property(x => x.RowVersion).IsRowVersion().HasColumnType("ROWVERSION");
         }
     }
 }

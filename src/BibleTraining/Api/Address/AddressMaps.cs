@@ -27,6 +27,9 @@
             if (data.AddressTypeId.HasValue)
                 target.AddressTypeId = data.AddressTypeId.Value;
 
+            //if (data.AddressType != null)
+            //    target.AddressType = composer.Proxy<IMapping>().Map<AddressType>(data.AddressType);
+
             return target;
         }
 
@@ -38,6 +41,7 @@
             ResourceMapper.Map(target, address);
 
             target.Name = address.Name;
+
             target.Description = address.Description;
 
             target.PersonId = address.PersonId;

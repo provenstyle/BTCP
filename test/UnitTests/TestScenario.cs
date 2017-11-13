@@ -19,7 +19,9 @@ namespace UnitTests
     using Miruken.Castle;
     using Miruken.Mediate.Castle;
     using Miruken.Validate.Castle;
+    using Ploeh.AutoFixture;
     using Rhino.Mocks;
+    using TestInfrastructure;
 
     public class TestScenario
     {
@@ -27,6 +29,7 @@ namespace UnitTests
         protected IWindsorContainer _container;
         protected IDomainContext<IDomain> _context;
         protected IHandler _handler;
+        protected Fixture Fixture;
 
         [TestInitialize]
         public virtual void TestInitialize()
@@ -54,6 +57,8 @@ namespace UnitTests
             _handler = new WindsorHandler(_container).Resolve();
 
             AfterContainer(_container);
+
+            Fixture = new BibleTrainingFixture().Fixture;
         }
 
         protected virtual void BeforeContainer(IWindsorContainer container)
@@ -129,7 +134,7 @@ namespace UnitTests
 
         protected void AssertResourcesMapToEntities(Entity entity, Resource<int?> resource)
         {
-            Assert.AreEqual(resource.Id,         entity.Id);
+            Assert.AreEqual(resource.Id ?? 0,         entity.Id);
             Assert.AreEqual(resource.RowVersion, entity.RowVersion);
             Assert.AreEqual(resource.ModifiedBy, entity.ModifiedBy);
 

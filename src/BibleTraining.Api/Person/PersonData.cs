@@ -1,6 +1,7 @@
 namespace BibleTraining.Api.Person
 {
     using System;
+    using System.Collections.Generic;
     using Address;
     using Email;
     using Phone;
@@ -14,8 +15,8 @@ namespace BibleTraining.Api.Person
         public string    Bio       { get; set; }
         public string    Image     { get; set; }
 
-        public EmailData[]   Emails    { get; set; }
-        public AddressData[] Addresses { get; set; }
-        public PhoneData[]   Phones    { get; set; }
+        public List<EmailData>   Emails    { get; set; }
+        public List<AddressData> Addresses { get; set; }
+        public List<PhoneData>   Phones    { get; set; }
     }
 }
