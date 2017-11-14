@@ -1,5 +1,6 @@
 ﻿namespace IntegrationTests.ApiTests
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using BibleTraining.Api.EmailType;
@@ -11,58 +12,57 @@
     [TestClass]
     public class EmailTypeAggregateHandlerTests : BibleTrainingScenario
     {
-        [TestMethod]
-        public async Task CanAdd()
+        private async Task<EmailTypeData> GetEmailType(int id)
+        {
+             return (await Handler.Send(new GetEmailTypes(id))).EmailTypes.FirstOrDefault();
+        }
+
+        public async Task WithCreated(Func<EmailTypeData, Task> testAction)
         {
             await RollBack(async () =>
              {
                  var emailTypeData = Fixture.Create<EmailTypeData>();
                  var createResult = await Handler.Send(new CreateEmailType(emailTypeData));
-                 var id = createResult.Id.Value;
-                 var emailType = await GetEmailType(id);
-
-                 Assert.AreEqual(emailTypeData.Name, emailType.Name);
+                 var created = await GetEmailType(createResult.Id ?? -1);
+                 await testAction(created);
              });
+        }
+
+        [TestMethod]
+        public async Task CanAdd()
+        {
+            await WithCreated(created =>
+              {
+                  Assert.IsNotNull(created);
+                  return Task.FromResult(true);
+              });
         }
 
         [TestMethod]
         public async Task CanUpdate()
         {
-            await RollBack(async () =>
+            await WithCreated(async created =>
              {
-                 var emailTypeData = Fixture.Create<EmailTypeData>();
-                 var createResult = await Handler.Send(new CreateEmailType(emailTypeData));
-                 var id = createResult.Id.Value;
-                 var emailType = await GetEmailType(id);
+                 const string name = "a";
 
-                 emailType.Name = "a";
-                 await Handler.Send(new UpdateEmailType(emailType));
-                 emailType = await GetEmailType(id);
+                 created.Name = name;
+                 await Handler.Send(new UpdateEmailType(created));
+                 var updated = await GetEmailType(created.Id ?? -1);
 
-                 Assert.AreEqual("a", emailType.Name);
+                 Assert.AreEqual(name, updated.Name);
              });
         }
 
         [TestMethod]
         public async Task CanRemove()
         {
-            await RollBack(async () =>
+            await WithCreated(async created =>
              {
-                 var emailTypeData = Fixture.Create<EmailTypeData>();
-                 var createResult = await Handler.Send(new CreateEmailType(emailTypeData));
-                 var id = createResult.Id.Value;
-                 var emailType = await GetEmailType(id);
+                 await Handler.Send(new RemoveEmailType(created));
+                 var removed = await GetEmailType(created.Id ?? -1);
 
-                 await Handler.Send(new RemoveEmailType(emailType));
-                 emailType = await GetEmailType(id);
-
-                 Assert.IsNull(emailType);
+                 Assert.IsNull(removed);
              });
-        }
-
-        private async Task<EmailTypeData> GetEmailType(int id)
-        {
-             return (await Handler.Send(new GetEmailTypes(id))).EmailTypes.FirstOrDefault();
         }
     }
 }

@@ -14,6 +14,35 @@
     [TestClass]
     public class EmailAggregateHandlerTests : BibleTrainingScenario
     {
+        private async Task<EmailData> GetEmail(int id)
+        {
+             return (await Handler.Send(new GetEmails(id))).Emails.FirstOrDefault();
+        }
+
+        public async Task WithCreated(Func<int, Task> testAction)
+        {
+            await RollBack(async () =>
+             {
+                 int emailTypeId;
+                 int personId;
+                 using (var scope = Repository.Scopes.Create())
+                 {
+                     var emailTypeResult = await Handler.Send(new CreateEmailType(Fixture.Create<EmailTypeData>()));
+                     var personResult    = await Handler.Send(new CreatePerson(Fixture.Create<PersonData>()));
+                     scope.SaveChanges();
+                     emailTypeId = emailTypeResult.Id ?? -1;
+                     personId    = personResult.Id ?? -1;
+                 }
+
+                 var data = Fixture.Create<EmailData>();
+                 data.EmailTypeId = emailTypeId;
+                 data.PersonId    = personId;
+
+                 var createResult = await Handler.Send(new CreateEmail(data));
+                 await testAction(createResult.Id ?? 0);
+             });
+        }
+
         [TestMethod]
         public async Task CanAdd()
         {
@@ -51,35 +80,6 @@
 
                  Assert.IsNull(removed);
               });
-        }
-
-        private async Task<EmailData> GetEmail(int id)
-        {
-             return (await Handler.Send(new GetEmails(id))).Emails.FirstOrDefault();
-        }
-
-        public async Task WithCreated(Func<int, Task> testAction)
-        {
-            await RollBack(async () =>
-             {
-                 int emailTypeId;
-                 int personId;
-                 using (var scope = Repository.Scopes.Create())
-                 {
-                     var emailTypeResult = await Handler.Send(new CreateEmailType(Fixture.Create<EmailTypeData>()));
-                     var personResult    = await Handler.Send(new CreatePerson(Fixture.Create<PersonData>()));
-                     scope.SaveChanges();
-                     emailTypeId = emailTypeResult.Id.Value;
-                     personId = personResult.Id.Value;
-                 }
-
-                 var data = Fixture.Create<EmailData>();
-                 data.EmailTypeId = emailTypeId;
-                 data.PersonId    = personId;
-
-                 var createResult = await Handler.Send(new CreateEmail(data));
-                 await testAction(createResult.Id ?? 0);
-             });
         }
     }
 }

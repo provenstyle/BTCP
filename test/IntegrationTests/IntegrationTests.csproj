@@ -169,6 +169,7 @@
     <Compile Include="EntityTypeConfigurationTests\PersonConfigurationTest.cs" />
     <Compile Include="EntityTypeConfigurationTests\PhoneConfigurationTest.cs" />
     <Compile Include="EntityTypeConfigurationTests\PhoneTypeConfigurationTest.cs" />
+    <Compile Include="PopulatingRelationshipsInEntityFramework.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenarios\BibleTrainingScenario.cs" />
     <Compile Include="Scenarios\TransactionalScenario.cs" />

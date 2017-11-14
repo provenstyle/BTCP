@@ -28,7 +28,7 @@
         protected IHandler Handler;
 
         [TestInitialize]
-        public void TestInitialize()
+        public virtual void TestInitialize()
         {
             var container = new WindsorContainer();
             container.Install(
