@@ -1,9 +1,11 @@
 namespace BibleTraining.Api.Email
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using BibleTraining;
+    using EmailType;
     using Entities;
     using Improving.Highway.Data.Scope.Repository;
     using Miruken;
@@ -11,13 +13,13 @@ namespace BibleTraining.Api.Email
     using Miruken.Callback.Policy;
     using Miruken.Map;
     using Miruken.Mediate;
+    using Miruken.Mediate.Schedule;
     using Queries;
 
     public class EmailAggregateHandler : PipelineHandler,
         IMiddleware<UpdateEmail, EmailData>,
         IMiddleware<RemoveEmail, EmailData>
     {
-
         public int? Order { get; set; } = Stage.Validation - 1;
         private readonly IRepository<IBibleTrainingDomain> _repository;
         private readonly DateTime _now;
@@ -59,12 +61,28 @@ namespace BibleTraining.Api.Email
         }
 
         [Mediates]
-        public async Task<EmailData> Create(CreateEmail message, IHandler composer)
+        public async Task<EmailData> Create(CreateEmail request, IHandler composer)
         {
             using(var scope = _repository.Scopes.Create())
             {
+                var relationships = new List<object>();
+                var emailType = request.Resource.EmailType;
+                if (request != null)
+                {
+                    if(!emailType.Id.HasValue)
+                        relationships.Add(new CreateEmailType(emailType));
+                }
+
+                if (relationships.Any())
+                {
+                    await composer.Send(new Sequential
+                    {
+                        Requests = relationships.ToArray()
+                    });
+                }
+
                 var email = composer.Proxy<IMapping>()
-                    .Map<Email>(message.Resource);
+                    .Map<Email>(request.Resource);
 
                 email.Created = _now;
 
@@ -101,6 +119,7 @@ namespace BibleTraining.Api.Email
         public async Task<EmailData> Update(UpdateEmail request, IHandler composer)
         {
             var email = await Email(request.Resource.Id, composer);
+
             composer.Proxy<IMapping>()
                     .MapInto(request.Resource, email);
 

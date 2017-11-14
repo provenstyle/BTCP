@@ -33,7 +33,6 @@
         [Maps]
         public EmailData Map(Email email, Mapping mapping, IHandler composer)
         {
-
             var target = mapping.Target as EmailData ?? new EmailData();
             ResourceMapper.Map(target, email);
 

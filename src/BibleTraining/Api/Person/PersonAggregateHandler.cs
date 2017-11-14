@@ -14,7 +14,7 @@
     using Phone;
     using Queries;
 
-    public class PersonAggregateHandler : PersonAggregateHandlerBase
+    public class PersonAggregateHandler : PersonAggregateHandlerBase<Person, PersonData>
     {
         public PersonAggregateHandler(IRepository<IBibleTrainingDomain> repository) : base(repository)
         {

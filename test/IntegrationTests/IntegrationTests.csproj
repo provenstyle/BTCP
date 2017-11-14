@@ -159,6 +159,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ApiTests\EmailAggregateHandlerTests.cs" />
+    <Compile Include="ApiTests\EmailTypeAggregateHandlerTests.cs" />
     <Compile Include="ApiTests\PersonAggregateHandlerTests.cs" />
     <Compile Include="EntityTypeConfigurationTests\AddressConfigurationTest.cs" />
     <Compile Include="EntityTypeConfigurationTests\AddressTypeConfigurationTest.cs" />

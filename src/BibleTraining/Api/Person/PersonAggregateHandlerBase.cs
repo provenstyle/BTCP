@@ -13,7 +13,7 @@ namespace BibleTraining.Api.Person
     using Miruken.Mediate.Schedule;
     using Queries;
 
-    public abstract class PersonAggregateHandlerBase : PipelineHandler,
+    public abstract class PersonAggregateHandlerBase<TEntity, TData> : PipelineHandler,
         IGlobalMiddleware<UpdatePerson, PersonData>,
         IGlobalMiddleware<RemovePerson, PersonData>
     {
