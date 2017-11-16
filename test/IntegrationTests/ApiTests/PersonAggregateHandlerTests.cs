@@ -48,6 +48,8 @@
 
                  var createResult = await Handler.Send(new CreatePerson(personData));
                  var created = await GetPerson(createResult.Id ?? -1);
+                 Assert.IsNotNull(created);
+
                  await testAction(created);
              });
         }
@@ -76,6 +78,17 @@
         }
 
         [TestMethod]
+        public async Task CanRemove()
+        {
+            await WithCreated(async created =>
+              {
+                  await Handler.Publish(new RemovePerson(created));
+                  var updated = await GetPerson(created.Id ?? 1);
+                  Assert.IsNull(updated);
+              });
+        }
+
+        [TestMethod]
         public async Task CreatesRelationshipsOnCreate()
         {
             await WithCreated(person =>
@@ -84,6 +97,47 @@
                   Assert.AreEqual(3, person.Emails.Count);
                   Assert.AreEqual(3, person.Phones.Count);
                   return Task.FromResult(true);
+              });
+        }
+
+        [TestMethod]
+        public async Task CanAddAddress()
+        {
+            await WithCreated(async created =>
+              {
+                 var beforeAddressCount = created.Addresses.Count;
+                 created.Addresses.Add(Fixture.Create<AddressData>());
+                 await Handler.Send(new UpdatePerson(created));
+                 var updated = await GetPerson(created.Id ?? -1);
+                 Assert.AreEqual(beforeAddressCount + 1, updated.Addresses.Count);
+              });
+        }
+
+        [TestMethod]
+        public async Task CanUpdateAddress()
+        {
+            await WithCreated(async created =>
+              {
+                 var address = created.Addresses.Last();
+                 address.Name = "a";
+                 await Handler.Send(new UpdatePerson(created));
+                 var updated = await GetPerson(created.Id ?? -1);
+                 Assert.AreEqual(address.Name, updated.Addresses.Last().Name);
+              });
+        }
+
+        [TestMethod]
+        public async Task CanRemoveAddress()
+        {
+            await WithCreated(async created =>
+              {
+                  var beforeAddressCount = created.Addresses.Count;
+                  var removed = created.Addresses.Last();
+                  created.Addresses.Remove(removed);
+                  await Handler.Send(new UpdatePerson(created));
+                  var updated = await GetPerson(created.Id ?? -1);
+                  Assert.AreEqual(beforeAddressCount - 1, updated.Addresses.Count);
+                  Assert.IsTrue(updated.Addresses.All(x => x.Id != removed.Id));
               });
         }
 
@@ -97,6 +151,75 @@
                  await Handler.Send(new UpdatePerson(created));
                  var updated = await GetPerson(created.Id ?? -1);
                  Assert.AreEqual(beforeEmailCount + 1, updated.Emails.Count);
+              });
+        }
+
+        [TestMethod]
+        public async Task CanUpdateEmail()
+        {
+            await WithCreated(async created =>
+              {
+                 var email = created.Emails.Last();
+                 email.Address = "a@a.com";
+                 await Handler.Send(new UpdatePerson(created));
+                 var updated = await GetPerson(created.Id ?? -1);
+                 Assert.AreEqual(email.Address, updated.Emails.Last().Address);
+              });
+        }
+
+        [TestMethod]
+        public async Task CanRemoveEmail()
+        {
+            await WithCreated(async created =>
+              {
+                  var beforeEmailCount = created.Emails.Count;
+                  var removed = created.Emails.Last();
+                  created.Emails.Remove(removed);
+                  await Handler.Send(new UpdatePerson(created));
+                  var updated = await GetPerson(created.Id ?? -1);
+                  Assert.AreEqual(beforeEmailCount - 1, updated.Emails.Count);
+                  Assert.IsTrue(updated.Emails.All(x => x.Id != removed.Id));
+              });
+        }
+
+        [TestMethod]
+        public async Task CanAddPhone()
+        {
+            await WithCreated(async created =>
+              {
+                 var beforePhoneCount = created.Phones.Count;
+                 created.Phones.Add(Fixture.Create<PhoneData>());
+                 await Handler.Send(new UpdatePerson(created));
+                 var updated = await GetPerson(created.Id ?? -1);
+                 Assert.AreEqual(beforePhoneCount + 1, updated.Phones.Count);
+              });
+        }
+
+        [TestMethod]
+        public async Task CanUpdatePhone()
+        {
+            await WithCreated(async created =>
+              {
+                 var phone = created.Phones.Last();
+                 phone.Name = "a";
+                 await Handler.Send(new UpdatePerson(created));
+                 var updated = await GetPerson(created.Id ?? -1);
+                 Assert.AreEqual(phone.Name, updated.Phones.Last().Name);
+              });
+        }
+
+        [TestMethod]
+        public async Task CanRemovePhone()
+        {
+            await WithCreated(async created =>
+              {
+                  var beforePhoneCount = created.Phones.Count;
+                  var removed = created.Phones.Last();
+                  created.Phones.Remove(removed);
+                  await Handler.Send(new UpdatePerson(created));
+                  var updated = await GetPerson(created.Id ?? -1);
+                  Assert.AreEqual(beforePhoneCount - 1, updated.Phones.Count);
+                  Assert.IsTrue(updated.Phones.All(x => x.Id != removed.Id));
               });
         }
 

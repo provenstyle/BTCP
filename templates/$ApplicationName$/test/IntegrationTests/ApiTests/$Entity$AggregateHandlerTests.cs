@@ -24,6 +24,8 @@ namespace IntegrationTests.ApiTests
                  var data = Fixture.Create<$Entity$Data>();
                  var createResult = await Handler.Send(new Create$Entity$(data));
                  var created = await Get$Entity$(createResult.Id ?? -1);
+                 Assert.IsNotNull(created);
+
                  await testAction(created);
              });
         }

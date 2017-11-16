@@ -132,16 +132,14 @@ namespace BibleTraining.Api.Person
             return await Begin(request.Resource.Id, composer, next);
         }
 
-
         [Mediates]
         public async Task<PersonData> Update(UpdatePerson request, IHandler composer)
         {
             var person = await Person(request.Resource.Id, composer);
+            composer.Proxy<IMapping>().MapInto(request.Resource, person);
+            composer.Proxy<IStash>().Put(person);
 
             var relationships = await GetUpdateRelationships(request, person, composer);
-
-            composer.Proxy<IMapping>()
-                .MapInto(request.Resource, person);
 
             if (relationships.Any())
             {

@@ -1,7 +1,10 @@
 namespace BibleTraining.Api.Email
 {
-    using System;
+    using Entities;
     using FluentValidation;
+    using Miruken;
+    using Miruken.Callback;
+    using Miruken.Mediate;
 
     public class CreateEmailIntegrity : AbstractValidator<CreateEmail>
     {
@@ -17,11 +20,18 @@ namespace BibleTraining.Api.Email
             public EmailDataIntegrity()
             {
                 //RuleFor(x => x.PersonId)
-                //    .NotNull();
-                //RuleFor(x => x.EmailTypeId)
-                //    .NotNull()
+                    //.NotNull();
+                    //.When(NoPersonIsStashed);
+                RuleFor(x => x.EmailTypeId)
+                    .NotNull();
                 RuleFor(x => x.Address)
                     .NotEmpty();
+            }
+
+            private bool NoPersonIsStashed(EmailData emailData)
+            {
+                return HandleMethod.Composer.Proxy<IStash>()
+                    .TryGet<Person>() == null;
             }
         }
     }
