@@ -7,7 +7,7 @@ namespace BibleTraining.Queries
 
     public class GetPeopleById : Query<Person>
     {
-        public bool IncludeEmails     { get; set; }
+        public bool IncludeEmails    { get; set; }
         public bool IncludeAddresses { get; set; }
         public bool IncludePhones    { get; set; }
 

@@ -1,8 +1,10 @@
 ﻿namespace TestInfrastructure
 {
     using BibleTraining.Api;
+    using BibleTraining.Api.Address;
     using BibleTraining.Api.Email;
     using BibleTraining.Api.Person;
+    using BibleTraining.Api.Phone;
     using BibleTraining.Entities;
     using Ploeh.AutoFixture;
 
@@ -13,6 +15,14 @@
         public BibleTrainingFixture()
         {
             Fixture = new Fixture();
+
+            Fixture.Customize<Address>(c =>
+                c.Without(x => x.AddressTypeId)
+                 .Without(x => x.PersonId));
+
+            Fixture.Customize<AddressData>(c =>
+                c.Without(x => x.AddressTypeId)
+                 .Without(x => x.PersonId));
 
             Fixture.Customize<Entity>(c =>
                 c.Without(x => x.Id)
@@ -39,6 +49,14 @@
                 c.Without(x => x.Addresses)
                  .Without(x => x.Emails)
                  .Without(x => x.Phones));
+
+            Fixture.Customize<Phone>(c =>
+                c.Without(x => x.PhoneTypeId)
+                 .Without(x => x.PersonId));
+
+            Fixture.Customize<PhoneData>(c =>
+                c.Without(x => x.PhoneTypeId)
+                 .Without(x => x.PersonId));
         }
     }
 }

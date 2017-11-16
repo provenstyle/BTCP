@@ -50,13 +50,24 @@ namespace BibleTraining.Api.Phone
         {
             using(var scope = _repository.Scopes.Create())
             {
+                var phoneData = message.Resource;
+
                 var phone = composer.Proxy<IMapping>().Map<Phone>(message.Resource);
                 phone.Created = DateTime.Now;
-
                 _repository.Context.Add(phone);
+                composer.Proxy<IStash>().Put(phone);
+
+                if (phoneData.PersonId.HasValue)
+                    phone.PersonId = phoneData.PersonId.Value;
+                else
+                    phone.Person = composer.Proxy<IStash>().TryGet<Person>();
+
+                if (phoneData.PhoneTypeId.HasValue)
+                    phone.PhoneTypeId = phoneData.PhoneTypeId.Value;
+                else
+                    phone.PhoneType = composer.Proxy<IStash>().TryGet<PhoneType>();
 
                 var data = new PhoneData();
-
                 await scope.SaveChangesAsync((dbScope, count) =>
                 {
                     data.Id = phone.Id;

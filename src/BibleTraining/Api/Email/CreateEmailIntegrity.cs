@@ -1,5 +1,6 @@
 namespace BibleTraining.Api.Email
 {
+    using System;
     using FluentValidation;
 
     public class CreateEmailIntegrity : AbstractValidator<CreateEmail>
@@ -15,10 +16,10 @@ namespace BibleTraining.Api.Email
         {
             public EmailDataIntegrity()
             {
-                RuleFor(x => x.PersonId)
-                    .NotNull();
-                RuleFor(x => x.EmailTypeId)
-                    .NotNull();
+                //RuleFor(x => x.PersonId)
+                //    .NotNull();
+                //RuleFor(x => x.EmailTypeId)
+                //    .NotNull()
                 RuleFor(x => x.Address)
                     .NotEmpty();
             }

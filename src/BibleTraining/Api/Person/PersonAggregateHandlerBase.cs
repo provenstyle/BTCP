@@ -1,8 +1,11 @@
 namespace BibleTraining.Api.Person
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Address;
+    using Email;
     using Entities;
     using Improving.Highway.Data.Scope.Repository;
     using Miruken;
@@ -11,9 +14,10 @@ namespace BibleTraining.Api.Person
     using Miruken.Map;
     using Miruken.Mediate;
     using Miruken.Mediate.Schedule;
+    using Phone;
     using Queries;
 
-    public abstract class PersonAggregateHandlerBase<TEntity, TData> : PipelineHandler,
+    public abstract class PersonAggregateHandlerBase : PipelineHandler,
         IGlobalMiddleware<UpdatePerson, PersonData>,
         IGlobalMiddleware<RemovePerson, PersonData>
     {
@@ -48,17 +52,50 @@ namespace BibleTraining.Api.Person
         }
 
         [Mediates]
-        public async Task<PersonData> Create(CreatePerson message, IHandler composer)
+        public async Task<PersonData> Create(CreatePerson request, IHandler composer)
         {
             using(var scope = _repository.Scopes.Create())
             {
-                var person = composer.Proxy<IMapping>().Map<Person>(message.Resource);
+                var person = composer.Proxy<IMapping>().Map<Person>(request.Resource);
                 person.Created = DateTime.Now;
-
                 _repository.Context.Add(person);
+                composer.Proxy<IStash>().Put(person);
+
+                var relationships = new List<object>();
+
+                var emails = request.Resource.Emails;
+                if (emails != null)
+                {
+                    var adds = emails.Where(x => !x.Id.HasValue).ToArray();
+                    foreach (var add in adds)
+                        relationships.Add(new CreateEmail(add));
+                }
+
+                var addresses = request.Resource.Addresses;
+                if (addresses != null)
+                {
+                    var adds = addresses.Where(x => !x.Id.HasValue).ToArray();
+                    foreach (var add in adds)
+                        relationships.Add(new CreateAddress(add));
+                }
+
+                var phones = request.Resource.Phones;
+                if (phones != null)
+                {
+                    var adds = phones.Where(x => !x.Id.HasValue).ToArray();
+                    foreach (var add in adds)
+                        relationships.Add(new CreatePhone(add));
+                }
+
+                if (relationships.Any())
+                {
+                    await composer.Send(new Sequential
+                    {
+                        Requests = relationships.ToArray()
+                    });
+                }
 
                 var data = new PersonData();
-
                 await scope.SaveChangesAsync((dbScope, count) =>
                 {
                     data.Id = person.Id;

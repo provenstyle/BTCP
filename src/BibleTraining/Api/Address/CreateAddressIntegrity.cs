@@ -15,10 +15,10 @@ namespace BibleTraining.Api.Address
         {
             public AddressDataIntegrity()
             {
-                RuleFor(x => x.PersonId)
-                    .NotNull();
-                RuleFor(x => x.AddressTypeId)
-                    .NotNull();
+                //RuleFor(x => x.PersonId)
+                //    .NotNull();
+                //RuleFor(x => x.AddressTypeId)
+                //    .NotNull();
                 RuleFor(x => x.Name)
                     .NotEmpty();
             }

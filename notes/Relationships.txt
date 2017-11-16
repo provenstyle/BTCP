@@ -1,0 +1,22 @@
+Consider each relationship from both sides.
+
+From the domain perspective:
+	1. Does this entity own the releated entity?
+	2. Does anybody else use the related entity?
+	3. Is the related entity a fixed list of items? 
+
+From the entity perspective:
+		4. Is the related entity required to create	
+		5. Would I ever want to do a .Include for the related entity?
+		6. Would I ever want to filter a query with the releated entity?
+		7. Would I every want to create both at the same time?
+
+		Should there be a navigation property to represent the relationship?
+
+From the handler perspective:
+	Should the create handler create the related entity?
+
+	Should the update handler create the related entity?
+	Should the update handler update the related entity?
+	Should the update handler delete the related entity?
+

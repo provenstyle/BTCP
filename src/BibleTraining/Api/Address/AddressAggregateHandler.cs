@@ -52,14 +52,24 @@ namespace BibleTraining.Api.Address
         {
             using(var scope = _repository.Scopes.Create())
             {
-                var address = composer.Proxy<IMapping>()
-                    .Map<Address>(message.Resource);
-                address.Created = DateTime.Now;
+                var addressData = message.Resource;
 
+                var address = composer.Proxy<IMapping>() .Map<Address>(addressData);
+                address.Created = DateTime.Now;
                 _repository.Context.Add(address);
+                composer.Proxy<IStash>().Put(address);
+
+                if (addressData.PersonId.HasValue)
+                    address.PersonId = addressData.PersonId.Value;
+                else
+                    address.Person = composer.Proxy<IStash>().TryGet<Person>();
+
+                if (addressData.AddressTypeId.HasValue)
+                    address.AddressTypeId = addressData.AddressTypeId.Value;
+                else
+                    address.AddressType = composer.Proxy<IStash>().TryGet<AddressType>();
 
                 var data = new AddressData();
-
                 await scope.SaveChangesAsync((dbScope, count) =>
                  {
                      data.Id = address.Id;

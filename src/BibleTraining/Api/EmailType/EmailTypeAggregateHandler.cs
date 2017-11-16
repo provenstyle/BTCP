@@ -52,11 +52,9 @@ namespace BibleTraining.Api.EmailType
             {
                 var emailType = composer.Proxy<IMapping>().Map<EmailType>(message.Resource);
                 emailType.Created = DateTime.Now;
-
                 _repository.Context.Add(emailType);
 
                 var data = new EmailTypeData();
-
                 await scope.SaveChangesAsync((dbScope, count) =>
                 {
                     data.Id = emailType.Id;

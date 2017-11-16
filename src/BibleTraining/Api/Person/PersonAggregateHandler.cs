@@ -14,7 +14,7 @@
     using Phone;
     using Queries;
 
-    public class PersonAggregateHandler : PersonAggregateHandlerBase<Person, PersonData>
+    public class PersonAggregateHandler : PersonAggregateHandlerBase
     {
         public PersonAggregateHandler(IRepository<IBibleTrainingDomain> repository) : base(repository)
         {
@@ -31,7 +31,7 @@
                 })).FirstOrDefault());
         }
 
-        public override async Task<object[]> GetUpdateRelationships(
+        public override Task<object[]> GetUpdateRelationships(
             UpdatePerson request,
             Person person,
             IHandler composer)
@@ -101,7 +101,7 @@
                     relationships.Add(new RemovePhone(remove));
             }
 
-            return relationships.ToArray();
+            return Task.FromResult(relationships.ToArray());
         }
     }
 }

@@ -9,21 +9,6 @@ namespace BibleTraining.Api.Phone
     public class PhoneMaps : Handler
     {
         [Maps]
-        public PhoneData MapPhone(Phone phone, Mapping mapping, IHandler composer)
-        {
-            var target = mapping.Target as PhoneData ?? new PhoneData();
-
-            ResourceMapper.Map(target, phone);
-
-            target.Name      = phone.Name;
-
-            if(phone.PhoneType != null)
-                target.PhoneType = composer.Proxy<IMapping>().Map<PhoneTypeData>(phone.PhoneType);
-
-            return target;
-        }
-
-        [Maps]
         public Phone MapPhoneData(PhoneData data, Mapping mapping, IHandler composer)
         {
             var target = mapping.Target as Phone ?? new Phone();
@@ -38,6 +23,20 @@ namespace BibleTraining.Api.Phone
 
             return target;
         }
-    }
 
+        [Maps]
+        public PhoneData MapPhone(Phone phone, Mapping mapping, IHandler composer)
+        {
+            var target = mapping.Target as PhoneData ?? new PhoneData();
+
+            ResourceMapper.Map(target, phone);
+
+            target.Name      = phone.Name;
+
+            if(phone.PhoneType != null)
+                target.PhoneType = composer.Proxy<IMapping>().Map<PhoneTypeData>(phone.PhoneType);
+
+            return target;
+        }
+    }
 }

@@ -65,31 +65,24 @@ namespace BibleTraining.Api.Email
         {
             using(var scope = _repository.Scopes.Create())
             {
-                var relationships = new List<object>();
-                var emailType = request.Resource.EmailType;
-                if (request != null)
-                {
-                    if(!emailType.Id.HasValue)
-                        relationships.Add(new CreateEmailType(emailType));
-                }
+                var emailData = request.Resource;
 
-                if (relationships.Any())
-                {
-                    await composer.Send(new Sequential
-                    {
-                        Requests = relationships.ToArray()
-                    });
-                }
-
-                var email = composer.Proxy<IMapping>()
-                    .Map<Email>(request.Resource);
-
+                var email = composer.Proxy<IMapping>() .Map<Email>(request.Resource);
                 email.Created = _now;
-
                 _repository.Context.Add(email);
+                composer.Proxy<IStash>().Put(email);
+
+                if (emailData.PersonId.HasValue)
+                    email.PersonId = emailData.PersonId.Value;
+                else
+                    email.Person = composer.Proxy<IStash>().TryGet<Person>();
+
+                if (emailData.EmailTypeId.HasValue)
+                    email.EmailTypeId = emailData.EmailTypeId.Value;
+                else
+                    email.EmailType = composer.Proxy<IStash>().TryGet<EmailType>();
 
                 var data = new EmailData();
-
                 await scope.SaveChangesAsync((dbScope, count) =>
                  {
                      data.Id = email.Id;
