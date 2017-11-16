@@ -3,27 +3,27 @@ namespace IntegrationTests.ApiTests
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using BibleTraining.Api.$Entity$;
+    using BibleTraining.Api.PhoneType;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Miruken.Mediate;
     using Scenarios;
     using Ploeh.AutoFixture;
 
     [TestClass]
-    public class $Entity$AggregateHandlerTests : BibleTrainingScenario
+    public class PhoneTypeAggregateHandlerTests : BibleTrainingScenario
     {
-        private async Task<$Entity$Data> Get$Entity$(int id)
+        private async Task<PhoneTypeData> GetPhoneType(int id)
         {
-             return (await Handler.Send(new Get$Entity$s(id))).$Entity$s.FirstOrDefault();
+             return (await Handler.Send(new GetPhoneTypes(id))).PhoneTypes.FirstOrDefault();
         }
 
-        public async Task WithCreated(Func<$Entity$Data, Task> testAction)
+        public async Task WithCreated(Func<PhoneTypeData, Task> testAction)
         {
             await RollBack(async () =>
              {
-                 var data = Fixture.Create<$Entity$Data>();
-                 var createResult = await Handler.Send(new Create$Entity$(data));
-                 var created = await Get$Entity$(createResult.Id ?? -1);
+                 var phoneTypeData = Fixture.Create<PhoneTypeData>();
+                 var createResult = await Handler.Send(new CreatePhoneType(phoneTypeData));
+                 var created = await GetPhoneType(createResult.Id ?? -1);
                  await testAction(created);
              });
         }
@@ -46,8 +46,8 @@ namespace IntegrationTests.ApiTests
                  const string name = "a";
 
                  created.Name = name;
-                 await Handler.Send(new Update$Entity$(created));
-                 var updated = await Get$Entity$(created.Id ?? -1);
+                 await Handler.Send(new UpdatePhoneType(created));
+                 var updated = await GetPhoneType(created.Id ?? -1);
 
                  Assert.AreEqual(name, updated.Name);
              });
@@ -58,8 +58,8 @@ namespace IntegrationTests.ApiTests
         {
             await WithCreated(async created =>
              {
-                 await Handler.Send(new Remove$Entity$(created));
-                 var removed = await Get$Entity$(created.Id ?? -1);
+                 await Handler.Send(new RemovePhoneType(created));
+                 var removed = await GetPhoneType(created.Id ?? -1);
 
                  Assert.IsNull(removed);
              });

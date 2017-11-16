@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -163,8 +163,8 @@
     <Compile Include="Api\EmailType\UpdateEmailTypeIntegrity.cs" />
     <Compile Include="Api\EntityMapper.cs" />
     <Compile Include="Api\Person\CreatePersonIntegrity.cs" />
-    <Compile Include="Api\Person\PersonAggregateHandlerBase.cs" />
     <Compile Include="Api\Person\PersonAggregateHandler.cs" />
+    <Compile Include="Api\Person\PersonAggregateHandlerBase.cs" />
     <Compile Include="Api\Person\PersonConcurency.cs" />
     <Compile Include="Api\Person\PersonMaps.cs" />
     <Compile Include="Api\Person\UpdatePersonIntegrity.cs" />
