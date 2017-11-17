@@ -1,11 +1,9 @@
 namespace BibleTraining.Api.Email
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using BibleTraining;
-    using EmailType;
     using Entities;
     using Improving.Highway.Data.Scope.Repository;
     using Miruken;
@@ -13,7 +11,6 @@ namespace BibleTraining.Api.Email
     using Miruken.Callback.Policy;
     using Miruken.Map;
     using Miruken.Mediate;
-    using Miruken.Mediate.Schedule;
     using Queries;
 
     public class EmailAggregateHandler : PipelineHandler,

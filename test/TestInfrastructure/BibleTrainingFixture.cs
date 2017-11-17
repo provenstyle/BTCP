@@ -1,5 +1,6 @@
 ﻿namespace TestInfrastructure
 {
+    using System;
     using BibleTraining.Api;
     using BibleTraining.Api.Address;
     using BibleTraining.Api.Email;
@@ -15,6 +16,11 @@
         public BibleTrainingFixture()
         {
             Fixture = new Fixture();
+
+            Fixture.Customize<Entity>(c =>
+                c.With(x => x.Created,  DateTime.Now.Subtract(TimeSpan.FromMinutes(1)))
+                 .With(x => x.Modified, DateTime.Now.Subtract(TimeSpan.FromMinutes(1)))
+                 .Without(x => x.Id));
 
             Fixture.Customize<Address>(c =>
                 c.Without(x => x.AddressTypeId)

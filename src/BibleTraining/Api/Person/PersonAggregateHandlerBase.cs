@@ -89,10 +89,8 @@ namespace BibleTraining.Api.Person
 
                 if (relationships.Any())
                 {
-                    await composer.Send(new Sequential
-                    {
-                        Requests = relationships.ToArray()
-                    });
+                    foreach (var relationship in relationships)
+                        await composer.Send(relationship);
                 }
 
                 var data = new PersonData();
@@ -143,10 +141,8 @@ namespace BibleTraining.Api.Person
 
             if (relationships.Any())
             {
-                await composer.Send(new Sequential
-                {
-                    Requests = relationships.ToArray()
-                });
+                foreach (var relationship in relationships)
+                    await composer.Send(relationship);
             }
 
             return new PersonData

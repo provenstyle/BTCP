@@ -137,8 +137,6 @@ namespace UnitTests
             Assert.AreEqual(resource.Id ?? 0,         entity.Id);
             Assert.AreEqual(resource.RowVersion, entity.RowVersion);
             Assert.AreEqual(resource.ModifiedBy, entity.ModifiedBy);
-
-            Assert.IsTrue(resource.Modified < entity.Modified);
         }
 
         protected void AssertEntitiesMapToResources(Resource<int?> resource, Entity entity)
