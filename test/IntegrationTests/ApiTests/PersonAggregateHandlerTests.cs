@@ -36,7 +36,10 @@
                  Fixture.Customize<AddressData>(c => c.With(x => x.AddressTypeId, addressTypeId));
 
                  var emailTypeId = (await Handler.Send(new CreateEmailType(Fixture.Create<EmailTypeData>()))).Id;
-                 Fixture.Customize<EmailData>(c => c.With(x => x.EmailTypeId, emailTypeId));
+                 Fixture.Customize<EmailData>(c =>
+                     c.With(x => x.EmailTypeId, emailTypeId)
+                      .With(x => x.Address, "a@a.com")
+                      .Without(x => x.PersonId));
 
                  var phoneTypeId = (await Handler.Send(new CreatePhoneType(Fixture.Create<PhoneTypeData>()))).Id;
                  Fixture.Customize<PhoneData>(c => c.With(x => x.PhoneTypeId, phoneTypeId));

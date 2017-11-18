@@ -40,11 +40,13 @@
 
             Fixture.Customize<Email>(c =>
                 c.Without(x => x.EmailTypeId)
-                 .Without(x => x.PersonId));
+                 .Without(x => x.PersonId)
+                 .With(x => x.Address, "a@a.com"));
 
             Fixture.Customize<EmailData>(c =>
                 c.Without(x => x.EmailTypeId)
-                 .Without(x => x.PersonId));
+                 .Without(x => x.PersonId)
+                 .With(x => x.Address, "a@a.com"));
 
             Fixture.Customize<Person>(c =>
                 c.Without(x => x.Addresses)

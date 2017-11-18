@@ -25,7 +25,8 @@ namespace BibleTraining.Api.Email
                 RuleFor(x => x.EmailTypeId)
                     .NotNull();
                 RuleFor(x => x.Address)
-                    .NotEmpty();
+                    .NotEmpty()
+                    .EmailAddress();
             }
 
             private bool NoPersonIsStashed(EmailData emailData)

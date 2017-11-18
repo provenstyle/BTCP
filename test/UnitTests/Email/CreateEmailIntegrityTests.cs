@@ -2,8 +2,6 @@
 {
     using BibleTraining.Api.Email;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Miruken.Callback;
-    using Miruken.Mediate;
 
     [TestClass]
     public class CreateEmailIntegrityTests
@@ -40,6 +38,18 @@
             createEmail.Resource.Address = string.Empty;
             var result = validator.Validate(createEmail);
             Assert.IsFalse(result.IsValid);
+        }
+
+        [TestMethod]
+        public void MustHaveValidAddress()
+        {
+            var addresses = new []{"a", "a.a", "a@a", "a@a.", "a.com"};
+            foreach (var address in addresses)
+            {
+                createEmail.Resource.Address = address;
+                var result = validator.Validate(createEmail);
+                Assert.IsFalse(result.IsValid);
+            }
         }
 
         //[TestMethod]

@@ -17,7 +17,7 @@ namespace UnitTests.Email
             {
                 PersonId    = 1,
                 EmailTypeId = 1,
-                Address     = "a"
+                Address     = "a@a.com"
             };
 
             _context.Expect(pg => pg.Add(Arg<Email>.Is.Anything))
