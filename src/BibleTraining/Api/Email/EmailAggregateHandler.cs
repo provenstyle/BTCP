@@ -57,13 +57,14 @@ namespace BibleTraining.Api.Email
         }
 
         [Mediates]
-        public async Task<EmailData> Create(CreateEmail request, IHandler composer)
+        public async Task<EmailData> Create(CreateEmail request,
+            IHandler composer, StashOf<Person> person, StashOf<EmailType> emailType)
         {
             using(var scope = _repository.Scopes.Create())
             {
                 var emailData = request.Resource;
 
-                var email = composer.Proxy<IMapping>() .Map<Email>(request.Resource);
+                var email = composer.Proxy<IMapping>().Map<Email>(request.Resource);
                 email.Created = _now;
                 _repository.Context.Add(email);
                 composer.Proxy<IStash>().Put(email);
@@ -71,12 +72,12 @@ namespace BibleTraining.Api.Email
                 if (emailData.PersonId.HasValue)
                     email.PersonId = emailData.PersonId.Value;
                 else
-                    email.Person = composer.Proxy<IStash>().TryGet<Person>();
+                    email.Person = person.Value;
 
                 if (emailData.EmailTypeId.HasValue)
                     email.EmailTypeId = emailData.EmailTypeId.Value;
                 else
-                    email.EmailType = composer.Proxy<IStash>().TryGet<EmailType>();
+                    email.EmailType = emailType.Value;
 
                 var data = new EmailData();
                 await scope.SaveChangesAsync((dbScope, count) =>

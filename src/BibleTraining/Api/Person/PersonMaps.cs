@@ -74,27 +74,6 @@ namespace BibleTraining.Api.Person
             if (data.Image!= null)
                 target.Image = data.Image;
 
-            //if (data.Addresses != null)
-            //{
-            //    target.Addresses = data.Addresses
-            //        .Select(x => composer.Proxy<IMapping>().Map<Address>(x))
-            //        .ToArray();
-            //}
-
-            //if (data.Emails != null)
-            //{
-            //    target.Emails = data.Emails
-            //        .Select(x => composer.Proxy<IMapping>().Map<Email>(x))
-            //        .ToArray();
-            //}
-
-            //if (data.Phones != null)
-            //{
-            //    target.Phones = data.Phones
-            //        .Select(x => composer.Proxy<IMapping>().Map<Phone>(x))
-            //        .ToArray();
-            //}
-
             return target;
         }
     }
