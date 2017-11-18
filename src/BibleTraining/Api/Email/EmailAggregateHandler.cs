@@ -65,7 +65,6 @@ namespace BibleTraining.Api.Email
                 var emailData = request.Resource;
 
                 var email = composer.Proxy<IMapping>().Map<Email>(request.Resource);
-                email.Created = _now;
                 _repository.Context.Add(email);
                 composer.Proxy<IStash>().Put(email);
 

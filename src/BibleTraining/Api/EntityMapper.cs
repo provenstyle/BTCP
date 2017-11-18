@@ -1,6 +1,5 @@
 namespace BibleTraining.Api
 {
-    using System;
     using Entities;
 
     public class EntityMapper
@@ -18,8 +17,6 @@ namespace BibleTraining.Api
 
             if (resource.ModifiedBy != null)
                 entity.ModifiedBy = resource.ModifiedBy;
-
-            entity.Modified = DateTime.Now;
 
             return entity;
         }

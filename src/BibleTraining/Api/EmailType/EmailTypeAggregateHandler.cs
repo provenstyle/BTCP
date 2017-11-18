@@ -51,7 +51,6 @@ namespace BibleTraining.Api.EmailType
             using(var scope = _repository.Scopes.Create())
             {
                 var emailType = composer.Proxy<IMapping>().Map<EmailType>(message.Resource);
-                emailType.Created = DateTime.Now;
                 _repository.Context.Add(emailType);
 
                 var data = new EmailTypeData();

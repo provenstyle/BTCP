@@ -53,7 +53,6 @@ namespace BibleTraining.Api.Phone
                 var phoneData = message.Resource;
 
                 var phone = composer.Proxy<IMapping>().Map<Phone>(message.Resource);
-                phone.Created = DateTime.Now;
                 _repository.Context.Add(phone);
                 composer.Proxy<IStash>().Put(phone);
 

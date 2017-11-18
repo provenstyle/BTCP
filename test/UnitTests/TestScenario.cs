@@ -143,9 +143,7 @@ namespace UnitTests
         {
             Assert.AreEqual(entity.Id,         resource.Id);
             Assert.AreEqual(entity.RowVersion, resource.RowVersion);
-            Assert.AreEqual(entity.Created,    resource.Created);
             Assert.AreEqual(entity.CreatedBy,  resource.CreatedBy);
-            Assert.AreEqual(entity.Modified,   resource.Modified);
             Assert.AreEqual(entity.ModifiedBy, resource.ModifiedBy);
         }
     }

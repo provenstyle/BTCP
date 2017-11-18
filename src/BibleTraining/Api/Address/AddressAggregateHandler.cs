@@ -55,7 +55,6 @@ namespace BibleTraining.Api.Address
                 var addressData = message.Resource;
 
                 var address = composer.Proxy<IMapping>() .Map<Address>(addressData);
-                address.Created = DateTime.Now;
                 _repository.Context.Add(address);
                 composer.Proxy<IStash>().Put(address);
 

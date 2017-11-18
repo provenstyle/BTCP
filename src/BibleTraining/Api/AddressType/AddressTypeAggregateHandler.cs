@@ -51,7 +51,6 @@ namespace BibleTraining.Api.AddressType
             using(var scope = _repository.Scopes.Create())
             {
                 var addressType = composer.Proxy<IMapping>().Map<AddressType>(message.Resource);
-                addressType.Created = DateTime.Now;
 
                 _repository.Context.Add(addressType);
 

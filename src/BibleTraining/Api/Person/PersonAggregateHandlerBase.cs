@@ -56,7 +56,6 @@ namespace BibleTraining.Api.Person
             using(var scope = _repository.Scopes.Create())
             {
                 var person = composer.Proxy<IMapping>().Map<Person>(request.Resource);
-                person.Created = DateTime.Now;
                 _repository.Context.Add(person);
                 composer.Proxy<IStash>().Put(person);
 

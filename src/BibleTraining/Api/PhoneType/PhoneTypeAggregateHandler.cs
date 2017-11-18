@@ -51,7 +51,6 @@ namespace BibleTraining.Api.PhoneType
             using(var scope = _repository.Scopes.Create())
             {
                 var phoneType = composer.Proxy<IMapping>().Map<PhoneType>(message.Resource);
-                phoneType.Created = DateTime.Now;
 
                 _repository.Context.Add(phoneType);
 
