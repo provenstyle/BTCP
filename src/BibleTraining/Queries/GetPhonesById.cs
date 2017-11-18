@@ -1,9 +1,9 @@
 namespace BibleTraining.Queries
 {
     using System.Linq;
-    using Highway.Data;
     using Entities;
-    
+    using Highway.Data;
+
     public class GetPhonesById : Query<Phone>
     {
         public bool KeyProperties { get; set; }

@@ -13,7 +13,6 @@ namespace BibleTraining.Api.Person
     using Miruken.Callback.Policy;
     using Miruken.Map;
     using Miruken.Mediate;
-    using Miruken.Mediate.Schedule;
     using Phone;
     using Queries;
 

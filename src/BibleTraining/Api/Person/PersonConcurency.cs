@@ -1,7 +1,7 @@
 namespace BibleTraining.Api.Person
 {
-    using Entities;
     using Concurrency;
+    using Entities;
 
     public class PersonConcurency : CheckConcurrency<Person, PersonData>
     {

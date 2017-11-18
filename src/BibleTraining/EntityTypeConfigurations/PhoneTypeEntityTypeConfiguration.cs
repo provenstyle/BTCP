@@ -1,6 +1,6 @@
 namespace BibleTraining.EntityTypeConfigurations
 {
-	using Entities;
+    using Entities;
 
     public class PhoneTypeEntityTypeConfiguration : BaseEntityTypeConfiguration<PhoneType>
     {

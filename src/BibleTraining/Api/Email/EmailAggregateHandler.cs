@@ -3,7 +3,6 @@ namespace BibleTraining.Api.Email
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using BibleTraining;
     using Entities;
     using Improving.Highway.Data.Scope.Repository;
     using Miruken;

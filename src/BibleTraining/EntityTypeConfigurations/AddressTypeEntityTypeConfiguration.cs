@@ -1,6 +1,6 @@
 namespace BibleTraining.EntityTypeConfigurations
 {
-	using Entities;
+    using Entities;
 
     public class AddressTypeEntityTypeConfiguration : BaseEntityTypeConfiguration<AddressType>
     {

@@ -1,8 +1,8 @@
 namespace BibleTraining.Entities
 {
-	using Api;
+    using Api;
 
-    public partial class AddressType : Entity, IKeyProperties<int>
+    public class AddressType : Entity, IKeyProperties<int>
     {
         public string Name { get; set; }
     }
