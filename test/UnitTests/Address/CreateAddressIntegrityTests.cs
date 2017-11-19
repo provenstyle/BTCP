@@ -1,7 +1,11 @@
 namespace UnitTests.Address
 {
     using BibleTraining.Api.Address;
+    using BibleTraining.Entities;
+    using FluentValidation;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Miruken.Mediate;
+    using Miruken.Validate.FluentValidation;
 
     [TestClass]
     public class CreateAddressIntegrityTests
@@ -40,20 +44,25 @@ namespace UnitTests.Address
             Assert.IsFalse(result.IsValid);
         }
 
-        //[TestMethod]
-        //public void MustHavePersonId()
-        //{
-        //    createAddress.Resource.PersonId = null;
-        //    var result = validator.Validate(createAddress);
-        //    Assert.IsFalse(result.IsValid);
-        //}
+        [TestMethod]
+        public void MustHaveAddressTypeId()
+        {
+            createAddress.Resource.AddressTypeId = null;
+            var result = validator.Validate(createAddress);
+            Assert.IsFalse(result.IsValid);
+        }
 
-        //[TestMethod]
-        //public void MustHaveAddressTypeId()
-        //{
-        //    createAddress.Resource.AddressTypeId = null;
-        //    var result = validator.Validate(createAddress);
-        //    Assert.IsFalse(result.IsValid);
-        //}
+        [TestMethod]
+        public void MustHavePersonId()
+        {
+            createAddress.Resource.PersonId = null;
+
+            var stash = new Stash();
+            stash.Put(new Person {Id = 1});
+            var context = new ValidationContext<CreateAddress>(createAddress);
+            context.SetComposer(stash);
+            var result = validator.Validate(context);
+            Assert.IsTrue(result.IsValid);
+        }
     }
 }

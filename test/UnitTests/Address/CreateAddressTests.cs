@@ -3,10 +3,10 @@ namespace UnitTests.Address
     using System.Threading.Tasks;
     using BibleTraining.Api.Address;
     using BibleTraining.Entities;
-    using FizzWare.NBuilder;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Miruken.Mediate;
     using Rhino.Mocks;
+    using Ploeh.AutoFixture;
 
     [TestClass]
     public class CreateAddressTests : TestScenario
@@ -14,9 +14,9 @@ namespace UnitTests.Address
         [TestMethod]
         public async Task ShouldCreateAddress()
         {
-            var address = Builder<AddressData>.CreateNew()
-                .With(pg => pg.Id = 0).And(pg => pg.RowVersion = null)
-                .Build();
+            var address = Fixture.Create<AddressData>();
+            address.AddressTypeId = 1;
+            address.PersonId = 1;
 
             _context.Expect(pg => pg.Add(Arg<Address>.Is.Anything))
                 .WhenCalled(inv =>

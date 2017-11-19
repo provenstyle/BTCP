@@ -1,5 +1,3 @@
-using Miruken.Validate.FluentValidation;
-
 namespace BibleTraining.Api.Email
 {
     using Entities;
@@ -7,6 +5,7 @@ namespace BibleTraining.Api.Email
     using Miruken;
     using Miruken.Callback;
     using Miruken.Mediate;
+    using Miruken.Validate.FluentValidation;
 
     public class CreateEmailIntegrity : AbstractValidator<CreateEmail>
     {

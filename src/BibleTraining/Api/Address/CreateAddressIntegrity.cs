@@ -1,6 +1,12 @@
 namespace BibleTraining.Api.Address
 {
+    using System;
+    using Entities;
     using FluentValidation;
+    using Miruken;
+    using Miruken.Callback;
+    using Miruken.Mediate;
+    using Miruken.Validate.FluentValidation;
 
     public class CreateAddressIntegrity : AbstractValidator<CreateAddress>
     {
@@ -15,12 +21,24 @@ namespace BibleTraining.Api.Address
         {
             public AddressDataIntegrity()
             {
-                //RuleFor(x => x.PersonId)
-                //    .NotNull();
-                //RuleFor(x => x.AddressTypeId)
-                //    .NotNull();
+                RuleFor(x => x.AddressTypeId)
+                    .NotNull();
                 RuleFor(x => x.Name)
                     .NotEmpty();
+                RuleFor(x => x.PersonId)
+                    .WithComposer(HasPersonIdOrPerson)
+                    .WithoutComposer(HasPersonId);
+            }
+
+            private bool HasPersonId(AddressData addressData, int? personId)
+            {
+                return personId.HasValue;
+            }
+
+            private bool HasPersonIdOrPerson(AddressData addressData, int? i, IHandler composer)
+            {
+                return composer.Proxy<IStash>().TryGet<Person>() != null
+                    || HasPersonId(addressData, i);
             }
         }
     }
