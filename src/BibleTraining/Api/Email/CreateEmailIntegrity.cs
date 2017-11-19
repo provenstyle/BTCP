@@ -1,3 +1,5 @@
+using Miruken.Validate.FluentValidation;
+
 namespace BibleTraining.Api.Email
 {
     using Entities;
@@ -20,8 +22,9 @@ namespace BibleTraining.Api.Email
             public EmailDataIntegrity()
             {
                 RuleFor(x => x.PersonId)
-                    .NotNull()
-                    .When(NoPersonIsStashed);
+                    .WithComposer(HasPersonOrId);
+                RuleFor(x => x.PersonId)
+                    .WithoutComposer(HasPersonId);
                 RuleFor(x => x.EmailTypeId)
                     .NotNull();
                 RuleFor(x => x.Address)
@@ -29,10 +32,16 @@ namespace BibleTraining.Api.Email
                     .EmailAddress();
             }
 
-            private bool NoPersonIsStashed(EmailData emailData)
+            private static bool HasPersonOrId(
+                EmailData emailData, int? personId, IHandler composer)
             {
-                return HandleMethod.Composer.Proxy<IStash>()
-                    .TryGet<Person>() == null;
+                return composer.Proxy<IStash>()
+                    .TryGet<Person>() != null || personId.HasValue;
+            }
+
+            private static bool HasPersonId(EmailData emailData, int? personId)
+            {
+                return personId.HasValue;
             }
         }
     }

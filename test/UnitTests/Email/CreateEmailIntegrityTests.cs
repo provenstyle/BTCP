@@ -1,7 +1,11 @@
 ﻿namespace UnitTests.Email
 {
     using BibleTraining.Api.Email;
+    using BibleTraining.Entities;
+    using FluentValidation;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Miruken.Mediate;
+    using Miruken.Validate.FluentValidation;
 
     [TestClass]
     public class CreateEmailIntegrityTests
@@ -52,22 +56,32 @@
             }
         }
 
-        //[TestMethod]
-        //public void MustHavePersonId()
-        //{
-        //    HandleMethod.Composer = new Stash();
+        [TestMethod]
+        public void MustHavePersonId()
+        {
+            createEmail.Resource.PersonId = null;
+            var result = validator.Validate(createEmail);
+            Assert.IsFalse(result.IsValid);
+        }
 
-        //    createEmail.Resource.PersonId = null;
-        //    var result = validator.Validate(createEmail);
-        //    Assert.IsFalse(result.IsValid);
-        //}
+        [TestMethod]
+        public void MustHavePersonInStash()
+        {
+            var stash = new Stash();
+            stash.Put(new Person { Id = 1});
+            createEmail.Resource.PersonId = null;
+            var context = new ValidationContext<CreateEmail>(createEmail);
+            context.SetComposer(stash);
+            var result = validator.Validate(context);
+            Assert.IsTrue(result.IsValid);
+        }
 
-        //[TestMethod]
-        //public void MustHaveEmailTypeId()
-        //{
-        //    createEmail.Resource.EmailTypeId = null;
-        //    var result = validator.Validate(createEmail);
-        //    Assert.IsFalse(result.IsValid);
-        //}
+        [TestMethod]
+        public void MustHaveEmailTypeId()
+        {
+            createEmail.Resource.EmailTypeId = null;
+            var result = validator.Validate(createEmail);
+            Assert.IsFalse(result.IsValid);
+        }
     }
 }
