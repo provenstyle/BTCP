@@ -57,6 +57,14 @@
         }
 
         [TestMethod]
+        public void MustHaveEmailTypeId()
+        {
+            createEmail.Resource.EmailTypeId = null;
+            var result = validator.Validate(createEmail);
+            Assert.IsFalse(result.IsValid);
+        }
+
+        [TestMethod]
         public void MustHavePersonId()
         {
             createEmail.Resource.PersonId = null;
@@ -74,14 +82,6 @@
             context.SetComposer(stash);
             var result = validator.Validate(context);
             Assert.IsTrue(result.IsValid);
-        }
-
-        [TestMethod]
-        public void MustHaveEmailTypeId()
-        {
-            createEmail.Resource.EmailTypeId = null;
-            var result = validator.Validate(createEmail);
-            Assert.IsFalse(result.IsValid);
         }
     }
 }

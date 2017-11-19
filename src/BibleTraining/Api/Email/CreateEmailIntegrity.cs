@@ -20,14 +20,14 @@ namespace BibleTraining.Api.Email
         {
             public EmailDataIntegrity()
             {
-                RuleFor(x => x.PersonId)
-                    .WithComposer(HasPersonOrId)
-                    .WithoutComposer(HasPersonId);
-                RuleFor(x => x.EmailTypeId)
-                    .NotNull();
                 RuleFor(x => x.Address)
                     .NotEmpty()
                     .EmailAddress();
+                RuleFor(x => x.EmailTypeId)
+                    .NotNull();
+                RuleFor(x => x.PersonId)
+                    .WithComposer(HasPersonOrId)
+                    .WithoutComposer(HasPersonId);
             }
 
             private static bool HasPersonOrId(
