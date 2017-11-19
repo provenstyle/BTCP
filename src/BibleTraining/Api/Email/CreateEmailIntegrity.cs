@@ -22,8 +22,7 @@ namespace BibleTraining.Api.Email
             public EmailDataIntegrity()
             {
                 RuleFor(x => x.PersonId)
-                    .WithComposer(HasPersonOrId);
-                RuleFor(x => x.PersonId)
+                    .WithComposer(HasPersonOrId)
                     .WithoutComposer(HasPersonId);
                 RuleFor(x => x.EmailTypeId)
                     .NotNull();
@@ -36,7 +35,7 @@ namespace BibleTraining.Api.Email
                 EmailData emailData, int? personId, IHandler composer)
             {
                 return composer.Proxy<IStash>()
-                    .TryGet<Person>() != null || personId.HasValue;
+                    .TryGet<Person>() != null || HasPersonId(emailData, personId);
             }
 
             private static bool HasPersonId(EmailData emailData, int? personId)
