@@ -34,8 +34,8 @@ namespace BibleTraining.Api.Email
             private static bool HasPersonOrId(
                 EmailData emailData, int? personId, IHandler composer)
             {
-                return composer.Proxy<IStash>()
-                    .TryGet<Person>() != null || HasPersonId(emailData, personId);
+                return composer.Proxy<IStash>().TryGet<Person>() != null
+                    || HasPersonId(emailData, personId);
             }
 
             private static bool HasPersonId(EmailData emailData, int? personId)
