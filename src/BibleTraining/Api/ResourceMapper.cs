@@ -10,7 +10,9 @@ namespace BibleTraining.Api
 
             resource.Id         = entity.Id;
             resource.RowVersion = entity.RowVersion;
+            resource.Created    = entity.Created;
             resource.CreatedBy  = entity.CreatedBy;
+            resource.Modified   = entity.Modified;
             resource.ModifiedBy = entity.ModifiedBy;
 
             return resource;

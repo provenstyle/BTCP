@@ -39,17 +39,6 @@
         }
 
         [TestMethod]
-        public async Task CreatedAndModifiedDatesGetSet()
-        {
-            await WithCreated(created =>
-              {
-                  Assert.IsTrue(created.Created > DateTime.MinValue);
-                  Assert.IsTrue(created.Modified > DateTime.MinValue);
-                  return Task.FromResult(true);
-              });
-        }
-
-        [TestMethod]
         public async Task CanUpdate()
         {
             await WithCreated(async created =>

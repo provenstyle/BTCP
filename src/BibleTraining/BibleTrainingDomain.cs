@@ -5,6 +5,7 @@
     using System.Data.Entity;
     using System.Linq;
     using System.Linq.Dynamic;
+    using System.Threading.Tasks;
     using Common.Logging;
     using Entities;
     using Highway.Data;
@@ -28,18 +29,23 @@
     {
         public BibleTrainingDomainContext(IBibleTrainingDomain domain) : base(domain)
         {
-            BeforeSave += BibleTrainingDomainContext_BeforeSave;
         }
 
-        private void BibleTrainingDomainContext_BeforeSave(object sender, Highway.Data.Interceptors.Events.BeforeSave e)
+        public override Task<int> CommitAsync()
         {
-            var added = ChangeTracker.Entries<Entity>().Where(x => x.State == EntityState.Added);
+            var added = ChangeTracker.Entries<Entity>()
+                .Where(x => x.State == EntityState.Added)
+                .ToArray();
             foreach (var entity in added)
                 entity.Entity.Created = entity.Entity.Modified = DateTime.Now;
 
-            var modified = ChangeTracker.Entries<Entity>().Where(x => x.State == EntityState.Modified);
+            var modified = ChangeTracker.Entries<Entity>()
+                .Where(x => x.State == EntityState.Modified)
+                .ToArray();
             foreach (var entity in modified)
                 entity.Entity.Modified = DateTime.Now;
+
+            return base.CommitAsync();
         }
     }
 

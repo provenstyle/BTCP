@@ -162,6 +162,7 @@
     <Compile Include="ApiTests\AddressAggregateHandlerTests.cs" />
     <Compile Include="ApiTests\AddressTypeAggregateHandlerTests.cs" />
     <Compile Include="ApiTests\EmailAggregateHandlerTests.cs" />
+    <Compile Include="BibleTrainingContextTests.cs" />
     <Compile Include="ApiTests\EmailTypeAggregateHandlerTests.cs" />
     <Compile Include="ApiTests\PersonAggregateHandlerTests.cs" />
     <Compile Include="ApiTests\PhoneAggregateHandlerTests.cs" />
