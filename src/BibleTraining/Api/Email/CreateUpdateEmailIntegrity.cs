@@ -7,9 +7,9 @@ namespace BibleTraining.Api.Email
     using Miruken.Mediate;
     using Miruken.Validate.FluentValidation;
 
-    public class CreateEmailIntegrity : AbstractValidator<CreateEmail>
+    public class CreateUpdateEmailIntegrity : AbstractValidator<IValidateCreateUpdateEmail>
     {
-        public CreateEmailIntegrity()
+        public CreateUpdateEmailIntegrity()
         {
             RuleFor(x => x.Resource)
                 .NotNull()

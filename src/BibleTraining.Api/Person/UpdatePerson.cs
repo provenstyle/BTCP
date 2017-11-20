@@ -1,6 +1,8 @@
 namespace BibleTraining.Api.Person
 {
-    public class UpdatePerson : UpdateResource<PersonData, int?>
+    public class UpdatePerson :
+        UpdateResource<PersonData, int?>,
+        IValidateCreateUpdatePerson
     {
         public UpdatePerson()
         {

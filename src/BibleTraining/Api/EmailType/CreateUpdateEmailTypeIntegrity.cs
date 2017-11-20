@@ -2,9 +2,9 @@ namespace BibleTraining.Api.EmailType
 {
     using FluentValidation;
 
-    public class CreateEmailTypeIntegrity : AbstractValidator<CreateEmailType>
+    public class CreateUpdateEmailTypeIntegrity : AbstractValidator<IValidateCreateUpdateEmailType>
     {
-        public CreateEmailTypeIntegrity()
+        public CreateUpdateEmailTypeIntegrity()
         {
             RuleFor(x => x.Resource)
                 .NotNull()

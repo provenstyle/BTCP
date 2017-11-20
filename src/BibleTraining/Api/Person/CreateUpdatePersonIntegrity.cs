@@ -2,9 +2,9 @@ namespace BibleTraining.Api.Person
 {
     using FluentValidation;
 
-    public class CreatePersonIntegrity : AbstractValidator<CreatePerson>
+    public class CreateUpdatePersonIntegrity : AbstractValidator<IValidateCreateUpdatePerson>
     {
-        public CreatePersonIntegrity()
+        public CreateUpdatePersonIntegrity()
         {
             RuleFor(x => x.Resource)
                 .NotNull()

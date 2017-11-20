@@ -8,10 +8,10 @@
     using Miruken.Validate.FluentValidation;
 
     [TestClass]
-    public class CreateEmailIntegrityTests
+    public class CreateUpdateEmailIntegrityTests
     {
         private CreateEmail createEmail;
-        private CreateEmailIntegrity validator;
+        private CreateUpdateEmailIntegrity validator;
 
         [TestInitialize]
         public void TestInitialize()
@@ -26,7 +26,7 @@
                 }
             };
 
-            validator = new CreateEmailIntegrity();
+            validator = new CreateUpdateEmailIntegrity();
         }
 
         [TestMethod]
@@ -78,7 +78,7 @@
             var stash = new Stash();
             stash.Put(new Person { Id = 1});
             createEmail.Resource.PersonId = null;
-            var context = new ValidationContext<CreateEmail>(createEmail);
+            var context = new ValidationContext<IValidateCreateUpdateEmail>(createEmail);
             context.SetComposer(stash);
             var result = validator.Validate(context);
             Assert.IsTrue(result.IsValid);

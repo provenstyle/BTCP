@@ -1,6 +1,8 @@
 namespace BibleTraining.Api.EmailType
 {
-    public class UpdateEmailType : UpdateResource<EmailTypeData, int?>
+    public class UpdateEmailType :
+        UpdateResource<EmailTypeData, int?>,
+        IValidateCreateUpdateEmailType
     {
         public UpdateEmailType()
         {
@@ -8,7 +10,7 @@ namespace BibleTraining.Api.EmailType
 
         public UpdateEmailType(EmailTypeData emailType)
             : base(emailType)
-        {          
+        {
         }
     }
 }

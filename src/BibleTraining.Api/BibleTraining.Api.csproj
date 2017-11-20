@@ -108,10 +108,12 @@
     <Compile Include="Course\GetCourses.cs" />
     <Compile Include="Course\RemoveCourse.cs" />
     <Compile Include="Course\UpdateCourse.cs" />
+    <Compile Include="EmailType\IValidateCreateUpdateEmailType.cs" />
     <Compile Include="Email\CreateEmail.cs" />
     <Compile Include="Email\EmailData.cs" />
     <Compile Include="Email\EmailResult.cs" />
     <Compile Include="Email\GetEmails.cs" />
+    <Compile Include="Email\IValidateCreateUpdateEmail.cs" />
     <Compile Include="Email\RemoveEmail.cs" />
     <Compile Include="Email\UpdateEmail.cs" />
     <Compile Include="EmailType\CreateEmailType.cs" />
@@ -125,6 +127,7 @@
     <Compile Include="Person\CreatePerson.cs" />
     <Compile Include="Person\Gender.cs" />
     <Compile Include="Person\GetPeople.cs" />
+    <Compile Include="Person\IValidateCreateUpdatePerson.cs" />
     <Compile Include="Person\PersonData.cs" />
     <Compile Include="Person\PersonResult.cs" />
     <Compile Include="Person\RemovePerson.cs" />
