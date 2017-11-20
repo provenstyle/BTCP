@@ -7,9 +7,9 @@ namespace BibleTraining.Api.Phone
     using Miruken.Mediate;
     using Miruken.Validate.FluentValidation;
 
-    public class CreatePhoneIntegrity : AbstractValidator<CreatePhone>
+    public class CreateUpdatePhoneIntegrity : AbstractValidator<IValidateCreateUpdatePhone>
     {
-        public CreatePhoneIntegrity()
+        public CreateUpdatePhoneIntegrity()
         {
             RuleFor(x => x.Resource)
                 .NotNull()

@@ -1,6 +1,8 @@
 namespace BibleTraining.Api.PhoneType
 {
-    public class UpdatePhoneType : UpdateResource<PhoneTypeData, int?>
+    public class UpdatePhoneType :
+        UpdateResource<PhoneTypeData, int?>,
+        IValidateCreateUpdatePhoneType
     {
         public UpdatePhoneType()
         {
@@ -8,7 +10,7 @@ namespace BibleTraining.Api.PhoneType
 
         public UpdatePhoneType(PhoneTypeData phoneType)
             : base(phoneType)
-        {          
+        {
         }
     }
 }

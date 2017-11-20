@@ -1,6 +1,5 @@
 namespace UnitTests.Phone
 {
-    using BibleTraining.Api.Email;
     using BibleTraining.Api.Phone;
     using BibleTraining.Entities;
     using FluentValidation;
@@ -9,10 +8,10 @@ namespace UnitTests.Phone
     using Miruken.Validate.FluentValidation;
 
     [TestClass]
-    public class CreatePhoneIntegrityTests
+    public class CreateUpdatePhoneIntegrityTests
     {
         private CreatePhone createPhone;
-        private CreatePhoneIntegrity validator;
+        private CreateUpdatePhoneIntegrity validator;
 
         [TestInitialize]
         public void TestInitialize()
@@ -27,7 +26,7 @@ namespace UnitTests.Phone
                  }
             };
 
-            validator = new CreatePhoneIntegrity();
+            validator = new CreateUpdatePhoneIntegrity();
         }
 
         [TestMethod]
@@ -59,7 +58,7 @@ namespace UnitTests.Phone
             var stash = new Stash();
             stash.Put(new Person { Id = 1});
             createPhone.Resource.PersonId = null;
-            var context = new ValidationContext<CreatePhone>(createPhone);
+            var context = new ValidationContext<IValidateCreateUpdatePhone>(createPhone);
             context.SetComposer(stash);
             var result = validator.Validate(context);
             Assert.IsTrue(result.IsValid);
