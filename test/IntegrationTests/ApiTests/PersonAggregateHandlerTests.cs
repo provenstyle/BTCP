@@ -10,6 +10,7 @@
     using BibleTraining.Api.Person;
     using BibleTraining.Api.Phone;
     using BibleTraining.Api.PhoneType;
+    using FluentValidation;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Miruken.Mediate;
     using Scenarios;
@@ -167,6 +168,17 @@
                  await Handler.Send(new UpdatePerson(created));
                  var updated = await GetPerson(created.Id ?? -1);
                  Assert.AreEqual(email.Address, updated.Emails.Last().Address);
+              });
+        }
+
+        [TestMethod, ExpectedException(typeof(ValidationException))]
+        public async Task InvalidEmailAddressUpdateThrows()
+        {
+            await WithCreated(async created =>
+              {
+                 var email = created.Emails.Last();
+                 email.Address = "a";
+                 await Handler.Send(new UpdatePerson(created));
               });
         }
 
