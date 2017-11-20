@@ -92,6 +92,7 @@
     <Compile Include="Address\AddressResult.cs" />
     <Compile Include="Address\CreateAddress.cs" />
     <Compile Include="Address\GetAddresses.cs" />
+    <Compile Include="Address\IValidateAddressCreateUpdate.cs" />
     <Compile Include="Address\RemoveAddress.cs" />
     <Compile Include="Address\UpdateAddress.cs" />
     <Compile Include="AddressType\AddressTypeData.cs" />

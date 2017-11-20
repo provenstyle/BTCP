@@ -1,6 +1,5 @@
 namespace BibleTraining.Api.Address
 {
-    using System;
     using Entities;
     using FluentValidation;
     using Miruken;
@@ -8,9 +7,9 @@ namespace BibleTraining.Api.Address
     using Miruken.Mediate;
     using Miruken.Validate.FluentValidation;
 
-    public class CreateAddressIntegrity : AbstractValidator<CreateAddress>
+    public class CreateUpdateAddressIntegrity : AbstractValidator<IValidateAddressCreateUpdate>
     {
-        public CreateAddressIntegrity()
+        public CreateUpdateAddressIntegrity()
         {
             RuleFor(x => x.Resource)
                 .NotNull()

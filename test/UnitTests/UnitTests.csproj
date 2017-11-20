@@ -172,11 +172,10 @@
   <ItemGroup>
     <Compile Include="Address\AddressConcurrencyTests.cs" />
     <Compile Include="Address\AddressMappingTests.cs" />
-    <Compile Include="Address\CreateAddressIntegrityTests.cs" />
+    <Compile Include="Address\CreateUpdateAddressIntegrityTests.cs" />
     <Compile Include="Address\CreateAddressTests.cs" />
     <Compile Include="Address\GetAddressesTests.cs" />
     <Compile Include="Address\RemoveAddressTests.cs" />
-    <Compile Include="Address\UpdateAddressIntegrityTests.cs" />
     <Compile Include="Address\UpdateAddressTests.cs" />
     <Compile Include="AddressType\AddressTypeConcurrencyTests.cs" />
     <Compile Include="AddressType\AddressTypeMappingTests.cs" />

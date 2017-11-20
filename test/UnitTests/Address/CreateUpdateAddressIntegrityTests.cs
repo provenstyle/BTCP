@@ -8,10 +8,10 @@ namespace UnitTests.Address
     using Miruken.Validate.FluentValidation;
 
     [TestClass]
-    public class CreateAddressIntegrityTests
+    public class CreateUpdateAddressIntegrityTests
     {
         private CreateAddress createAddress;
-        private CreateAddressIntegrity validator;
+        private CreateUpdateAddressIntegrity validator;
 
         [TestInitialize]
         public void TestInitialize()
@@ -26,7 +26,7 @@ namespace UnitTests.Address
                 }
             };
 
-            validator = new CreateAddressIntegrity();
+            validator = new CreateUpdateAddressIntegrity();
         }
 
         [TestMethod]
@@ -56,10 +56,9 @@ namespace UnitTests.Address
         public void MustHavePersonId()
         {
             createAddress.Resource.PersonId = null;
-
             var stash = new Stash();
             stash.Put(new Person {Id = 1});
-            var context = new ValidationContext<CreateAddress>(createAddress);
+            var context = new ValidationContext<IValidateAddressCreateUpdate>(createAddress);
             context.SetComposer(stash);
             var result = validator.Validate(context);
             Assert.IsTrue(result.IsValid);

@@ -2,7 +2,9 @@ namespace BibleTraining.Api.Address
 {
     using Api;
 
-    public class UpdateAddress : UpdateResource<AddressData, int?>
+    public class UpdateAddress :
+        UpdateResource<AddressData, int?>,
+        IValidateAddressCreateUpdate
     {
         public UpdateAddress()
         {

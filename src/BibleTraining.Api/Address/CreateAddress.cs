@@ -1,6 +1,8 @@
 namespace BibleTraining.Api.Address
 {
-    public class CreateAddress : ResourceAction<AddressData, int?>
+    public class CreateAddress :
+        ResourceAction<AddressData, int?>,
+        IValidateAddressCreateUpdate
     {
         public CreateAddress()
         {

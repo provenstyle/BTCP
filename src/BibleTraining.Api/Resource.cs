@@ -23,7 +23,12 @@
         public string ModifiedBy { get; set; }
     }
 
-    public class ResourceAction<TRes, TId> : IRequest<TRes>
+    public interface IResourceAction<TRes, TId> where TRes : Resource<TId>
+    {
+        TRes Resource { get; set; }
+    }
+
+    public class ResourceAction<TRes, TId> : IRequest<TRes>, IResourceAction<TRes, TId>
         where TRes : Resource<TId>
     {
         public ResourceAction()

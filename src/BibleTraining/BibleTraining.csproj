@@ -144,8 +144,7 @@
     <Compile Include="Api\Address\AddressAggregateHandler.cs" />
     <Compile Include="Api\Address\AddressConcurency.cs" />
     <Compile Include="Api\Address\AddressMaps.cs" />
-    <Compile Include="Api\Address\CreateAddressIntegrity.cs" />
-    <Compile Include="Api\Address\UpdateAddressIntegrity.cs" />
+    <Compile Include="Api\Address\CreateUpdateAddressIntegrity.cs" />
     <Compile Include="Api\AddressType\AddressTypeAggregateHandler.cs" />
     <Compile Include="Api\AddressType\AddressTypeConcurency.cs" />
     <Compile Include="Api\AddressType\AddressTypeMaps.cs" />
