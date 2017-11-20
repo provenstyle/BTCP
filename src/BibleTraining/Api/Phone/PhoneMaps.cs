@@ -4,6 +4,7 @@ namespace BibleTraining.Api.Phone
     using Miruken;
     using Miruken.Callback;
     using Miruken.Map;
+    using Person;
     using PhoneType;
 
     public class PhoneMaps : Handler
@@ -18,8 +19,11 @@ namespace BibleTraining.Api.Phone
             if (data.Name != null)
                 target.Name = data.Name;
 
-            //if (data.PhoneType != null)
-            //    target.PhoneType = composer.Proxy<IMapping>().Map<PhoneType>(data.PhoneType);
+            if (data.PhoneTypeId.HasValue)
+                target.PhoneTypeId = data.PhoneTypeId.Value;
+
+            if (data.PersonId.HasValue)
+                target.PersonId = data.PersonId.Value;
 
             return target;
         }
@@ -31,10 +35,15 @@ namespace BibleTraining.Api.Phone
 
             ResourceMapper.Map(target, phone);
 
-            target.Name      = phone.Name;
+            target.Name        = phone.Name;
+            target.PhoneTypeId = phone.PhoneTypeId;
+            target.PersonId    = phone.PersonId;
 
             if(phone.PhoneType != null)
                 target.PhoneType = composer.Proxy<IMapping>().Map<PhoneTypeData>(phone.PhoneType);
+
+            if(phone.Person != null)
+                target.Person = composer.Proxy<IMapping>().Map<PersonData>(phone.Person);
 
             return target;
         }
