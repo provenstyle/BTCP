@@ -137,7 +137,6 @@
     <Compile Include="Phone\GetPhones.cs" />
     <Compile Include="Phone\IValidateCreateUpdatePhone.cs" />
     <Compile Include="Phone\PhoneData.cs" />
-    <Compile Include="Phone\PhoneData_Partial.cs" />
     <Compile Include="Phone\PhoneResult.cs" />
     <Compile Include="Phone\RemovePhone.cs" />
     <Compile Include="Phone\UpdatePhone.cs" />
