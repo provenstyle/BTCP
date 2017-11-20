@@ -171,7 +171,7 @@
               });
         }
 
-        [TestMethod, ExpectedException(typeof(ValidationException))]
+        [TestMethod, ExpectedException(typeof(Miruken.Validate.ValidationException))]
         public async Task InvalidEmailAddressUpdateThrows()
         {
             await WithCreated(async created =>

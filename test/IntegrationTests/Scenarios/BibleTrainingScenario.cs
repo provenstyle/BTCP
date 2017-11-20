@@ -31,6 +31,7 @@
         public virtual void TestInitialize()
         {
             var container = new WindsorContainer();
+            container.Kernel.AddHandlersFilter(new ContravariantFilter());
             container.Install(
                 new FeaturesInstaller(
                     new ConfigurationFeature(),
