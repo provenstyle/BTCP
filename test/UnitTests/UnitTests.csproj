@@ -179,11 +179,10 @@
     <Compile Include="Address\UpdateAddressTests.cs" />
     <Compile Include="AddressType\AddressTypeConcurrencyTests.cs" />
     <Compile Include="AddressType\AddressTypeMappingTests.cs" />
-    <Compile Include="AddressType\CreateAddressTypeIntegrityTests.cs" />
+    <Compile Include="AddressType\CreateUpdateAddressTypeIntegrityTests.cs" />
     <Compile Include="AddressType\CreateAddressTypeTests.cs" />
     <Compile Include="AddressType\GetAddressTypesTests.cs" />
     <Compile Include="AddressType\RemoveAddressTypeTests.cs" />
-    <Compile Include="AddressType\UpdateAddressTypeIntegrityTests.cs" />
     <Compile Include="AddressType\UpdateAddressTypeTests.cs" />
     <Compile Include="Email\CreateEmailIntegrityTests.cs" />
     <Compile Include="Email\CreateEmailTests.cs" />

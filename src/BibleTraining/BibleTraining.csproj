@@ -148,8 +148,7 @@
     <Compile Include="Api\AddressType\AddressTypeAggregateHandler.cs" />
     <Compile Include="Api\AddressType\AddressTypeConcurency.cs" />
     <Compile Include="Api\AddressType\AddressTypeMaps.cs" />
-    <Compile Include="Api\AddressType\CreateAddressTypeIntegrity.cs" />
-    <Compile Include="Api\AddressType\UpdateAddressTypeIntegrity.cs" />
+    <Compile Include="Api\AddressType\CreateUpdateAddressTypeIntegrity.cs" />
     <Compile Include="Api\Email\CreateEmailIntegrity.cs" />
     <Compile Include="Api\Email\EmailAggregateHandler.cs" />
     <Compile Include="Api\Email\EmailConcurency.cs" />
