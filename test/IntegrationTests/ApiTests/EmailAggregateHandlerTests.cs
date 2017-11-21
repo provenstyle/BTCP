@@ -1,6 +1,7 @@
 ﻿namespace IntegrationTests.ApiTests
 {
     using System;
+    using System.Data.Entity.Core;
     using System.Linq;
     using System.Threading.Tasks;
     using BibleTraining.Api.Email;
@@ -19,7 +20,7 @@
              return (await Handler.Send(new GetEmails(id))).Emails.FirstOrDefault();
         }
 
-        public async Task WithCreated(Func<int, Task> testAction)
+        public async Task WithCreated(Func<EmailData, Task> testAction)
         {
             await RollBack(async () =>
              {
@@ -39,30 +40,30 @@
                  data.PersonId    = personId;
 
                  var createResult = await Handler.Send(new CreateEmail(data));
-                 await testAction(createResult.Id ?? 0);
+                 var created = await GetEmail(createResult.Id ?? -1);
+                 await testAction(created);
              });
         }
 
         [TestMethod]
         public async Task CanAdd()
         {
-            await WithCreated(async id =>
+            await WithCreated(created =>
             {
-                 var created = await GetEmail(id);
-                 Assert.IsNotNull(created);
+                Assert.IsNotNull(created);
+                return Task.FromResult(true);
             });
         }
 
         [TestMethod]
         public async Task CanUpdate()
         {
-            await WithCreated(async id =>
+            await WithCreated(async created =>
               {
-                 var created = await GetEmail(id);
                  var address = "a@a.com";
                  created.Address = address;
                  await Handler.Send(new UpdateEmail(created));
-                 var updated = await GetEmail(id);
+                 var updated = await GetEmail(created.Id ?? -1);
 
                  Assert.AreEqual(address, updated.Address);
               });
@@ -71,15 +72,38 @@
         [TestMethod]
         public async Task CanRemove()
         {
-            await WithCreated(async id =>
+            await WithCreated(async created =>
               {
-                 var created = await GetEmail(id);
                  Assert.IsNotNull(created);
                  await Handler.Send(new RemoveEmail(created));
-                 var removed = await GetEmail(id);
+                 var removed = await GetEmail(created.Id ?? -1);
 
                  Assert.IsNull(removed);
               });
+        }
+
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnConcurrentUpdate()
+        {
+            await WithCreated(async created =>
+             {
+                 created.Address = "updated@a.com";
+                 await Handler.Send(new UpdateEmail(created));
+
+                 created.Address = "again@a.com";
+                 await Handler.Send(new UpdateEmail(created));
+             });
+        }
+
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnConcurrentRemove()
+        {
+            await WithCreated(async created =>
+             {
+                 created.Address = "updated@a.com";
+                 await Handler.Send(new UpdateEmail(created));
+                 await Handler.Send(new RemoveEmail(created));
+             });
         }
     }
 }

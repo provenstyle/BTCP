@@ -55,6 +55,18 @@
              });
         }
 
+        [TestMethod]
+        public async Task CanRemove()
+        {
+            await WithCreated(async created =>
+             {
+                 await Handler.Send(new RemoveAddressType(created));
+                 var removed = await GetAddressType(created.Id ?? -1);
+
+                 Assert.IsNull(removed);
+             });
+        }
+
         [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
         public async Task ThrowsOnConcurrentUpdate()
         {
@@ -65,18 +77,6 @@
 
                  created.Name = "b";
                  await Handler.Send(new UpdateAddressType(created));
-             });
-        }
-
-        [TestMethod]
-        public async Task CanRemove()
-        {
-            await WithCreated(async created =>
-             {
-                 await Handler.Send(new RemoveAddressType(created));
-                 var removed = await GetAddressType(created.Id ?? -1);
-
-                 Assert.IsNull(removed);
              });
         }
 

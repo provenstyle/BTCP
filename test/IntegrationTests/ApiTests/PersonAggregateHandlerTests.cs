@@ -1,6 +1,7 @@
 ﻿namespace IntegrationTests.ApiTests
 {
     using System;
+    using System.Data.Entity.Core;
     using System.Linq;
     using System.Threading.Tasks;
     using BibleTraining.Api.Address;
@@ -10,7 +11,6 @@
     using BibleTraining.Api.Person;
     using BibleTraining.Api.Phone;
     using BibleTraining.Api.PhoneType;
-    using FluentValidation;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Miruken.Mediate;
     using Scenarios;
@@ -90,6 +90,30 @@
                   var updated = await GetPerson(created.Id ?? 1);
                   Assert.IsNull(updated);
               });
+        }
+
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnConcurrentUpdate()
+        {
+            await WithCreated(async created =>
+             {
+                 created.FirstName= "a";
+                 await Handler.Send(new UpdatePerson(created));
+
+                 created.FirstName = "b";
+                 await Handler.Send(new UpdatePerson(created));
+             });
+        }
+
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnConcurrentRemove()
+        {
+            await WithCreated(async created =>
+             {
+                 created.FirstName = "a";
+                 await Handler.Send(new UpdatePerson(created));
+                 await Handler.Send(new RemovePerson(created));
+             });
         }
 
         [TestMethod]
