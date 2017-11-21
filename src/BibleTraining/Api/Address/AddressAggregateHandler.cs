@@ -32,7 +32,8 @@ namespace BibleTraining.Api.Address
                     .FirstOrDefault());
         }
 
-        public async Task<AddressData> Begin(int? id, IHandler composer, NextDelegate<Task<AddressData>> next)
+        public async Task<AddressData> Begin(
+            int? id, IHandler composer, NextDelegate<Task<AddressData>> next)
         {
             using (var scope = _repository.Scopes.Create())
             {
@@ -104,7 +105,9 @@ namespace BibleTraining.Api.Address
 
         #region Update Address
 
-        public async Task<AddressData> Next(UpdateAddress request, MethodBinding method, IHandler composer, NextDelegate<Task<AddressData>> next)
+        public async Task<AddressData> Next(
+            UpdateAddress request, MethodBinding method, 
+            IHandler composer, NextDelegate<Task<AddressData>> next)
         {
             return await Begin(request.Resource.Id, composer, next);
         }
@@ -113,8 +116,7 @@ namespace BibleTraining.Api.Address
         public async Task<AddressData> Update(UpdateAddress request, IHandler composer)
         {
             var address = await Address(request.Resource.Id, composer);
-            composer.Proxy<IMapping>()
-                .MapInto(request.Resource, address);
+            composer.Proxy<IMapping>().MapInto(request.Resource, address);
 
             return new AddressData
             {
@@ -126,7 +128,9 @@ namespace BibleTraining.Api.Address
 
         #region Remove Address
 
-        public async Task<AddressData> Next(RemoveAddress request, MethodBinding method, IHandler composer, NextDelegate<Task<AddressData>> next)
+        public async Task<AddressData> Next(
+            RemoveAddress request, MethodBinding method, 
+            IHandler composer, NextDelegate<Task<AddressData>> next)
         {
             return await Begin(request.Resource.Id, composer, next);
         }

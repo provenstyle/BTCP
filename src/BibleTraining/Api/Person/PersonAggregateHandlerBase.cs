@@ -31,7 +31,8 @@ namespace BibleTraining.Api.Person
 
         protected abstract Task<Person> Person(int? id, IHandler composer);
 
-        public async Task<PersonData> Begin(int? id, IHandler composer, NextDelegate<Task<PersonData>> next)
+        public async Task<PersonData> Begin(
+            int? id, IHandler composer, NextDelegate<Task<PersonData>> next)
         {
             using (var scope = _repository.Scopes.Create())
             {
@@ -124,7 +125,9 @@ namespace BibleTraining.Api.Person
             }
         }
 
-        public async Task<PersonData> Next(UpdatePerson request, MethodBinding method, IHandler composer, NextDelegate<Task<PersonData>> next)
+        public async Task<PersonData> Next(
+            UpdatePerson request, MethodBinding method, 
+            IHandler composer, NextDelegate<Task<PersonData>> next)
         {
             return await Begin(request.Resource.Id, composer, next);
         }
@@ -150,7 +153,9 @@ namespace BibleTraining.Api.Person
             };
         }
 
-        public async Task<PersonData> Next(RemovePerson request, MethodBinding method, IHandler composer, NextDelegate<Task<PersonData>> next)
+        public async Task<PersonData> Next(
+            RemovePerson request, MethodBinding method, 
+            IHandler composer, NextDelegate<Task<PersonData>> next)
         {
             return await Begin(request.Resource.Id, composer, next);
         }

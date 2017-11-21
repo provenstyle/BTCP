@@ -150,8 +150,8 @@
       <HintPath>..\..\packages\Miruken.Map.1.1.0.3\lib\net461\Miruken.Map.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Miruken.Mediate, Version=1.5.1.28, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Miruken.Mediate.1.5.1.28-prerelease\lib\net461\Miruken.Mediate.dll</HintPath>
+    <Reference Include="Miruken.Mediate, Version=1.5.1.29, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.Mediate.1.5.1.29-prerelease\lib\net461\Miruken.Mediate.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Miruken.Mediate.Castle, Version=1.5.0.1, Culture=neutral, processorArchitecture=MSIL">
