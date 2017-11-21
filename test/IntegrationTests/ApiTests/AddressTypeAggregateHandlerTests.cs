@@ -1,6 +1,7 @@
 ﻿namespace IntegrationTests.ApiTests
 {
     using System;
+    using System.Data.Entity.Core;
     using System.Linq;
     using System.Threading.Tasks;
     using BibleTraining.Api.AddressType;
@@ -54,6 +55,19 @@
              });
         }
 
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnConcurrentUpdate()
+        {
+            await WithCreated(async created =>
+             {
+                 created.Name = "a";
+                 await Handler.Send(new UpdateAddressType(created));
+
+                 created.Name = "b";
+                 await Handler.Send(new UpdateAddressType(created));
+             });
+        }
+
         [TestMethod]
         public async Task CanRemove()
         {
@@ -63,6 +77,17 @@
                  var removed = await GetAddressType(created.Id ?? -1);
 
                  Assert.IsNull(removed);
+             });
+        }
+
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnConcurrentRemove()
+        {
+            await WithCreated(async created =>
+             {
+                 created.Name = "a";
+                 await Handler.Send(new UpdateAddressType(created));
+                 await Handler.Send(new RemoveAddressType(created));
              });
         }
     }
