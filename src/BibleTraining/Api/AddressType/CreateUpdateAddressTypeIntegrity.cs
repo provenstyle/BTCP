@@ -2,7 +2,8 @@ namespace BibleTraining.Api.AddressType
 {
     using FluentValidation;
 
-    public class CreateUpdateAddressTypeIntegrity : AbstractValidator<IValidateCreateUpdateAddressType>
+    public class CreateUpdateAddressTypeIntegrity
+        : AbstractValidator<IValidateCreateUpdateAddressType>
     {
         public CreateUpdateAddressTypeIntegrity()
         {
