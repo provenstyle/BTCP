@@ -41,7 +41,7 @@ namespace UnitTests.Person
 
             try
             {
-                AssertNoValidationErrors<PersonConcurency, UpdateResource<PersonData, int?>>(request);
+                AssertNoValidationErrors<PersonConcurency, UpdateResource<PersonData, int?>, Person>(request, _person);
                 Assert.Fail("Should have thrown OptimisticConcurrencyException");
             }
             catch (OptimisticConcurrencyException ex)
@@ -65,7 +65,7 @@ namespace UnitTests.Person
 
             try
             {
-                AssertNoValidationErrors<PersonConcurency, UpdateResource<PersonData, int?>>(request);
+                AssertNoValidationErrors<PersonConcurency, UpdateResource<PersonData, int?>, Person>(request, _person);
                 Assert.Fail("Should have thrown OptimisticConcurrencyException");
             }
             catch (OptimisticConcurrencyException ex)

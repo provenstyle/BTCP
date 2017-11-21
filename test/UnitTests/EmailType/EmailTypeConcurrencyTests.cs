@@ -40,7 +40,7 @@ namespace UnitTests.EmailType
 
             try
             {
-                AssertNoValidationErrors<EmailTypeConcurency, UpdateResource<EmailTypeData, int?>>(request);
+                AssertNoValidationErrors<EmailTypeConcurency, UpdateResource<EmailTypeData, int?>, EmailType>(request, _emailType);
                 Assert.Fail("Should have thrown OptimisticConcurrencyException");
             }
             catch (OptimisticConcurrencyException ex)
@@ -64,7 +64,7 @@ namespace UnitTests.EmailType
 
             try
             {
-                AssertNoValidationErrors<EmailTypeConcurency, UpdateResource<EmailTypeData, int?>>(request);
+                AssertNoValidationErrors<EmailTypeConcurency, UpdateResource<EmailTypeData, int?>, EmailType>(request, _emailType);
                 Assert.Fail("Should have thrown OptimisticConcurrencyException");
             }
             catch (OptimisticConcurrencyException ex)

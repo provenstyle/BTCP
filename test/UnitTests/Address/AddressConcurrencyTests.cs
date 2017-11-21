@@ -40,7 +40,7 @@
 
             try
             {
-                AssertNoValidationErrors<AddressConcurency, UpdateResource<AddressData, int?>>(request);
+                AssertNoValidationErrors<AddressConcurency, UpdateResource<AddressData, int?>, Address>(request, _address);
                 Assert.Fail("Should have thrown OptimisticConcurrencyException");
             }
             catch (OptimisticConcurrencyException ex)
@@ -64,7 +64,7 @@
 
             try
             {
-                AssertNoValidationErrors<AddressConcurency, UpdateResource<AddressData, int?>>(request);
+                AssertNoValidationErrors<AddressConcurency, UpdateResource<AddressData, int?>, Address>(request, _address);
                 Assert.Fail("Should have thrown OptimisticConcurrencyException");
             }
             catch (OptimisticConcurrencyException ex)

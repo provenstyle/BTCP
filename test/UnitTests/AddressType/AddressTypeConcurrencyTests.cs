@@ -40,7 +40,7 @@ namespace UnitTests.AddressType
 
             try
             {
-                AssertNoValidationErrors<AddressTypeConcurency, UpdateResource<AddressTypeData, int?>>(request);
+                AssertNoValidationErrors<AddressTypeConcurency, UpdateResource<AddressTypeData, int?>, AddressType>(request, _addressType);
                 Assert.Fail("Should have thrown OptimisticConcurrencyException");
             }
             catch (OptimisticConcurrencyException ex)
@@ -64,7 +64,7 @@ namespace UnitTests.AddressType
 
             try
             {
-                AssertNoValidationErrors<AddressTypeConcurency, UpdateResource<AddressTypeData, int?>>(request);
+                AssertNoValidationErrors<AddressTypeConcurency, UpdateResource<AddressTypeData, int?>, AddressType>(request, _addressType);
                 Assert.Fail("Should have thrown OptimisticConcurrencyException");
             }
             catch (OptimisticConcurrencyException ex)

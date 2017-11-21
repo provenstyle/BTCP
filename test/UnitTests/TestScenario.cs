@@ -17,8 +17,10 @@ namespace UnitTests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Miruken.Callback;
     using Miruken.Castle;
+    using Miruken.Mediate;
     using Miruken.Mediate.Castle;
     using Miruken.Validate.Castle;
+    using Miruken.Validate.FluentValidation;
     using Ploeh.AutoFixture;
     using Rhino.Mocks;
     using TestInfrastructure;
@@ -115,10 +117,17 @@ namespace UnitTests
                 CollectionAssert.Contains(actual, error);
         }
 
-        protected void AssertNoValidationErrors<T, R>(R request) where T : IValidator<R>
+        protected void AssertNoValidationErrors<TValidator, R, TEntity>(R request, TEntity entity)
+            where TValidator : IValidator<R>
+            where TEntity : class
         {
-            var validator = GetValidator<T, R>();
-            var results = validator.Validate(request);
+            var validator = GetValidator<TValidator, R>();
+
+            var stash = new Stash();
+            stash.Put(entity);
+            var context = new ValidationContext(request);
+            context.SetComposer(stash);
+            var results = validator.Validate(context);
             if (results.Errors.Count > 0)
                 Assert.Fail($"Expected no validation errors, but found {results.Errors.Count}");
         }

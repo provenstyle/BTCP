@@ -42,8 +42,8 @@ namespace BibleTraining.Api.Phone
             if(phone.PhoneType != null)
                 target.PhoneType = composer.Proxy<IMapping>().Map<PhoneTypeData>(phone.PhoneType);
 
-            if(phone.Person != null)
-                target.Person = composer.Proxy<IMapping>().Map<PersonData>(phone.Person);
+            //if(phone.Person != null)
+            //    target.Person = composer.Proxy<IMapping>().Map<PersonData>(phone.Person);
 
             return target;
         }
