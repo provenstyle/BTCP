@@ -1,6 +1,7 @@
 ﻿namespace IntegrationTests.ApiTests
 {
     using System;
+    using System.Data.Entity.Core;
     using System.Linq;
     using System.Threading.Tasks;
     using BibleTraining.Api.Address;
@@ -91,6 +92,30 @@
               });
         }
 
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnConcurrentUpdate()
+        {
+            await WithCreated(async created =>
+             {
+                 created.FirstName= "a";
+                 await Handler.Send(new UpdatePerson(created));
+
+                 created.FirstName = "b";
+                 await Handler.Send(new UpdatePerson(created));
+             });
+        }
+
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnConcurrentRemove()
+        {
+            await WithCreated(async created =>
+             {
+                 created.FirstName = "a";
+                 await Handler.Send(new UpdatePerson(created));
+                 await Handler.Send(new RemovePerson(created));
+             });
+        }
+
         [TestMethod]
         public async Task CreatesRelationshipsOnCreate()
         {
@@ -144,6 +169,30 @@
               });
         }
 
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnAddressConcurrentUpdate()
+        {
+            await WithCreated(async created =>
+             {
+                 created.Addresses.Last().Name = "a";
+                 await Handler.Send(new UpdatePerson(created));
+
+                 created.Addresses.Last().Name = "b";
+                 await Handler.Send(new UpdatePerson(created));
+             });
+        }
+
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnAddressConcurrentRemove()
+        {
+            await WithCreated(async created =>
+             {
+                 created.Addresses.Last().Name = "a";
+                 await Handler.Send(new UpdatePerson(created));
+                 await Handler.Send(new RemovePerson(created));
+             });
+        }
+
         [TestMethod]
         public async Task CanAddEmail()
         {
@@ -167,6 +216,17 @@
                  await Handler.Send(new UpdatePerson(created));
                  var updated = await GetPerson(created.Id ?? -1);
                  Assert.AreEqual(email.Address, updated.Emails.Last().Address);
+              });
+        }
+
+        [TestMethod, ExpectedException(typeof(Miruken.Validate.ValidationException))]
+        public async Task InvalidEmailAddressUpdateThrows()
+        {
+            await WithCreated(async created =>
+              {
+                 var email = created.Emails.Last();
+                 email.Address = "a";
+                 await Handler.Send(new UpdatePerson(created));
               });
         }
 

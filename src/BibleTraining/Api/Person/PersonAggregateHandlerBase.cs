@@ -20,18 +20,20 @@ namespace BibleTraining.Api.Person
         IGlobalMiddleware<UpdatePerson, PersonData>,
         IGlobalMiddleware<RemovePerson, PersonData>
     {
-        public int? Order { get; set; } = Stage.Validation - 1;
-
         protected readonly IRepository<IBibleTrainingDomain> _repository;
 
-        protected PersonAggregateHandlerBase(IRepository<IBibleTrainingDomain> repository)
+        protected PersonAggregateHandlerBase(
+            IRepository<IBibleTrainingDomain> repository)
         {
             _repository = repository;
         }
 
+        public int? Order { get; set; } = Stage.Validation - 1;
+
         protected abstract Task<Person> Person(int? id, IHandler composer);
 
-        public async Task<PersonData> Begin(int? id, IHandler composer, NextDelegate<Task<PersonData>> next)
+        public async Task<PersonData> Begin(
+            int? id, IHandler composer, NextDelegate<Task<PersonData>> next)
         {
             using (var scope = _repository.Scopes.Create())
             {
@@ -44,20 +46,22 @@ namespace BibleTraining.Api.Person
             }
         }
 
-        public virtual Task<object[]> GetUpdateRelationships(UpdatePerson request,
-            Person person, IHandler composer)
+        public virtual Task<object[]> GetUpdateRelationships(
+            UpdatePerson request, Person person, IHandler composer)
         {
-            return Task.FromResult(new object[] { });
+            return Task.FromResult(Array.Empty<object>());
         }
 
         [Mediates]
-        public async Task<PersonData> Create(CreatePerson request, IHandler composer)
+        public async Task<PersonData> Create(
+            CreatePerson request, IHandler composer,
+            StashOf<Person> personStash)
         {
             using(var scope = _repository.Scopes.Create())
             {
-                var person = composer.Proxy<IMapping>().Map<Person>(request.Resource);
+                var person = personStash.Value =
+                    composer.Proxy<IMapping>().Map<Person>(request.Resource);
                 _repository.Context.Add(person);
-                composer.Proxy<IStash>().Put(person);
 
                 var relationships = new List<object>();
 
@@ -65,36 +69,30 @@ namespace BibleTraining.Api.Person
                 if (emails != null)
                 {
                     var adds = emails.Where(x => !x.Id.HasValue).ToArray();
-                    foreach (var add in adds)
-                        relationships.Add(new CreateEmail(add));
+                    relationships.AddRange(adds.Select(add => new CreateEmail(add)));
                 }
 
                 var addresses = request.Resource.Addresses;
                 if (addresses != null)
                 {
                     var adds = addresses.Where(x => !x.Id.HasValue).ToArray();
-                    foreach (var add in adds)
-                        relationships.Add(new CreateAddress(add));
+                    relationships.AddRange(adds.Select(add => new CreateAddress(add)));
                 }
 
                 var phones = request.Resource.Phones;
                 if (phones != null)
                 {
                     var adds = phones.Where(x => !x.Id.HasValue).ToArray();
-                    foreach (var add in adds)
-                        relationships.Add(new CreatePhone(add));
+                    relationships.AddRange(adds.Select(add => new CreatePhone(add)));
                 }
 
-                if (relationships.Any())
-                {
-                    foreach (var relationship in relationships)
-                        await composer.Send(relationship);
-                }
+                foreach (var relationship in relationships)
+                    await composer.Send(relationship);
 
                 var data = new PersonData();
                 await scope.SaveChangesAsync((dbScope, count) =>
                 {
-                    data.Id = person.Id;
+                    data.Id         = person.Id;
                     data.RowVersion = person.RowVersion;
                 });
 
@@ -105,16 +103,17 @@ namespace BibleTraining.Api.Person
         [Mediates]
         public async Task<PersonResult> Get(GetPeople message, IHandler composer)
         {
-            using(_repository.Scopes.CreateReadOnly())
+            using (_repository.Scopes.CreateReadOnly())
             {
                 var people = (await _repository
                     .FindAsync(new GetPeopleById(message.Ids)
                       {
-                         IncludePhones = message.IncludePhones,
-                         IncludeEmails = message.IncludeEmails,
+                         IncludePhones    = message.IncludePhones,
+                         IncludeEmails    = message.IncludeEmails,
                          IncludeAddresses = message.IncludeAddresses
                       }))
-                    .Select(x => composer.Proxy<IMapping>().Map<PersonData>(x)).ToArray();
+                    .Select(x => composer.Proxy<IMapping>().Map<PersonData>(x))
+                    .ToArray();
 
                 return new PersonResult
                 {
@@ -123,25 +122,26 @@ namespace BibleTraining.Api.Person
             }
         }
 
-        public async Task<PersonData> Next(UpdatePerson request, MethodBinding method, IHandler composer, NextDelegate<Task<PersonData>> next)
+        public async Task<PersonData> Next(
+            UpdatePerson request, MethodBinding method, 
+            IHandler composer, NextDelegate<Task<PersonData>> next)
         {
             return await Begin(request.Resource.Id, composer, next);
         }
 
         [Mediates]
-        public async Task<PersonData> Update(UpdatePerson request, IHandler composer)
+        public async Task<PersonData> Update(
+            UpdatePerson request, IHandler composer,
+            StashOf<Person> personStash)
         {
             var person = await Person(request.Resource.Id, composer);
             composer.Proxy<IMapping>().MapInto(request.Resource, person);
-            composer.Proxy<IStash>().Put(person);
+            personStash.Value = person;
 
             var relationships = await GetUpdateRelationships(request, person, composer);
 
-            if (relationships.Any())
-            {
-                foreach (var relationship in relationships)
-                    await composer.Send(relationship);
-            }
+            foreach (var relationship in relationships)
+                await composer.Send(relationship);
 
             return new PersonData
             {
@@ -149,7 +149,9 @@ namespace BibleTraining.Api.Person
             };
         }
 
-        public async Task<PersonData> Next(RemovePerson request, MethodBinding method, IHandler composer, NextDelegate<Task<PersonData>> next)
+        public async Task<PersonData> Next(
+            RemovePerson request, MethodBinding method, 
+            IHandler composer, NextDelegate<Task<PersonData>> next)
         {
             return await Begin(request.Resource.Id, composer, next);
         }

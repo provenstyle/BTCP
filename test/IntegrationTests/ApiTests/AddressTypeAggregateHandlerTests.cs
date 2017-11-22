@@ -1,6 +1,7 @@
 ﻿namespace IntegrationTests.ApiTests
 {
     using System;
+    using System.Data.Entity.Core;
     using System.Linq;
     using System.Threading.Tasks;
     using BibleTraining.Api.AddressType;
@@ -14,7 +15,8 @@
     {
         private async Task<AddressTypeData> GetAddressType(int id)
         {
-             return (await Handler.Send(new GetAddressTypes(id))).AddressTypes.FirstOrDefault();
+             return (await Handler.Send(new GetAddressTypes(id)))
+                .AddressTypes.FirstOrDefault();
         }
 
         public async Task WithCreated(Func<AddressTypeData, Task> testAction)
@@ -22,8 +24,8 @@
             await RollBack(async () =>
              {
                  var addressTypeData = Fixture.Create<AddressTypeData>();
-                 var createResult = await Handler.Send(new CreateAddressType(addressTypeData));
-                 var created = await GetAddressType(createResult.Id ?? -1);
+                 var createResult    = await Handler.Send(new CreateAddressType(addressTypeData));
+                 var created         = await GetAddressType(createResult.Id ?? -1);
                  await testAction(created);
              });
         }
@@ -47,7 +49,7 @@
 
                  created.Name = name;
                  await Handler.Send(new UpdateAddressType(created));
-                 var updated = await GetAddressType(created.Id ?? -1);
+                 var updated  = await GetAddressType(created.Id ?? -1);
 
                  Assert.AreEqual(name, updated.Name);
              });
@@ -62,6 +64,30 @@
                  var removed = await GetAddressType(created.Id ?? -1);
 
                  Assert.IsNull(removed);
+             });
+        }
+
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnConcurrentUpdate()
+        {
+            await WithCreated(async created =>
+             {
+                 created.Name = "a";
+                 await Handler.Send(new UpdateAddressType(created));
+
+                 created.Name = "b";
+                 await Handler.Send(new UpdateAddressType(created));
+             });
+        }
+
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnConcurrentRemove()
+        {
+            await WithCreated(async created =>
+             {
+                 created.Name = "a";
+                 await Handler.Send(new UpdateAddressType(created));
+                 await Handler.Send(new RemoveAddressType(created));
              });
         }
     }

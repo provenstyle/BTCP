@@ -4,10 +4,10 @@ namespace UnitTests.PhoneType
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class CreatePhoneTypeIntegrityTests
+    public class CreateUpdatePhoneTypeIntegrityTests
     {
         private CreatePhoneType createPhoneType;
-        private CreatePhoneTypeIntegrity validator;
+        private CreateUpdatePhoneTypeIntegrity validator;
 
         [TestInitialize]
         public void TestInitialize()
@@ -20,7 +20,7 @@ namespace UnitTests.PhoneType
                  }
             };
 
-            validator = new CreatePhoneTypeIntegrity();
+            validator = new CreateUpdatePhoneTypeIntegrity();
         }
 
         [TestMethod]

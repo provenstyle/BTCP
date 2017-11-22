@@ -16,27 +16,22 @@ namespace BibleTraining.Api.Phone
         IMiddleware<UpdatePhone, PhoneData>,
         IMiddleware<RemovePhone, PhoneData>
     {
-        public int? Order { get; set; } = Stage.Validation - 1;
-
         private readonly IRepository<IBibleTrainingDomain> _repository;
 
-        public PhoneAggregateHandler(IRepository<IBibleTrainingDomain> repository)
+        public PhoneAggregateHandler(
+            IRepository<IBibleTrainingDomain> repository)
         {
             _repository = repository;
         }
 
-        public async Task<Phone> Phone(int? id, IHandler composer)
-        {
-            return await composer.Proxy<IStash>().GetOrPut(async () =>
-                (await _repository.FindAsync(new GetPhonesById(id)))
-                    .FirstOrDefault());
-        }
+        public int? Order { get; set; } = Stage.Validation - 1;
 
-        public async Task<PhoneData> Begin(int? id, IHandler composer, NextDelegate<Task<PhoneData>> next)
+        public async Task<PhoneData> Begin(
+            int? id, IHandler composer, NextDelegate<Task<PhoneData>> next)
         {
             using (var scope = _repository.Scopes.Create())
             {
-                var phone = await Phone(id, composer);
+                var phone  = await Phone(id, composer);
                 var result = await next();
                 await scope.SaveChangesAsync();
 
@@ -46,30 +41,33 @@ namespace BibleTraining.Api.Phone
         }
 
         [Mediates]
-        public async Task<PhoneData> Create(CreatePhone message, IHandler composer)
+        public async Task<PhoneData> Create(
+            CreatePhone message, IHandler composer,
+            StashOf<Phone> phoneStash, [Optional]Person person,
+            [Optional]PhoneType phoneType)
         {
             using(var scope = _repository.Scopes.Create())
             {
                 var phoneData = message.Resource;
 
-                var phone = composer.Proxy<IMapping>().Map<Phone>(message.Resource);
+                var phone = phoneStash.Value =
+                    composer.Proxy<IMapping>().Map<Phone>(message.Resource);
                 _repository.Context.Add(phone);
-                composer.Proxy<IStash>().Put(phone);
 
                 if (phoneData.PersonId.HasValue)
                     phone.PersonId = phoneData.PersonId.Value;
                 else
-                    phone.Person = composer.Proxy<IStash>().TryGet<Person>();
+                    phone.Person = person;
 
                 if (phoneData.PhoneTypeId.HasValue)
                     phone.PhoneTypeId = phoneData.PhoneTypeId.Value;
                 else
-                    phone.PhoneType = composer.Proxy<IStash>().TryGet<PhoneType>();
+                    phone.PhoneType = phoneType;
 
                 var data = new PhoneData();
                 await scope.SaveChangesAsync((dbScope, count) =>
                 {
-                    data.Id = phone.Id;
+                    data.Id         = phone.Id;
                     data.RowVersion = phone.RowVersion;
                 });
 
@@ -78,13 +76,18 @@ namespace BibleTraining.Api.Phone
         }
 
         [Mediates]
-        public async Task<PhoneResult> Get(GetPhones message, IHandler composer)
+        public async Task<PhoneResult> Get(
+            GetPhones message, IHandler composer)
         {
             using(_repository.Scopes.CreateReadOnly())
             {
-                var phones = (await _repository.FindAsync(new GetPhonesById(message.Ids){
-                    KeyProperties = message.KeyProperties
-                })).Select(x => composer.Proxy<IMapping>().Map<PhoneData>(x)).ToArray();
+                var phones = (await _repository.FindAsync(
+                    new GetPhonesById(message.Ids)
+                    {
+                        KeyProperties = message.KeyProperties
+                    }))
+                    .Select(x => composer.Proxy<IMapping>().Map<PhoneData>(x))
+                    .ToArray();
 
                 return new PhoneResult
                 {
@@ -93,7 +96,9 @@ namespace BibleTraining.Api.Phone
             }
         }
 
-        public async Task<PhoneData> Next(UpdatePhone request, MethodBinding method, IHandler composer, NextDelegate<Task<PhoneData>> next)
+        public async Task<PhoneData> Next(
+            UpdatePhone request, MethodBinding method, 
+            IHandler composer, NextDelegate<Task<PhoneData>> next)
         {
             return await Begin(request.Resource.Id, composer, next);
         }
@@ -111,7 +116,9 @@ namespace BibleTraining.Api.Phone
             };
         }
 
-        public async Task<PhoneData> Next(RemovePhone request, MethodBinding method, IHandler composer, NextDelegate<Task<PhoneData>> next)
+        public async Task<PhoneData> Next(
+            RemovePhone request, MethodBinding method,
+            IHandler composer, NextDelegate<Task<PhoneData>> next)
         {
             return await Begin(request.Resource.Id, composer, next);
         }
@@ -127,6 +134,13 @@ namespace BibleTraining.Api.Phone
                 Id         = phone.Id,
                 RowVersion = phone.RowVersion
             };
+        }
+
+        protected async Task<Phone> Phone(int? id, IHandler composer)
+        {
+            return await composer.Proxy<IStash>().GetOrPut(async () =>
+                (await _repository.FindAsync(new GetPhonesById(id)))
+                .FirstOrDefault());
         }
     }
 }

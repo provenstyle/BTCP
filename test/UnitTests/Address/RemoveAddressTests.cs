@@ -16,8 +16,6 @@ namespace UnitTests.Address
         [TestMethod]
         public async Task ShouldRemoveAddress()
         {
-            var middleWare = _container.ResolveAll<IMiddleware<RemoveAddress, AddressData>>();
-
             var entity = new Address
             {
                 Id         = 1,

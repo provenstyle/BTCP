@@ -1,6 +1,8 @@
 namespace BibleTraining.Api.EmailType
 {
-    public class CreateEmailType : ResourceAction<EmailTypeData, int?>
+    public class CreateEmailType : 
+        ResourceAction<EmailTypeData, int?>,
+        IValidateCreateUpdateEmailType
     {
         public CreateEmailType()
         {

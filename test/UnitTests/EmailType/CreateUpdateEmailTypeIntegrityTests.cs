@@ -1,13 +1,13 @@
-namespace UnitTests.EmailType 
+namespace UnitTests.EmailType
 {
     using BibleTraining.Api.EmailType;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class CreateEmailTypeIntegrityTests
+    public class CreateUpdateEmailTypeIntegrityTests
     {
         private CreateEmailType createEmailType;
-        private CreateEmailTypeIntegrity validator;
+        private CreateUpdateEmailTypeIntegrity validator;
 
         [TestInitialize]
         public void TestInitialize()
@@ -20,7 +20,7 @@ namespace UnitTests.EmailType
                  }
             };
 
-            validator = new CreateEmailTypeIntegrity();
+            validator = new CreateUpdateEmailTypeIntegrity();
         }
 
         [TestMethod]

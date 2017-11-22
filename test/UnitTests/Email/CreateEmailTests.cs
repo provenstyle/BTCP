@@ -22,13 +22,13 @@ namespace UnitTests.Email
 
             _context.Expect(pg => pg.Add(Arg<Email>.Is.Anything))
                 .WhenCalled(inv =>
-                                {
-                                    var entity = (Email)inv.Arguments[0];
-                                    entity.Id         = 1;
-                                    entity.RowVersion = new byte[] { 0x01 };
-                                    Assert.AreEqual(email.Address, entity.Address);
-                                    inv.ReturnValue = entity;
-                                }).Return(null);
+                    {
+                        var entity = (Email)inv.Arguments[0];
+                        entity.Id         = 1;
+                        entity.RowVersion = new byte[] { 0x01 };
+                        Assert.AreEqual(email.Address, entity.Address);
+                        inv.ReturnValue = entity;
+                    }).Return(null);
 
             _context.Expect(pg => pg.CommitAsync())
                 .Return(Task.FromResult(1));

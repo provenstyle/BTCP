@@ -1,8 +1,10 @@
 namespace IntegrationTests.ApiTests
 {
     using System;
+    using System.Data.Entity.Core;
     using System.Linq;
     using System.Threading.Tasks;
+    using BibleTraining.Api.EmailType;
     using BibleTraining.Api.PhoneType;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Miruken.Mediate;
@@ -62,6 +64,30 @@ namespace IntegrationTests.ApiTests
                  var removed = await GetPhoneType(created.Id ?? -1);
 
                  Assert.IsNull(removed);
+             });
+        }
+
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnConcurrentUpdate()
+        {
+            await WithCreated(async created =>
+             {
+                 created.Name = "a";
+                 await Handler.Send(new UpdatePhoneType(created));
+
+                 created.Name = "b";
+                 await Handler.Send(new UpdatePhoneType(created));
+             });
+        }
+
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnConcurrentRemove()
+        {
+            await WithCreated(async created =>
+             {
+                 created.Name = "a";
+                 await Handler.Send(new UpdatePhoneType(created));
+                 await Handler.Send(new RemovePhoneType(created));
              });
         }
     }

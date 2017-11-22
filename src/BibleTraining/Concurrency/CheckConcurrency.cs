@@ -1,55 +1,57 @@
 ﻿namespace BibleTraining.Concurrency
 {
+    using FluentValidation.Validators;
     using System.Data.Entity.Core;
     using System.Linq;
     using Api;
     using FluentValidation;
     using Improving.Highway.Data.Scope;
+    using Miruken;
+    using Miruken.Mediate;
+    using Miruken.Validate.FluentValidation;
 
     public abstract class CheckConcurrency<TEntity, TRes>
         : CheckConcurrency<TEntity, TRes, UpdateResource<TRes, int?>>
-        where TEntity : IEntity, IRowVersioned
+        where TEntity : class,IEntity, IRowVersioned
         where TRes : Resource<int?>
     {
     }
 
     public abstract class CheckConcurrency<TEntity, TRes, TAction>
         : AbstractValidator<TAction>
-        where TEntity : IEntity, IRowVersioned
+        where TEntity : class, IEntity, IRowVersioned
         where TAction : UpdateResource<TRes, int?>
         where TRes : Resource<int?>
     {
         protected CheckConcurrency()
         {
-            RuleFor(c => Entity)
-                .NotNull()
-                .OverridePropertyName(typeof(TEntity).Name);
-
-            Unless(c => Entity == null || c.Resource?.RowVersion == null, () =>
-              {
-                  RuleFor(c => Entity)
-                      .Cascade(CascadeMode.StopOnFirstFailure)
-                      .Must(BeExpectedVersion)
-                      .WithName(typeof(TEntity).Name)
-                      .WithMessage(x => $"{typeof(TEntity).Name} is in an inconsitent state.");
-              });
+            RuleFor(c => c).Custom(BeExpectedVersion);
         }
 
-        public TEntity Entity { get; set; }
-
-        private static bool BeExpectedVersion(TAction action, TEntity entity)
+        private static void BeExpectedVersion(TAction action, CustomContext context)
         {
             var resource = action.Resource;
+            if (resource == null) return;
+
+            var composer = context.ParentContext?.GetComposer();
+            var entity   = composer?.Proxy<IStash>().TryGet<TEntity>();
+            if (entity == null)
+            {
+                context.AddFailure(typeof(TEntity).Name,
+                    $"{typeof(TEntity)} with id {resource.Id} not found.");
+                return;
+            }
 
             if (entity.Id != resource.Id)
-                return false;
+            {
+                context.AddFailure($"{entity.GetType()}.Id",
+                    $"{entity.GetType()} has id {entity.Id} but expected id {resource.Id}.");
+                return;
+            }
 
-            if (resource.RowVersion == null ||
-                resource.RowVersion.SequenceEqual(entity.RowVersion))
-                return true;
-
-            throw new OptimisticConcurrencyException(
-                $"Concurrency exception detected for {entity.GetType()} with id {entity.Id}.");
+            if (resource.RowVersion?.SequenceEqual(entity.RowVersion) != true)
+                throw new OptimisticConcurrencyException(
+                    $"Concurrency exception detected for {entity.GetType()} with id {entity.Id}.");
         }
     }
 }

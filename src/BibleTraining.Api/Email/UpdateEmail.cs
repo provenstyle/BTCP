@@ -1,6 +1,8 @@
 namespace BibleTraining.Api.Email
 {
-    public class UpdateEmail : UpdateResource<EmailData, int?>
+    public class UpdateEmail :
+        UpdateResource<EmailData, int?>,
+        IValidateCreateUpdateEmail
     {
         public UpdateEmail()
         {

@@ -48,9 +48,4 @@
             return base.CommitAsync();
         }
     }
-
-    public class BeforeSave : IInterceptor
-    {
-        public int Priority { get; }
-    }
 }

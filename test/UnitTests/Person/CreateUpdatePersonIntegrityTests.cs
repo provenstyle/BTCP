@@ -4,10 +4,10 @@ namespace UnitTests.Person
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class CreatePersonIntegrityTests
+    public class CreateUpdatePersonIntegrityTests
     {
         private CreatePerson createPerson;
-        private CreatePersonIntegrity validator;
+        private CreateUpdatePersonIntegrity validator;
 
         [TestInitialize]
         public void TestInitialize()
@@ -22,7 +22,7 @@ namespace UnitTests.Person
                 }
             };
 
-            validator = new CreatePersonIntegrity();
+            validator = new CreateUpdatePersonIntegrity();
         }
 
         [TestMethod]
