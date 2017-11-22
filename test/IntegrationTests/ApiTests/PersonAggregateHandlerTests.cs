@@ -169,6 +169,30 @@
               });
         }
 
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnAddressConcurrentUpdate()
+        {
+            await WithCreated(async created =>
+             {
+                 created.Addresses.Last().Name = "a";
+                 await Handler.Send(new UpdatePerson(created));
+
+                 created.Addresses.Last().Name = "b";
+                 await Handler.Send(new UpdatePerson(created));
+             });
+        }
+
+        [TestMethod, ExpectedException(typeof(OptimisticConcurrencyException))]
+        public async Task ThrowsOnAddressConcurrentRemove()
+        {
+            await WithCreated(async created =>
+             {
+                 created.Addresses.Last().Name = "a";
+                 await Handler.Send(new UpdatePerson(created));
+                 await Handler.Send(new RemovePerson(created));
+             });
+        }
+
         [TestMethod]
         public async Task CanAddEmail()
         {
