@@ -160,7 +160,6 @@
     <Compile Include="Api\EntityMapper.cs" />
     <Compile Include="Api\Person\CreateUpdatePersonIntegrity.cs" />
     <Compile Include="Api\Person\PersonAggregateHandler.cs" />
-    <Compile Include="Api\Person\PersonAggregateHandlerBase.cs" />
     <Compile Include="Api\Person\PersonConcurency.cs" />
     <Compile Include="Api\Person\PersonMaps.cs" />
     <Compile Include="Api\Phone\CreateUpdatePhoneIntegrity.cs" />
