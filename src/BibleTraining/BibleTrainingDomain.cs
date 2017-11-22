@@ -36,12 +36,14 @@
             var added = ChangeTracker.Entries<Entity>()
                 .Where(x => x.State == EntityState.Added)
                 .ToArray();
-            foreach (var entity in added)
-                entity.Entity.Created = entity.Entity.Modified = DateTime.Now;
 
             var modified = ChangeTracker.Entries<Entity>()
                 .Where(x => x.State == EntityState.Modified)
                 .ToArray();
+
+            foreach (var entity in added)
+                entity.Entity.Created = entity.Entity.Modified = DateTime.Now;
+
             foreach (var entity in modified)
                 entity.Entity.Modified = DateTime.Now;
 

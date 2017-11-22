@@ -143,9 +143,8 @@ namespace UnitTests
 
         protected void AssertResourcesMapToEntities(Entity entity, Resource<int?> resource)
         {
-            Assert.AreEqual(resource.Id ?? 0,         entity.Id);
-            Assert.AreEqual(resource.RowVersion, entity.RowVersion);
             Assert.AreEqual(resource.ModifiedBy, entity.ModifiedBy);
+            Assert.AreEqual(resource.CreatedBy,  entity.CreatedBy);
         }
 
         protected void AssertEntitiesMapToResources(Resource<int?> resource, Entity entity)
@@ -153,7 +152,9 @@ namespace UnitTests
             Assert.AreEqual(entity.Id,         resource.Id);
             Assert.AreEqual(entity.RowVersion, resource.RowVersion);
             Assert.AreEqual(entity.CreatedBy,  resource.CreatedBy);
+            Assert.AreEqual(entity.Created,    resource.Created);
             Assert.AreEqual(entity.ModifiedBy, resource.ModifiedBy);
+            Assert.AreEqual(entity.Modified,   resource.Modified);
         }
     }
 }
