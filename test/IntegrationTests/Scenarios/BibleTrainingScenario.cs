@@ -5,8 +5,6 @@
     using System.Data.Entity.Validation;
     using System.Transactions;
     using BibleTraining;
-    using BibleTraining.Api;
-    using BibleTraining.Entities;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using Castle.Windsor.Installer;

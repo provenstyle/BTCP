@@ -6,6 +6,7 @@ namespace BibleTraining.Api.Phone
     using Miruken.Callback;
     using Miruken.Mediate;
     using Miruken.Validate.FluentValidation;
+    using PhoneNumbers;
 
     public class CreateUpdatePhoneIntegrity
         : AbstractValidator<IValidateCreateUpdatePhone>
@@ -21,26 +22,44 @@ namespace BibleTraining.Api.Phone
         {
             public PhoneDataIntegrity()
             {
-                RuleFor(x => x.Name)
-                    .NotEmpty();
+                CascadeMode = CascadeMode.StopOnFirstFailure;
+
+                RuleFor(x => x.Number)
+                    .NotEmpty()
+                    .Must(BeAValidPhoneNumber)
+                    .WithMessage("Must be valid international phone number starting with country code.");
                 RuleFor(x => x.PhoneTypeId)
                     .NotNull();
                 RuleFor(x => x.PersonId)
                     .WithComposer(HasPersonOrId)
                     .WithoutComposer(HasPersonId);
             }
-        }
 
-        private static bool HasPersonOrId(
-            PhoneData phoneData, int? personId, IHandler composer)
-        {
-            return composer.Proxy<IStash>().TryGet<Person>() != null
-                || HasPersonId(phoneData, personId);
-        }
+            private static bool BeAValidPhoneNumber(string number)
+            {
+                try
+                {
+                    var util = PhoneNumberUtil.GetInstance();
+                    var parsed = util.Parse(number, RegionCode.US);
+                    return util.IsValidNumber(parsed);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
 
-        private static bool HasPersonId(PhoneData phoneData, int? personId)
-        {
-            return personId.HasValue;
+            private static bool HasPersonOrId(
+                PhoneData phoneData, int? personId, IHandler composer)
+            {
+                return composer.Proxy<IStash>().TryGet<Person>() != null
+                    || HasPersonId(phoneData, personId);
+            }
+
+            private static bool HasPersonId(PhoneData phoneData, int? personId)
+            {
+                return personId.HasValue;
+            }
         }
     }
 }

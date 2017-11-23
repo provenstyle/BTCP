@@ -20,7 +20,8 @@ namespace UnitTests.Phone
 
             AssertResourcesMapToEntities(entity, resource);
 
-            Assert.AreEqual(resource.Name,        entity.Name);
+            Assert.AreEqual(resource.Number,      entity.Number);
+            Assert.AreEqual(resource.Extension,   entity.Extension);
             Assert.AreEqual(resource.PhoneTypeId, entity.PhoneTypeId);
             Assert.AreEqual(resource.PersonId,    entity.PersonId);
         }
@@ -41,7 +42,8 @@ namespace UnitTests.Phone
 
             AssertEntitiesMapToResources(resource, entity);
 
-            Assert.AreEqual(entity.Name,        resource.Name);
+            Assert.AreEqual(entity.Number,      resource.Number);
+            Assert.AreEqual(entity.Extension,   resource.Extension);
             Assert.AreEqual(entity.PhoneTypeId, resource.PhoneTypeId);
             Assert.AreEqual(entity.PersonId,    resource.PersonId);
         }

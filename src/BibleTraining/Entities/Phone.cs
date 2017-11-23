@@ -1,10 +1,9 @@
 namespace BibleTraining.Entities
 {
-    using Api;
-
-    public class Phone : Entity, IKeyProperties<int>
+    public class Phone : Entity
     {
-        public string    Name        { get; set; }
+        public string    Number      { get; set; }
+        public string    Extension   { get; set; }
 
         public int       PhoneTypeId { get; set; }
         public PhoneType PhoneType   { get; set; }

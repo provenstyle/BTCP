@@ -6,13 +6,10 @@ namespace BibleTraining.Queries
 
     public class GetPhonesById : Query<Phone>
     {
-        public bool KeyProperties { get; set; }
-
         public GetPhonesById(int? id)
             :this(new []{ id ?? 0 })
         {
         }
-
 
         public GetPhonesById(int[] ids)
         {
@@ -28,11 +25,6 @@ namespace BibleTraining.Queries
                 else if (ids?.Length > 1)
                 {
                     query = query.Where(x => ids.Contains(x.Id));
-                }
-                
-                if (KeyProperties)
-                {
-                    return query.Select(x => new Phone{Id = x.Id, Name = x.Name});
                 }
 
                 return query;

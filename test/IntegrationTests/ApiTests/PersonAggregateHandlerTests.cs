@@ -15,6 +15,7 @@
     using Miruken.Mediate;
     using Scenarios;
     using Ploeh.AutoFixture;
+    using TestInfrastructure;
 
     [TestClass]
     public class PersonAggregateHandlerTests : BibleTrainingScenario
@@ -34,16 +35,14 @@
             await RollBack(async () =>
              {
                  var addressTypeId = (await Handler.Send(new CreateAddressType(Fixture.Create<AddressTypeData>()))).Id;
-                 Fixture.Customize<AddressData>(c => c.With(x => x.AddressTypeId, addressTypeId));
-
                  var emailTypeId = (await Handler.Send(new CreateEmailType(Fixture.Create<EmailTypeData>()))).Id;
-                 Fixture.Customize<EmailData>(c =>
-                     c.With(x => x.EmailTypeId, emailTypeId)
-                      .With(x => x.Address, "a@a.com")
-                      .Without(x => x.PersonId));
-
                  var phoneTypeId = (await Handler.Send(new CreatePhoneType(Fixture.Create<PhoneTypeData>()))).Id;
-                 Fixture.Customize<PhoneData>(c => c.With(x => x.PhoneTypeId, phoneTypeId));
+
+                 Fixture = new BibleTrainingFixture()
+                     .WithAddress(addressTypeId ?? -1)
+                     .WithEmail(emailTypeId ?? -1)
+                     .WithPhone(phoneTypeId ?? -1)
+                     .Fixture;
 
                  var personData = Fixture.Create<PersonData>();
                  personData.Addresses = Fixture.CreateMany<AddressData>(3).ToList();
@@ -264,10 +263,10 @@
             await WithCreated(async created =>
               {
                  var phone = created.Phones.Last();
-                 phone.Name = "a";
+                 phone.Number = "+1 940 395 5555";
                  await Handler.Send(new UpdatePerson(created));
                  var updated = await GetPerson(created.Id ?? -1);
-                 Assert.AreEqual(phone.Name, updated.Phones.Last().Name);
+                 Assert.AreEqual(phone.Number, updated.Phones.Last().Number);
               });
         }
 

@@ -15,6 +15,9 @@ namespace IntegrationTests.ApiTests
     [TestClass]
     public class PhoneAggregateHandlerTests : BibleTrainingScenario
     {
+        private const string UpdatedNumber = "1 940 395 1111";
+        private const string SecondUpdatedNumber = "1 940 395 2222";
+
         private async Task<PhoneData> GetPhone(int id)
         {
              return (await Handler.Send(new GetPhones(id))).Phones.FirstOrDefault();
@@ -60,13 +63,11 @@ namespace IntegrationTests.ApiTests
         {
             await WithCreated(async created =>
              {
-                 const string name = "a";
-
-                 created.Name = name;
+                 created.Number = UpdatedNumber;
                  await Handler.Send(new UpdatePhone(created));
                  var updated = await GetPhone(created.Id ?? -1);
 
-                 Assert.AreEqual(name, updated.Name);
+                 Assert.AreEqual(UpdatedNumber, updated.Number);
              });
         }
 
@@ -87,10 +88,10 @@ namespace IntegrationTests.ApiTests
         {
             await WithCreated(async created =>
              {
-                 created.Name = "a";
+                 created.Number = UpdatedNumber;
                  await Handler.Send(new UpdatePhone(created));
 
-                 created.Name = "b";
+                 created.Number = SecondUpdatedNumber;
                  await Handler.Send(new UpdatePhone(created));
              });
         }
@@ -100,7 +101,7 @@ namespace IntegrationTests.ApiTests
         {
             await WithCreated(async created =>
              {
-                 created.Name = "a";
+                 created.Number = UpdatedNumber;
                  await Handler.Send(new UpdatePhone(created));
                  await Handler.Send(new RemovePhone(created));
              });

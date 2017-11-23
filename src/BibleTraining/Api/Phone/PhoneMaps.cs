@@ -16,8 +16,11 @@ namespace BibleTraining.Api.Phone
 
             EntityMapper.Map(target, data);
 
-            if (data.Name != null)
-                target.Name = data.Name;
+            if (data.Number != null)
+                target.Number = data.Number;
+
+            if (data.Extension != null)
+                target.Extension = data.Extension;
 
             if (data.PhoneTypeId.HasValue)
                 target.PhoneTypeId = data.PhoneTypeId.Value;
@@ -35,15 +38,13 @@ namespace BibleTraining.Api.Phone
 
             ResourceMapper.Map(target, phone);
 
-            target.Name        = phone.Name;
+            target.Number      = phone.Number;
+            target.Extension   = phone.Extension;
             target.PhoneTypeId = phone.PhoneTypeId;
             target.PersonId    = phone.PersonId;
 
             if(phone.PhoneType != null)
                 target.PhoneType = composer.Proxy<IMapping>().Map<PhoneTypeData>(phone.PhoneType);
-
-            //if(phone.Person != null)
-            //    target.Person = composer.Proxy<IMapping>().Map<PersonData>(phone.Person);
 
             return target;
         }

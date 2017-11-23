@@ -19,7 +19,7 @@ namespace UnitTests.Phone
             var entity = new Phone
             {
                 Id         = 1,
-                Name       = "a",
+                Number     = "a",
                 RowVersion = new byte[] { 0x01 }
             };
 

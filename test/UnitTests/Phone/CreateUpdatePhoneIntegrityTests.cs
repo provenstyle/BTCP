@@ -20,9 +20,9 @@ namespace UnitTests.Phone
             {
                  Resource = new PhoneData
                  {
-                    Name = "a",
+                    Number = "1 940 395 5555",
                     PhoneTypeId = 1,
-                    PersonId = 1
+                    PersonId = 1,
                  }
             };
 
@@ -37,9 +37,26 @@ namespace UnitTests.Phone
         }
 
         [TestMethod]
-        public void MustHaveName()
+        public void MustHaveNumber()
         {
-            createPhone.Resource.Name = string.Empty;
+            createPhone.Resource.Number = string.Empty;
+            var result = validator.Validate(createPhone);
+            Assert.IsFalse(result.IsValid);
+        }
+
+
+        [TestMethod]
+        public void NumberMustNotBeAString()
+        {
+            createPhone.Resource.Number = "a";
+            var result = validator.Validate(createPhone);
+            Assert.IsFalse(result.IsValid);
+        }
+
+        [TestMethod]
+        public void NumberMustBeValid()
+        {
+            createPhone.Resource.Number = "395 555";
             var result = validator.Validate(createPhone);
             Assert.IsFalse(result.IsValid);
         }

@@ -7,7 +7,8 @@ BEGIN
 		Id          INT           NOT NULL IDENTITY(1,1),
 		PersonId    INT           NOT NULL,
 		PhoneTypeId INT           NOT NULL,
-		Name        NVARCHAR(500) NOT NULL,
+		Number      NVARCHAR(50)  NOT NULL,
+		Extension   NVARCHAR(50)  NOT NULL,
 
 		Created     DATETIME2     NOT NULL,
 		CreatedBy   NVARCHAR(500) NOT NULL,
@@ -17,4 +18,19 @@ BEGIN
 
 		CONSTRAINT PK_Phone PRIMARY KEY CLUSTERED (Id ASC)
 	);
+END
+
+IF COL_LENGTH('dbo.Phone', 'Name') IS NOT NULL
+BEGIN
+    ALTER TABLE Phone DROP COLUMN Name
+END
+
+IF COL_LENGTH('dbo.Phone', 'Number') IS NULL
+BEGIN
+    ALTER TABLE Phone ADD Number NVARCHAR(50) NOT NULL
+END
+
+IF COL_LENGTH('dbo.Phone', 'Extension') IS NULL
+BEGIN
+    ALTER TABLE Phone ADD Extension NVARCHAR(50) NULL
 END

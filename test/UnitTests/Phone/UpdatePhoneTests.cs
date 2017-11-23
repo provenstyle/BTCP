@@ -19,7 +19,7 @@ namespace UnitTests.Phone
             var phone= new Phone()
             {
                 Id         = 1,
-                Name       = "a",
+                Number     = "1 940 395 5555",
                 RowVersion = new byte[] { 0x01 }
             };
 
@@ -38,7 +38,7 @@ namespace UnitTests.Phone
             Assert.AreEqual(1, result.Id);
             CollectionAssert.AreEqual(new byte[] { 0x02 }, result.RowVersion);
 
-            Assert.AreEqual(phoneData.Name, phone.Name);
+            Assert.AreEqual(phoneData.Number, phone.Number);
 
             _context.VerifyAllExpectations();
         }

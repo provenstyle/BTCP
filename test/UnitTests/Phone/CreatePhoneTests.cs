@@ -24,7 +24,7 @@ namespace UnitTests.Phone
                       var entity = (Phone)inv.Arguments[0];
                       entity.Id         = 1;
                       entity.RowVersion = new byte[] { 0x01 };
-                      Assert.AreEqual(phone.Name, entity.Name);
+                      Assert.AreEqual(phone.Number, entity.Number);
                       inv.ReturnValue = entity;
                   }).Return(null);
 

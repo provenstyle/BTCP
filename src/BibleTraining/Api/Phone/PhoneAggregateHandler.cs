@@ -1,6 +1,5 @@
 namespace BibleTraining.Api.Phone
 {
-    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using Entities;
@@ -82,10 +81,7 @@ namespace BibleTraining.Api.Phone
             using(_repository.Scopes.CreateReadOnly())
             {
                 var phones = (await _repository.FindAsync(
-                    new GetPhonesById(message.Ids)
-                    {
-                        KeyProperties = message.KeyProperties
-                    }))
+                    new GetPhonesById(message.Ids)))
                     .Select(x => composer.Proxy<IMapping>().Map<PhoneData>(x))
                     .ToArray();
 
