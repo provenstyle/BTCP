@@ -16,28 +16,24 @@ namespace BibleTraining.Api.Email
         IMiddleware<UpdateEmail, EmailData>,
         IMiddleware<RemoveEmail, EmailData>
     {
-        public int? Order { get; set; } = Stage.Validation - 1;
         private readonly IRepository<IBibleTrainingDomain> _repository;
         private readonly DateTime _now;
 
-        public EmailAggregateHandler(IRepository<IBibleTrainingDomain> repository)
+        public EmailAggregateHandler(
+            IRepository<IBibleTrainingDomain> repository)
         {
             _repository = repository;
             _now        = DateTime.Now;
         }
 
-        public async Task<Email> Email(int? id, IHandler composer)
-        {
-            return await composer.Proxy<IStash>().GetOrPut(async () =>
-                (await _repository.FindAsync(new GetEmailsById(id)))
-                    .FirstOrDefault());
-        }
+        public int? Order { get; set; } = Stage.Validation - 1;
 
-        public async Task<EmailData> Begin(int? id, IHandler composer, NextDelegate<Task<EmailData>> next)
+        public async Task<EmailData> Begin(
+            int? id, IHandler composer, NextDelegate<Task<EmailData>> next)
         {
             using (var scope = _repository.Scopes.Create())
             {
-                var email = await Email(id, composer);
+                var email  = await Email(id, composer);
                 var result = await next();
                 await scope.SaveChangesAsync();
 
@@ -46,19 +42,24 @@ namespace BibleTraining.Api.Email
             }
         }
 
-        public async Task<EmailData> Next(UpdateEmail callback, MethodBinding method, IHandler composer, NextDelegate<Task<EmailData>> next)
+        public async Task<EmailData> Next(
+            UpdateEmail callback, MethodBinding method,
+            IHandler composer, NextDelegate<Task<EmailData>> next)
         {
             return await Begin(callback.Resource.Id, composer, next);
         }
 
-        public async Task<EmailData> Next(RemoveEmail callback, MethodBinding method, IHandler composer, NextDelegate<Task<EmailData>> next)
+        public async Task<EmailData> Next(
+            RemoveEmail callback, MethodBinding method,
+            IHandler composer, NextDelegate<Task<EmailData>> next)
         {
             return await Begin(callback.Resource.Id, composer, next);
         }
 
         [Mediates]
         public async Task<EmailData> Create(CreateEmail request,
-            IHandler composer, StashOf<Person> person, StashOf<EmailType> emailType)
+            IHandler composer, StashOf<Person> person, 
+            StashOf<EmailType> emailType)
         {
             using(var scope = _repository.Scopes.Create())
             {
@@ -91,12 +92,15 @@ namespace BibleTraining.Api.Email
         }
 
         [Mediates]
-        public async Task<EmailResult> Get(GetEmails message, IHandler composer)
+        public async Task<EmailResult> Get(
+            GetEmails message, IHandler composer)
         {
             using(_repository.Scopes.CreateReadOnly())
             {
-                var emails = (await _repository.FindAsync(new GetEmailsById(message.Ids)))
-                    .Select(x => composer.Proxy<IMapping>().Map<EmailData>(x)).ToArray();
+                var emails = (await _repository.FindAsync(
+                    new GetEmailsById(message.Ids)))
+                    .Select(x => composer.Proxy<IMapping>().Map<EmailData>(x))
+                    .ToArray();
 
                 return new EmailResult
                 {
@@ -106,12 +110,12 @@ namespace BibleTraining.Api.Email
         }
 
         [Mediates]
-        public async Task<EmailData> Update(UpdateEmail request, IHandler composer)
+        public async Task<EmailData> Update(
+            UpdateEmail request, IHandler composer)
         {
             var email = await Email(request.Resource.Id, composer);
 
-            composer.Proxy<IMapping>()
-                    .MapInto(request.Resource, email);
+            composer.Proxy<IMapping>().MapInto(request.Resource, email);
 
             return new EmailData
             {
@@ -130,6 +134,13 @@ namespace BibleTraining.Api.Email
                 Id         = email.Id,
                 RowVersion = email.RowVersion
             };
+        }
+
+        protected async Task<Email> Email(int? id, IHandler composer)
+        {
+            return await composer.Proxy<IStash>().GetOrPut(async () =>
+                (await _repository.FindAsync(new GetEmailsById(id)))
+                .FirstOrDefault());
         }
     }
 }

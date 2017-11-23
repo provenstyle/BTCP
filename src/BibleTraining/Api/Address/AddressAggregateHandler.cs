@@ -48,13 +48,25 @@ namespace BibleTraining.Api.Address
         #region Create Address
 
         [Mediates]
+<<<<<<< Updated upstream
         public async Task<AddressData> Create(CreateAddress message, IHandler composer)
+=======
+        public async Task<AddressData> Create(
+            CreateAddress message, StashOf<Address> addressStash, 
+            [Optional]Person person, [Optional]AddressType addressType,
+            [Proxy]IMapping mapping)
+>>>>>>> Stashed changes
         {
             using(var scope = _repository.Scopes.Create())
             {
                 var addressData = message.Resource;
+<<<<<<< Updated upstream
 
                 var address = composer.Proxy<IMapping>() .Map<Address>(addressData);
+=======
+                var address     = addressStash.Value =
+                   mapping.Map<Address>(addressData);
+>>>>>>> Stashed changes
                 address.Created = DateTime.Now;
                 _repository.Context.Add(address);
                 composer.Proxy<IStash>().Put(address);
@@ -132,7 +144,8 @@ namespace BibleTraining.Api.Address
         }
 
         [Mediates]
-        public async Task<AddressData> Remove(RemoveAddress request, IHandler composer)
+        public async Task<AddressData> Remove(
+            RemoveAddress request, IHandler composer)
         {
             var address = await Address(request.Resource.Id, composer);
             _repository.Context.Remove(address);

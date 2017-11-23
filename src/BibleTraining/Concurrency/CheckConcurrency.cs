@@ -8,7 +8,11 @@
 
     public abstract class CheckConcurrency<TEntity, TRes>
         : CheckConcurrency<TEntity, TRes, UpdateResource<TRes, int?>>
+<<<<<<< Updated upstream
         where TEntity : IEntity, IRowVersioned
+=======
+        where TEntity : class, IEntity, IRowVersioned
+>>>>>>> Stashed changes
         where TRes : Resource<int?>
     {
     }
