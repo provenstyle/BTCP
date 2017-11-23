@@ -2,9 +2,9 @@ namespace BibleTraining.Api.PhoneType
 {
     using FluentValidation;
 
-    public class UpdatePhoneTypeIntegrity : AbstractValidator<UpdatePhoneType>
+    public class CreateUpdatePhoneTypeIntegrity : AbstractValidator<IValidateCreateUpdatePhoneType>
     {
-        public UpdatePhoneTypeIntegrity()
+        public CreateUpdatePhoneTypeIntegrity()
         {
             RuleFor(x => x.Resource)
                 .NotNull()
@@ -15,8 +15,6 @@ namespace BibleTraining.Api.PhoneType
         {
             public PhoneTypeDataIntegrity()
             {
-                RuleFor(x => x.Id)
-                    .NotNull();
                 RuleFor(x => x.Name)
                     .NotEmpty();
             }

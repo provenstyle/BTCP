@@ -40,7 +40,7 @@ namespace UnitTests.Phone
 
             try
             {
-                AssertNoValidationErrors<PhoneConcurency, UpdateResource<PhoneData, int?>>(request);
+                AssertNoValidationErrors<PhoneConcurency, UpdateResource<PhoneData, int?>, Phone>(request, _phone);
                 Assert.Fail("Should have thrown OptimisticConcurrencyException");
             }
             catch (OptimisticConcurrencyException ex)
@@ -64,7 +64,7 @@ namespace UnitTests.Phone
 
             try
             {
-                AssertNoValidationErrors<PhoneConcurency, UpdateResource<PhoneData, int?>>(request);
+                AssertNoValidationErrors<PhoneConcurency, UpdateResource<PhoneData, int?>, Phone>(request, _phone);
                 Assert.Fail("Should have thrown OptimisticConcurrencyException");
             }
             catch (OptimisticConcurrencyException ex)

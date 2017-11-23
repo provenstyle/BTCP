@@ -1,6 +1,8 @@
 namespace BibleTraining.Api.Phone
 {
-    public class CreatePhone : ResourceAction<PhoneData, int?>
+    public class CreatePhone : 
+        ResourceAction<PhoneData, int?>,
+        IValidateCreateUpdatePhone
     {
         public CreatePhone()
         {

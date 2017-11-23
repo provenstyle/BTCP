@@ -16,8 +16,72 @@
 
     public class PersonAggregateHandler : PersonAggregateHandlerBase
     {
-        public PersonAggregateHandler(IRepository<IBibleTrainingDomain> repository) : base(repository)
+        public PersonAggregateHandler(
+            IRepository<IBibleTrainingDomain> repository) 
+            : base(repository)
         {
+        }
+
+        public override Task<object[]> GetUpdateRelationships(
+            UpdatePerson request, Person person, IHandler composer)
+        {
+            var relationships = new List<object>();
+
+            var emails = request.Resource.Emails;
+            if (emails != null)
+            {
+                var adds      = emails.Where(x => !x.Id.HasValue).ToArray();
+                var updates   = emails.Where(x => x.Id.HasValue).ToArray();
+                var updateIds = updates.Select(x => x.Id).ToArray();
+                var removes   = person.Emails?
+                    .Where(x => !updateIds.Contains(x.Id))
+                    .Select(x => composer.Proxy<IMapping>().Map<EmailData>(x))
+                    .ToArray();
+
+                relationships.AddRange(adds.Select(add => new CreateEmail(add)));
+                relationships.AddRange(updates.Select(update => new UpdateEmail(update)));
+
+                if (removes != null)
+                    relationships.AddRange(removes.Select(remove => new RemoveEmail(remove)));
+            }
+
+            var addresses = request.Resource.Addresses;
+            if (addresses != null)
+            {
+                var adds      = addresses.Where(x => !x.Id.HasValue).ToArray();
+                var updates   = addresses.Where(x => x.Id.HasValue).ToArray();
+                var updateIds = updates.Select(x => x.Id).ToArray();
+                var removes   = person.Addresses?
+                    .Where(x => !updateIds.Contains(x.Id))
+                    .Select(x => composer.Proxy<IMapping>().Map<AddressData>(x))
+                    .ToArray();
+
+                relationships.AddRange(adds.Select(add => new CreateAddress(add)));
+                relationships.AddRange(updates.Select(update => new UpdateAddress(update)));
+
+                if (removes != null)
+                    relationships.AddRange(removes.Select(remove => new RemoveAddress(remove)));
+            }
+
+            var phones = request.Resource.Phones;
+            if (phones != null)
+            {
+                var adds      = phones.Where(x => !x.Id.HasValue).ToArray();
+                var updates   = phones.Where(x => x.Id.HasValue).ToArray();
+                var updateIds = updates.Select(x => x.Id).ToArray();
+                var removes   = person.Phones?
+                    .Where(x => !updateIds.Contains(x.Id))
+                    .Select(x => composer.Proxy<IMapping>().Map<PhoneData>(x))
+                    .ToArray();
+
+                relationships.AddRange(adds.Select(add => new CreatePhone(add)));
+                relationships.AddRange(updates.Select(update => new UpdatePhone(update)));
+
+                if (removes != null)
+                    relationships.AddRange(removes.Select(remove => new RemovePhone(remove)));
+            }
+
+            return Task.FromResult(relationships.ToArray());
         }
 
         protected override async Task<Person> Person(int? id, IHandler composer)
@@ -25,83 +89,10 @@
             return await composer.Proxy<IStash>().GetOrPut(async () =>
                 (await _repository.FindAsync(new GetPeopleById(id)
                 {
-                    IncludeEmails = true,
+                    IncludeEmails    = true,
                     IncludeAddresses = true,
-                    IncludePhones = true
+                    IncludePhones    = true
                 })).FirstOrDefault());
-        }
-
-        public override Task<object[]> GetUpdateRelationships(
-            UpdatePerson request,
-            Person person,
-            IHandler composer)
-        {
-            var relationships = new List<object>();
-
-            var emails = request.Resource.Emails;
-            if (emails != null)
-            {
-                var adds = emails.Where(x => !x.Id.HasValue).ToArray();
-                var updates = emails.Where(x => x.Id.HasValue).ToArray();
-                var updateIds = updates.Select(x => x.Id).ToArray();
-                var removes = person.Emails?
-                    .Where(x => !updateIds.Contains(x.Id))
-                    .Select(x => composer.Proxy<IMapping>().Map<EmailData>(x))
-                    .ToArray();
-
-                foreach (var add in adds)
-                    relationships.Add(new CreateEmail(add));
-
-                foreach (var update in updates)
-                    relationships.Add(new UpdateEmail(update));
-
-                foreach (var remove in removes)
-                    relationships.Add(new RemoveEmail(remove));
-            }
-
-            var addresses = request.Resource.Addresses;
-            if (addresses != null)
-            {
-                var adds = addresses.Where(x => !x.Id.HasValue).ToArray();
-                var updates = addresses.Where(x => x.Id.HasValue).ToArray();
-                var updateIds = updates.Select(x => x.Id).ToArray();
-                var removes = person.Addresses?
-                    .Where(x => !updateIds.Contains(x.Id))
-                    .Select(x => composer.Proxy<IMapping>().Map<AddressData>(x))
-                    .ToArray();
-
-                foreach (var add in adds)
-                    relationships.Add(new CreateAddress(add));
-
-                foreach (var update in updates)
-                    relationships.Add(new UpdateAddress(update));
-
-                foreach (var remove in removes)
-                    relationships.Add(new RemoveAddress(remove));
-            }
-
-            var phones = request.Resource.Phones;
-            if (phones != null)
-            {
-                var adds = phones.Where(x => !x.Id.HasValue).ToArray();
-                var updates = phones.Where(x => x.Id.HasValue).ToArray();
-                var updateIds = updates.Select(x => x.Id).ToArray();
-                var removes = person.Phones?
-                    .Where(x => !updateIds.Contains(x.Id))
-                    .Select(x => composer.Proxy<IMapping>().Map<PhoneData>(x))
-                    .ToArray();
-
-                foreach (var add in adds)
-                    relationships.Add(new CreatePhone(add));
-
-                foreach (var update in updates)
-                    relationships.Add(new UpdatePhone(update));
-
-                foreach (var remove in removes)
-                    relationships.Add(new RemovePhone(remove));
-            }
-
-            return Task.FromResult(relationships.ToArray());
         }
     }
 }

@@ -16,30 +16,24 @@ namespace BibleTraining.Api.Address
         IMiddleware<UpdateAddress, AddressData>,
         IMiddleware<RemoveAddress, AddressData>
     {
-        public int? Order { get; set; } = Stage.Validation - 1;
-
         private readonly IRepository<IBibleTrainingDomain> _repository;
 
-        public AddressAggregateHandler(IRepository<IBibleTrainingDomain> repository)
+        public AddressAggregateHandler(
+            IRepository<IBibleTrainingDomain> repository)
         {
             _repository = repository;
         }
 
-        public async Task<Address> Address(int? id, IHandler composer)
-        {
-            return await composer.Proxy<IStash>().GetOrPut(async () =>
-                (await _repository.FindAsync(new GetAddressesById(id)))
-                    .FirstOrDefault());
-        }
+        public int? Order { get; set; } = Stage.Validation - 1;
 
-        public async Task<AddressData> Begin(int? id, IHandler composer, NextDelegate<Task<AddressData>> next)
+        public async Task<AddressData> Begin(
+            int? id, IHandler composer, NextDelegate<Task<AddressData>> next)
         {
             using (var scope = _repository.Scopes.Create())
             {
                 var address = await Address(id, composer);
-                var result = await next();
+                var result  = await next();
                 await scope.SaveChangesAsync();
-
                 result.RowVersion = address?.RowVersion;
                 return result;
             }
@@ -48,43 +42,33 @@ namespace BibleTraining.Api.Address
         #region Create Address
 
         [Mediates]
-<<<<<<< Updated upstream
-        public async Task<AddressData> Create(CreateAddress message, IHandler composer)
-=======
         public async Task<AddressData> Create(
             CreateAddress message, StashOf<Address> addressStash, 
             [Optional]Person person, [Optional]AddressType addressType,
             [Proxy]IMapping mapping)
->>>>>>> Stashed changes
         {
             using(var scope = _repository.Scopes.Create())
             {
                 var addressData = message.Resource;
-<<<<<<< Updated upstream
-
-                var address = composer.Proxy<IMapping>() .Map<Address>(addressData);
-=======
                 var address     = addressStash.Value =
                    mapping.Map<Address>(addressData);
->>>>>>> Stashed changes
                 address.Created = DateTime.Now;
                 _repository.Context.Add(address);
-                composer.Proxy<IStash>().Put(address);
 
                 if (addressData.PersonId.HasValue)
                     address.PersonId = addressData.PersonId.Value;
                 else
-                    address.Person = composer.Proxy<IStash>().TryGet<Person>();
+                    address.Person = person;
 
                 if (addressData.AddressTypeId.HasValue)
                     address.AddressTypeId = addressData.AddressTypeId.Value;
                 else
-                    address.AddressType = composer.Proxy<IStash>().TryGet<AddressType>();
+                    address.AddressType = addressType;
 
                 var data = new AddressData();
                 await scope.SaveChangesAsync((dbScope, count) =>
                  {
-                     data.Id = address.Id;
+                     data.Id         = address.Id;
                      data.RowVersion = address.RowVersion;
                  });
 
@@ -101,9 +85,13 @@ namespace BibleTraining.Api.Address
         {
             using(_repository.Scopes.CreateReadOnly())
             {
-                var addresses = (await _repository.FindAsync(new GetAddressesById(message.Ids){
-                    KeyProperties = message.KeyProperties
-                })).Select(x => composer.Proxy<IMapping>().Map<AddressData>(x)).ToArray();
+                var addresses = (await _repository.FindAsync(
+                    new GetAddressesById(message.Ids)
+                    {
+                        KeyProperties = message.KeyProperties
+                    }))
+                    .Select(x => composer.Proxy<IMapping>().Map<AddressData>(x))
+                    .ToArray();
 
                 return new AddressResult
                 {
@@ -116,7 +104,9 @@ namespace BibleTraining.Api.Address
 
         #region Update Address
 
-        public async Task<AddressData> Next(UpdateAddress request, MethodBinding method, IHandler composer, NextDelegate<Task<AddressData>> next)
+        public async Task<AddressData> Next(
+            UpdateAddress request, MethodBinding method, 
+            IHandler composer, NextDelegate<Task<AddressData>> next)
         {
             return await Begin(request.Resource.Id, composer, next);
         }
@@ -125,8 +115,7 @@ namespace BibleTraining.Api.Address
         public async Task<AddressData> Update(UpdateAddress request, IHandler composer)
         {
             var address = await Address(request.Resource.Id, composer);
-            composer.Proxy<IMapping>()
-                .MapInto(request.Resource, address);
+            composer.Proxy<IMapping>().MapInto(request.Resource, address);
 
             return new AddressData
             {
@@ -138,7 +127,9 @@ namespace BibleTraining.Api.Address
 
         #region Remove Address
 
-        public async Task<AddressData> Next(RemoveAddress request, MethodBinding method, IHandler composer, NextDelegate<Task<AddressData>> next)
+        public async Task<AddressData> Next(
+            RemoveAddress request, MethodBinding method, 
+            IHandler composer, NextDelegate<Task<AddressData>> next)
         {
             return await Begin(request.Resource.Id, composer, next);
         }
@@ -158,5 +149,12 @@ namespace BibleTraining.Api.Address
         }
 
         #endregion
+
+        protected async Task<Address> Address(int? id, IHandler composer)
+        {
+            return await composer.Proxy<IStash>().GetOrPut(async () =>
+                (await _repository.FindAsync(new GetAddressesById(id)))
+                .FirstOrDefault());
+        }
     }
 }

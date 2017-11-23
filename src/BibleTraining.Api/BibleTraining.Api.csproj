@@ -48,16 +48,16 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Miruken, Version=1.9.1.79, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Miruken.1.9.1.79-prerelease\lib\net461\Miruken.dll</HintPath>
+    <Reference Include="Miruken, Version=1.9.1.80, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.1.9.1.80-prerelease\lib\net461\Miruken.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Miruken.Mediate, Version=1.5.1.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Miruken.Mediate.1.5.1.27-prerelease\lib\net461\Miruken.Mediate.dll</HintPath>
+    <Reference Include="Miruken.Mediate, Version=1.5.1.29, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.Mediate.1.5.1.29-prerelease\lib\net461\Miruken.Mediate.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Miruken.Validate, Version=1.6.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Miruken.Validate.1.6.0.4\lib\net461\Miruken.Validate.dll</HintPath>
+    <Reference Include="Miruken.Validate, Version=1.6.1.20, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.Validate.1.6.1.20-prerelease\lib\net461\Miruken.Validate.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -88,10 +88,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressType\IValidateCreateUpdateAddressType.cs" />
     <Compile Include="Address\AddressData.cs" />
     <Compile Include="Address\AddressResult.cs" />
     <Compile Include="Address\CreateAddress.cs" />
     <Compile Include="Address\GetAddresses.cs" />
+    <Compile Include="Address\IValidateAddressCreateUpdate.cs" />
     <Compile Include="Address\RemoveAddress.cs" />
     <Compile Include="Address\UpdateAddress.cs" />
     <Compile Include="AddressType\AddressTypeData.cs" />
@@ -106,10 +108,12 @@
     <Compile Include="Course\GetCourses.cs" />
     <Compile Include="Course\RemoveCourse.cs" />
     <Compile Include="Course\UpdateCourse.cs" />
+    <Compile Include="EmailType\IValidateCreateUpdateEmailType.cs" />
     <Compile Include="Email\CreateEmail.cs" />
     <Compile Include="Email\EmailData.cs" />
     <Compile Include="Email\EmailResult.cs" />
     <Compile Include="Email\GetEmails.cs" />
+    <Compile Include="Email\IValidateCreateUpdateEmail.cs" />
     <Compile Include="Email\RemoveEmail.cs" />
     <Compile Include="Email\UpdateEmail.cs" />
     <Compile Include="EmailType\CreateEmailType.cs" />
@@ -123,14 +127,16 @@
     <Compile Include="Person\CreatePerson.cs" />
     <Compile Include="Person\Gender.cs" />
     <Compile Include="Person\GetPeople.cs" />
+    <Compile Include="Person\IValidateCreateUpdatePerson.cs" />
     <Compile Include="Person\PersonData.cs" />
     <Compile Include="Person\PersonResult.cs" />
     <Compile Include="Person\RemovePerson.cs" />
     <Compile Include="Person\UpdatePerson.cs" />
+    <Compile Include="PhoneType\IValidateCreateUpdatePhoneType.cs" />
     <Compile Include="Phone\CreatePhone.cs" />
     <Compile Include="Phone\GetPhones.cs" />
+    <Compile Include="Phone\IValidateCreateUpdatePhone.cs" />
     <Compile Include="Phone\PhoneData.cs" />
-    <Compile Include="Phone\PhoneData_Partial.cs" />
     <Compile Include="Phone\PhoneResult.cs" />
     <Compile Include="Phone\RemovePhone.cs" />
     <Compile Include="Phone\UpdatePhone.cs" />

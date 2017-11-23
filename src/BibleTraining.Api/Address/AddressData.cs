@@ -7,9 +7,9 @@ namespace BibleTraining.Api.Address
         public string Name        { get; set; }
         public string Description { get; set; }
 
-        public int?   PersonId      { get; set; }
+        public int?   PersonId    { get; set; }
 
-        public AddressTypeData AddressType { get; set; }
+        public AddressTypeData AddressType   { get; set; }
         public int?            AddressTypeId { get; set; }
     }
 }

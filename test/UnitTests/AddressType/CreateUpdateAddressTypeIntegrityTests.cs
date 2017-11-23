@@ -4,10 +4,10 @@ namespace UnitTests.AddressType
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class CreateAddressTypeIntegrityTests
+    public class CreateUpdateAddressTypeIntegrityTests
     {
         private CreateAddressType createAddressType;
-        private CreateAddressTypeIntegrity validator;
+        private CreateUpdateAddressTypeIntegrity validator;
 
         [TestInitialize]
         public void TestInitialize()
@@ -20,7 +20,7 @@ namespace UnitTests.AddressType
                  }
             };
 
-            validator = new CreateAddressTypeIntegrity();
+            validator = new CreateUpdateAddressTypeIntegrity();
         }
 
         [TestMethod]
