@@ -2,14 +2,13 @@
 {
     using AddressType;
     using Entities;
-    using Miruken;
     using Miruken.Callback;
     using Miruken.Map;
 
     public class AddressMaps : Handler
     {
         [Maps]
-        public Address MapAddressData(AddressData data, Mapping mapping, IHandler composer)
+        public Address MapAddressData(AddressData data, Mapping mapping)
         {
             var target = mapping.Target as Address ?? new Address();
 
@@ -31,23 +30,20 @@
         }
 
         [Maps]
-        public AddressData Map(Address address, Mapping mapping, IHandler composer)
+        public AddressData Map(
+            Address address, Mapping mapping, [Proxy]IMapping mapper)
         {
             var target = mapping.Target as AddressData ?? new AddressData();
 
             ResourceMapper.Map(target, address);
 
-            target.Name = address.Name;
-
-            target.Description = address.Description;
-
-            target.PersonId = address.PersonId;
-
+            target.Name          = address.Name;
+            target.Description   = address.Description;
+            target.PersonId      = address.PersonId;
             target.AddressTypeId = address.AddressTypeId;
 
             if(address.AddressType != null)
-                target.AddressType = composer.Proxy<IMapping>()
-                    .Map<AddressTypeData>(address.AddressType);
+                target.AddressType = mapper.Map<AddressTypeData>(address.AddressType);
 
             return target;
         }

@@ -5,7 +5,6 @@ namespace BibleTraining.Api.EmailType
     using System.Threading.Tasks;
     using Entities;
     using Improving.Highway.Data.Scope.Repository;
-    using Miruken;
     using Miruken.Callback;
     using Miruken.Callback.Policy;
     using Miruken.Map;
@@ -26,34 +25,20 @@ namespace BibleTraining.Api.EmailType
 
         public int? Order { get; set; } = Stage.Validation - 1;
 
-        public async Task<EmailTypeData> Begin(
-            int? id, IHandler composer, NextDelegate<Task<EmailTypeData>> next)
-        {
-            using (var scope = _repository.Scopes.Create())
-            {
-                var emailType = await EmailType(id, composer);
-                var result    = await next();
-                await scope.SaveChangesAsync();
-
-                result.RowVersion = emailType?.RowVersion;
-                return result;
-            }
-        }
-
         [Mediates]
         public async Task<EmailTypeData> Create(
-            CreateEmailType message, IHandler composer)
+            CreateEmailType message, [Proxy]IMapping mapper)
         {
             using(var scope = _repository.Scopes.Create())
             {
-                var emailType = composer.Proxy<IMapping>().Map<EmailType>(message.Resource);
+                var emailType = mapper.Map<EmailType>(message.Resource);
                 emailType.Created = DateTime.Now;
                 _repository.Context.Add(emailType);
 
                 var data = new EmailTypeData();
                 await scope.SaveChangesAsync((dbScope, count) =>
                 {
-                    data.Id = emailType.Id;
+                    data.Id         = emailType.Id;
                     data.RowVersion = emailType.RowVersion;
                 });
 
@@ -63,7 +48,7 @@ namespace BibleTraining.Api.EmailType
 
         [Mediates]
         public async Task<EmailTypeResult> Get(
-            GetEmailTypes message, IHandler composer)
+            GetEmailTypes message, [Proxy]IMapping mapper)
         {
             using(_repository.Scopes.CreateReadOnly())
             {
@@ -71,7 +56,7 @@ namespace BibleTraining.Api.EmailType
                     new GetEmailTypesById(message.Ids) {
                         KeyProperties = message.KeyProperties
                     }))
-                    .Select(x => composer.Proxy<IMapping>().Map<EmailTypeData>(x))
+                    .Select(x => mapper.Map<EmailTypeData>(x))
                     .ToArray();
 
                 return new EmailTypeResult
@@ -85,15 +70,17 @@ namespace BibleTraining.Api.EmailType
             UpdateEmailType request, MethodBinding method, 
             IHandler composer, NextDelegate<Task<EmailTypeData>> next)
         {
-            return await Begin(request.Resource.Id, composer, next);
+            return await Begin(request.Resource.Id, 
+                new StashOf<EmailType>(composer), next);
         }
 
         [Mediates]
         public async Task<EmailTypeData> Update(
-            UpdateEmailType request, IHandler composer)
+            UpdateEmailType request, StashOf<EmailType> emailTypeStash,
+            [Proxy]IMapping mapper)
         {
-            var emailType = await EmailType(request.Resource.Id, composer);
-            composer.Proxy<IMapping>().MapInto(request.Resource, emailType);
+            var emailType = await EmailType(request.Resource.Id, emailTypeStash);
+            mapper.MapInto(request.Resource, emailType);
 
             return new EmailTypeData
             {
@@ -105,14 +92,15 @@ namespace BibleTraining.Api.EmailType
             RemoveEmailType request, MethodBinding method, 
             IHandler composer, NextDelegate<Task<EmailTypeData>> next)
         {
-            return await Begin(request.Resource.Id, composer, next);
+            return await Begin(request.Resource.Id, 
+                new StashOf<EmailType>(composer), next);
         }
 
         [Mediates]
         public async Task<EmailTypeData> Remove(
-            RemoveEmailType request, IHandler composer)
+            RemoveEmailType request, StashOf<EmailType> emailTypeStash)
         {
-            var emailType = await EmailType(request.Resource.Id, composer);
+            var emailType = await EmailType(request.Resource.Id, emailTypeStash);
             _repository.Context.Remove(emailType);
 
             return new EmailTypeData
@@ -122,9 +110,24 @@ namespace BibleTraining.Api.EmailType
             };
         }
 
-        protected async Task<EmailType> EmailType(int? id, IHandler composer)
+        protected async Task<EmailTypeData> Begin(
+            int? id, StashOf<EmailType> emailTypeStash,
+            NextDelegate<Task<EmailTypeData>> next)
         {
-            return await composer.Proxy<IStash>().GetOrPut(async () =>
+            using (var scope = _repository.Scopes.Create())
+            {
+                var emailType = await EmailType(id, emailTypeStash);
+                var result = await next();
+                await scope.SaveChangesAsync();
+
+                result.RowVersion = emailType?.RowVersion;
+                return result;
+            }
+        }
+
+        protected Task<EmailType> EmailType(int? id, StashOf<EmailType> emailType)
+        {
+            return emailType.GetOrPut(async _ =>
                 (await _repository.FindAsync(new GetEmailTypesById(id)))
                 .FirstOrDefault());
         }

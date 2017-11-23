@@ -30,37 +30,15 @@ namespace BibleTraining.Api.Person
 
         public int? Order { get; set; } = Stage.Validation - 1;
 
-        protected abstract Task<Person> Person(int? id, IHandler composer);
-
-        public async Task<PersonData> Begin(
-            int? id, IHandler composer, NextDelegate<Task<PersonData>> next)
-        {
-            using (var scope = _repository.Scopes.Create())
-            {
-                var person = await Person(id, composer);
-                var result = await next();
-                await scope.SaveChangesAsync();
-
-                result.RowVersion = person?.RowVersion;
-                return result;
-            }
-        }
-
-        public virtual Task<object[]> GetUpdateRelationships(
-            UpdatePerson request, Person person, IHandler composer)
-        {
-            return Task.FromResult(Array.Empty<object>());
-        }
-
         [Mediates]
         public async Task<PersonData> Create(
-            CreatePerson request, IHandler composer,
-            StashOf<Person> personStash)
+            CreatePerson request, StashOf<Person> personStash,
+            [Proxy]IMapping mapper, IHandler composer)
         {
             using(var scope = _repository.Scopes.Create())
             {
                 var person = personStash.Value =
-                    composer.Proxy<IMapping>().Map<Person>(request.Resource);
+                    mapper.Map<Person>(request.Resource);
                 person.Created = DateTime.Now;
                 _repository.Context.Add(person);
 
@@ -102,7 +80,8 @@ namespace BibleTraining.Api.Person
         }
 
         [Mediates]
-        public async Task<PersonResult> Get(GetPeople message, IHandler composer)
+        public async Task<PersonResult> Get(
+            GetPeople message, [Proxy]IMapping mapper)
         {
             using (_repository.Scopes.CreateReadOnly())
             {
@@ -113,7 +92,7 @@ namespace BibleTraining.Api.Person
                          IncludeEmails    = message.IncludeEmails,
                          IncludeAddresses = message.IncludeAddresses
                       }))
-                    .Select(x => composer.Proxy<IMapping>().Map<PersonData>(x))
+                    .Select(x => mapper.Map<PersonData>(x))
                     .ToArray();
 
                 return new PersonResult
@@ -127,19 +106,21 @@ namespace BibleTraining.Api.Person
             UpdatePerson request, MethodBinding method, 
             IHandler composer, NextDelegate<Task<PersonData>> next)
         {
-            return await Begin(request.Resource.Id, composer, next);
+            return await Begin(request.Resource.Id, 
+                new StashOf<Person>(composer), next);
         }
 
         [Mediates]
         public async Task<PersonData> Update(
             UpdatePerson request, IHandler composer,
-            StashOf<Person> personStash)
+            StashOf<Person> personStash,
+            [Proxy]IMapping mapper)
         {
-            var person = await Person(request.Resource.Id, composer);
+            var person = await Person(request.Resource.Id, personStash);
             composer.Proxy<IMapping>().MapInto(request.Resource, person);
             personStash.Value = person;
 
-            var relationships = await GetUpdateRelationships(request, person, composer);
+            var relationships = await GetUpdateRelationships(request, person, mapper);
 
             foreach (var relationship in relationships)
                 await composer.Send(relationship);
@@ -154,13 +135,15 @@ namespace BibleTraining.Api.Person
             RemovePerson request, MethodBinding method, 
             IHandler composer, NextDelegate<Task<PersonData>> next)
         {
-            return await Begin(request.Resource.Id, composer, next);
+            return await Begin(request.Resource.Id, 
+                new StashOf<Person>(composer), next);
         }
 
         [Mediates]
-        public async Task<PersonData> Remove(RemovePerson request, IHandler composer)
+        public async Task<PersonData> Remove(
+            RemovePerson request, StashOf<Person> personData)
         {
-            var person = await Person(request.Resource.Id, composer);
+            var person = await Person(request.Resource.Id, personData);
             _repository.Context.Remove(person);
 
             return new PersonData
@@ -169,5 +152,28 @@ namespace BibleTraining.Api.Person
                 RowVersion = person.RowVersion
             };
         }
+
+        protected virtual Task<object[]> GetUpdateRelationships(
+            UpdatePerson request, Person person, [Proxy]IMapping mapper)
+        {
+            return Task.FromResult(Array.Empty<object>());
+        }
+
+        protected async Task<PersonData> Begin(
+            int? id, StashOf<Person> personStash,
+            NextDelegate<Task<PersonData>> next)
+        {
+            using (var scope = _repository.Scopes.Create())
+            {
+                var person = await Person(id, personStash);
+                var result = await next();
+                await scope.SaveChangesAsync();
+
+                result.RowVersion = person?.RowVersion;
+                return result;
+            }
+        }
+
+        protected abstract Task<Person> Person(int? id, StashOf<Person> person);
     }
 }

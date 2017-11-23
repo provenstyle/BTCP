@@ -4,7 +4,6 @@ namespace BibleTraining.Api.Person
     using Address;
     using Email;
     using Entities;
-    using Miruken;
     using Miruken.Callback;
     using Miruken.Map;
     using Phone;
@@ -12,7 +11,8 @@ namespace BibleTraining.Api.Person
     public class PersonMaps : Handler
     {
         [Maps]
-        public PersonData MapPerson(Person person, Mapping mapping, IHandler composer)
+        public PersonData MapPerson(
+            Person person, Mapping mapping, [Proxy]IMapping mapper)
         {
             var target = mapping.Target as PersonData ?? new PersonData();
 
@@ -28,21 +28,21 @@ namespace BibleTraining.Api.Person
             if (person.Addresses != null)
             {
                 target.Addresses = person.Addresses
-                    .Select(x => composer.Proxy<IMapping>().Map<AddressData>(x))
+                    .Select(x => mapper.Map<AddressData>(x))
                     .ToList();
             }
 
             if (person.Emails != null)
             {
                 target.Emails = person.Emails
-                    .Select(x => composer.Proxy<IMapping>().Map<EmailData>(x))
+                    .Select(x => mapper.Map<EmailData>(x))
                     .ToList();
             }
 
             if (person.Phones != null)
             {
                 target.Phones = person.Phones
-                    .Select(x => composer.Proxy<IMapping>().Map<PhoneData>(x))
+                    .Select(x => mapper.Map<PhoneData>(x))
                     .ToList();
             }
 
@@ -50,7 +50,7 @@ namespace BibleTraining.Api.Person
         }
 
         [Maps]
-        public Person MapPersonData(PersonData data, Mapping mapping, IHandler composer)
+        public Person MapPersonData(PersonData data, Mapping mapping)
         {
             var target = mapping.Target as Person ?? new Person();
 

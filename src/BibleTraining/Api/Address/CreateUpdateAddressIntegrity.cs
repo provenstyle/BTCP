@@ -35,7 +35,7 @@ namespace BibleTraining.Api.Address
                 return personId.HasValue;
             }
 
-            private bool HasPersonIdOrPerson(
+            private static bool HasPersonIdOrPerson(
                 AddressData addressData, int? i, IHandler composer)
             {
                 return composer.Proxy<IStash>().TryGet<Person>() != null

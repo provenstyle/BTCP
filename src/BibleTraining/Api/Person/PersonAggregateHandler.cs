@@ -7,7 +7,6 @@
     using Email;
     using Entities;
     using Improving.Highway.Data.Scope.Repository;
-    using Miruken;
     using Miruken.Callback;
     using Miruken.Map;
     using Miruken.Mediate;
@@ -22,8 +21,8 @@
         {
         }
 
-        public override Task<object[]> GetUpdateRelationships(
-            UpdatePerson request, Person person, IHandler composer)
+        protected override Task<object[]> GetUpdateRelationships(
+            UpdatePerson request, Person person, [Proxy]IMapping mapper)
         {
             var relationships = new List<object>();
 
@@ -35,7 +34,7 @@
                 var updateIds = updates.Select(x => x.Id).ToArray();
                 var removes   = person.Emails?
                     .Where(x => !updateIds.Contains(x.Id))
-                    .Select(x => composer.Proxy<IMapping>().Map<EmailData>(x))
+                    .Select(x => mapper.Map<EmailData>(x))
                     .ToArray();
 
                 relationships.AddRange(adds.Select(add => new CreateEmail(add)));
@@ -53,7 +52,7 @@
                 var updateIds = updates.Select(x => x.Id).ToArray();
                 var removes   = person.Addresses?
                     .Where(x => !updateIds.Contains(x.Id))
-                    .Select(x => composer.Proxy<IMapping>().Map<AddressData>(x))
+                    .Select(x => mapper.Map<AddressData>(x))
                     .ToArray();
 
                 relationships.AddRange(adds.Select(add => new CreateAddress(add)));
@@ -71,7 +70,7 @@
                 var updateIds = updates.Select(x => x.Id).ToArray();
                 var removes   = person.Phones?
                     .Where(x => !updateIds.Contains(x.Id))
-                    .Select(x => composer.Proxy<IMapping>().Map<PhoneData>(x))
+                    .Select(x => mapper.Map<PhoneData>(x))
                     .ToArray();
 
                 relationships.AddRange(adds.Select(add => new CreatePhone(add)));
@@ -84,9 +83,9 @@
             return Task.FromResult(relationships.ToArray());
         }
 
-        protected override async Task<Person> Person(int? id, IHandler composer)
+        protected override Task<Person> Person(int? id, StashOf<Person> person)
         {
-            return await composer.Proxy<IStash>().GetOrPut(async () =>
+            return person.GetOrPut(async _ =>
                 (await _repository.FindAsync(new GetPeopleById(id)
                 {
                     IncludeEmails    = true,
