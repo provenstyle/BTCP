@@ -7,7 +7,8 @@ namespace BibleTraining.Api.Address
     using Miruken.Mediate;
     using Miruken.Validate.FluentValidation;
 
-    public class CreateUpdateAddressIntegrity : AbstractValidator<IValidateAddressCreateUpdate>
+    public class CreateUpdateAddressIntegrity 
+        : AbstractValidator<IValidateAddressCreateUpdate>
     {
         public CreateUpdateAddressIntegrity()
         {
@@ -29,12 +30,13 @@ namespace BibleTraining.Api.Address
                     .WithoutComposer(HasPersonId);
             }
 
-            private bool HasPersonId(AddressData addressData, int? personId)
+            private static bool HasPersonId(AddressData addressData, int? personId)
             {
                 return personId.HasValue;
             }
 
-            private bool HasPersonIdOrPerson(AddressData addressData, int? i, IHandler composer)
+            private static bool HasPersonIdOrPerson(
+                AddressData addressData, int? i, IHandler composer)
             {
                 return composer.Proxy<IStash>().TryGet<Person>() != null
                     || HasPersonId(addressData, i);

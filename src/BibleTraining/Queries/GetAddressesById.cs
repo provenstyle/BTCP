@@ -9,7 +9,7 @@ namespace BibleTraining.Queries
         public bool KeyProperties { get; set; }
 
         public GetAddressesById(int? id)
-            :this(new []{ id ?? 0 })
+            :this(new [] { id ?? 0 })
         {
         }
 
@@ -30,9 +30,7 @@ namespace BibleTraining.Queries
                    }
 
                    if (KeyProperties)
-                   {
-                       return query.Select(x => new Address{Id = x.Id, Name = x.Name});
-                   }
+                       query = query.Select(x => new Address{Id = x.Id, Name = x.Name});
 
                    return query;
                };

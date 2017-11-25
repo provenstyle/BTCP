@@ -2,14 +2,13 @@
 {
     using EmailType;
     using Entities;
-    using Miruken;
     using Miruken.Callback;
     using Miruken.Map;
 
     public class EmailMaps : Handler
     {
         [Maps]
-        public Email Map(EmailData data, Mapping mapping, IHandler composer)
+        public Email Map(EmailData data, Mapping mapping)
         {
             var target = mapping.Target as Email ?? new Email();
 
@@ -28,7 +27,8 @@
         }
 
         [Maps]
-        public EmailData Map(Email email, Mapping mapping, IHandler composer)
+        public EmailData Map(
+            Email email, Mapping mapping, [Proxy]IMapping mapper)
         {
             var target = mapping.Target as EmailData ?? new EmailData();
             ResourceMapper.Map(target, email);
@@ -38,7 +38,7 @@
 
             target.EmailTypeId = email.EmailTypeId;
             if(email.EmailType != null)
-                target.EmailType = composer.Proxy<IMapping>().Map<EmailTypeData>(email.EmailType);
+                target.EmailType = mapper.Map<EmailTypeData>(email.EmailType);
 
             return target;
         }

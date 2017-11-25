@@ -12,7 +12,7 @@
 
     public abstract class CheckConcurrency<TEntity, TRes>
         : CheckConcurrency<TEntity, TRes, UpdateResource<TRes, int?>>
-        where TEntity : class,IEntity, IRowVersioned
+        where TEntity : class, IEntity, IRowVersioned
         where TRes : Resource<int?>
     {
     }

@@ -48,12 +48,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Miruken, Version=1.9.1.80, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Miruken.1.9.1.80-prerelease\lib\net461\Miruken.dll</HintPath>
+    <Reference Include="Miruken, Version=1.9.1.82, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.1.9.1.82-prerelease\lib\net461\Miruken.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Miruken.Mediate, Version=1.5.1.29, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Miruken.Mediate.1.5.1.29-prerelease\lib\net461\Miruken.Mediate.dll</HintPath>
+    <Reference Include="Miruken.Mediate, Version=1.5.1.30, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Miruken.Mediate.1.5.1.30-prerelease\lib\net461\Miruken.Mediate.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Miruken.Validate, Version=1.6.1.20, Culture=neutral, processorArchitecture=MSIL">
